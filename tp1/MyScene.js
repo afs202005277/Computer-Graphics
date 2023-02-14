@@ -26,6 +26,7 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.diamond = new MyDiamond(this);
+    this.triangle = new MyTriangle(this)
 
     //Objects connected to MyInterface
     this.displayAxis = true;
