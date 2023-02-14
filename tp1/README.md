@@ -12,4 +12,4 @@
 - In exercise 2 we reinforced what we learned in exercise 1.
 - In exercise 2 we played around with location and color as the screenshot taken shows.
 
-![Screenshot 1](screenshots/CG-t2g5-tp1-1.png)
+![Screenshot 1](screenshots/CG-t02g05-tp1-1.png)
