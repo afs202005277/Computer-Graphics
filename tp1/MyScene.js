@@ -32,6 +32,9 @@ export class MyScene extends CGFscene {
     this.parallelogram = new MyParallelogram(this);
 
     //Objects connected to MyInterface
+    this.displayTriangle = true;
+    this.displayDiamond = true;
+    this.displayParallelogram = true;
     this.displayAxis = true;
     this.scaleFactor = 1;
   }
@@ -69,6 +72,9 @@ export class MyScene extends CGFscene {
 
     // Draw axis
     if (this.displayAxis) this.axis.display();
+    if (this.displayTriangle) this.triangle.display();
+    if (this.displayDiamond) this.diamond.display();
+    if (this.displayParallelogram) this.parallelogram.display();
 
     this.setDefaultAppearance();
 
@@ -94,11 +100,6 @@ export class MyScene extends CGFscene {
     this.multMatrix(sca);
 
     // ---- BEGIN Primitive drawing section
-
-    //this.diamond.display();
-    //this.triangle.display();
-    this.parallelogram.display();
-    
 
     // ---- END Primitive drawing section
   }
