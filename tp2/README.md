@@ -15,6 +15,6 @@
 
 ![Screenshot 1](screenshots/CG-t02g05-tp2-1.png)
 
-![Screenshot 1](screenshots/CG-t02g05-tp2-2.png)
+![Screenshot 2](screenshots/CG-t02g05-tp2-2.png)
 
-![Screenshot 1](screenshots/CG-t02g05-tp2-3.png)
+![Screenshot 3](screenshots/CG-t02g05-tp2-3.png)
