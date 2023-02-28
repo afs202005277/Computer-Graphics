@@ -4,10 +4,17 @@
 
 ## TP 2 Notes
 
-- In exercise 1 we learned how to draw triangles
-- In exercise 1 we learned  how orientation works (right hand rule). 
-- In exercise 1 we learned how checkboxes work and how to work with them.
-- In exercise 2 we reinforced what we learned in exercise 1.
-- In exercise 2 we played around with location and color as the screenshot taken shows.
+- In exercise 1 we had problems using the CGF functions for the transformations therefore we ended up using the webGL functions instead.
+- In exercise 1 we had difficulties transfering the tangram from the MyScene class to a proper class.
 
-![Screenshot 1](screenshots/CG-t02g05-tp1-1.png)
+- In exercise 2 we improved our understanding of the right hand rule
+
+- In exercises 2 and 3 we improved our understanding of the WebCGF functions to make geometric transformations.
+
+
+
+![Screenshot 1](screenshots/CG-t02g05-tp2-1.png)
+
+![Screenshot 2](screenshots/CG-t02g05-tp2-2.png)
+
+![Screenshot 3](screenshots/CG-t02g05-tp2-3.png)
