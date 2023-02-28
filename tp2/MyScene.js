@@ -1,10 +1,6 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
-import { MyDiamond } from "./MyDiamond.js";
-import { MyTriangle } from './MyTriangle.js';
-import { MyParallelogram } from './MyParallelogram.js'
-import { MyTriangleSmall } from './MyTriangleSmall.js'
-import { MyTriangleBig } from "./MyTriangleBig.js";
 import { MyUnitCube } from "./MyUnitCube.js";
+import { MyTangram } from "./MyTangram.js";
 
 /**
  * MyScene
@@ -30,12 +26,8 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.diamond = new MyDiamond(this);
-    this.triangle = new MyTriangle(this);
-    this.parallelogram = new MyParallelogram(this);
-    this.trianglesmall = new MyTriangleSmall(this);
-    this.bigTriangle = new MyTriangleBig(this);
     this.unitCube = new MyUnitCube(this);
+    this.tangram = new MyTangram(this);
 
     //Objects connected to MyInterface
     this.displayTriangle = true;
@@ -101,10 +93,15 @@ export class MyScene extends CGFscene {
     ];
 
     this.multMatrix(sca);
-
-
-
+    this.pushMatrix();
+    this.scale(11, 11, 11);
+    this.translate(0.5, -0.5, -0.5);
     this.unitCube.display();
+
+    this.popMatrix();
+    this.translate(4, -5, 0);
+    this.tangram.display();
+
 
   }
 }
