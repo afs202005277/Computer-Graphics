@@ -4,8 +4,6 @@
 
 ## TP 1 Notes
 
-(add your main observations/remarks about your experiments here, in a bulleted list, and remove this line. Some examples below)
-
 - In exercise 1 we learned how to draw triangles
 - In exercise 1 we learned  how orientation works (right hand rule). 
 - In exercise 1 we learned how checkboxes work and how to work with them.

@@ -1,5 +1,5 @@
 import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
-import { MyTangram } from "./MyTangram.js";
+import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -25,7 +25,7 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.tangram = new MyTangram(this);
+    this.unitcubequad = new MyUnitCubeQuad(this);
 
     //Objects connected to MyInterface
     this.displayTriangle = true;
@@ -92,7 +92,7 @@ export class MyScene extends CGFscene {
 
     this.multMatrix(sca);
 
-    this.tangram.display();
+    this.unitcubequad.display();
 
 
     // ---- BEGIN Primitive drawing section
