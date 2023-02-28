@@ -20,13 +20,11 @@ export class MyTangram extends CGFobject {
 		this.trianglesmall2 = new MyTriangleSmall(scene);
 		this.bigTriangle1 = new MyTriangleBig(scene);
 		this.bigTriangle2 = new MyTriangleBig(scene);
-
-		this.initBuffers();
 	}
 
 	display() {
 
-		this.pushMatrix();
+		this.scene.pushMatrix();
 
 		var tra = [
 			1.0, 0.0, 0.0, 0.0,
@@ -35,13 +33,13 @@ export class MyTangram extends CGFobject {
 			0.4, 3.3, 0.0, 1.0
 		];
 
-		this.multMatrix(tra);
+		this.scene.multMatrix(tra);
 
 		this.diamond.display();
 
-		this.popMatrix();
+		this.scene.popMatrix();
 
-		this.pushMatrix();
+		this.scene.pushMatrix();
 
 		var tra = [
 			1.0, 0.0, 0.0, 0.0,
@@ -50,13 +48,13 @@ export class MyTangram extends CGFobject {
 			0.0, 0.8, 0.0, 1.0
 		];
 
-		this.multMatrix(tra);
+		this.scene.multMatrix(tra);
 
 		this.bigTriangle1.display();
 
-		this.popMatrix();
+		this.scene.popMatrix();
 
-		this.pushMatrix();
+		this.scene.pushMatrix();
 
 		var tra1 = [
 			1.0, 0.0, 0.0, 0.0,
@@ -79,15 +77,15 @@ export class MyTangram extends CGFobject {
 			0.0, -2.0, 0.0, 1.0
 		];
 
-		this.multMatrix(tra1);
-		this.multMatrix(rot);
-		this.multMatrix(tra2);
+		this.scene.multMatrix(tra1);
+		this.scene.multMatrix(rot);
+		this.scene.multMatrix(tra2);
 
 		this.bigTriangle2.display();
 
-		this.popMatrix();
+		this.scene.popMatrix();
 
-		this.pushMatrix();
+		this.scene.pushMatrix();
 
 		var tra1 = [
 			1.0, 0.0, 0.0, 0.0,
@@ -103,14 +101,14 @@ export class MyTangram extends CGFobject {
 			0.0, 0.8, 0.0, 1.0
 		];
 
-		this.multMatrix(tra1);
-		this.multMatrix(rot);
+		this.scene.multMatrix(tra1);
+		this.scene.multMatrix(rot);
 
 		this.trianglesmall1.display();
 
-		this.popMatrix();
+		this.scene.popMatrix();
 
-		this.pushMatrix();
+		this.scene.pushMatrix();
 
 		var tra = [
 			1.0, 0.0, 0.0, 0.0,
@@ -119,13 +117,13 @@ export class MyTangram extends CGFobject {
 			-1.0, -2.0, 0.0, 1.0
 		];
 
-		this.multMatrix(tra);
+		this.scene.multMatrix(tra);
 
 		this.trianglesmall2.display();
 
-		this.popMatrix();
+		this.scene.popMatrix();
 
-		this.pushMatrix();
+		this.scene.pushMatrix();
 
 		var rot = [
 			Math.cos(Math.PI), Math.sin(Math.PI), 0.0, 0.0,
@@ -141,14 +139,14 @@ export class MyTangram extends CGFobject {
 			-1.0, -3.8, 0.0, 1.0
 		];
 
-		this.multMatrix(tra);
-		this.multMatrix(rot);
+		this.scene.multMatrix(tra);
+		this.scene.multMatrix(rot);
 
 		this.triangle.display();
 
-		this.popMatrix();
+		this.scene.popMatrix();
 
-		this.pushMatrix();
+		this.scene.pushMatrix();
 
 		var tra = [
 			1.0, 0.0, 0.0, 0.0,
@@ -164,33 +162,12 @@ export class MyTangram extends CGFobject {
 			0.0, 0.0, 0.0, 1.0
 		];
 
-		this.multMatrix(tra);
-		this.multMatrix(esc);
+		this.scene.multMatrix(tra);
+		this.scene.multMatrix(esc);
 
 		this.parallelogram.display();
 
-		this.popMatrix();
-	}
-
-	initBuffers() {
-		this.vertices = [
-			-1, 0, 0,	//0
-			0, -1, 0,	//1
-			0, 1, 0,	//2
-			1, 0, 0		//3
-		];
-
-		//Counter-clockwise reference of vertices
-		this.indices = [
-			0, 1, 2,
-			1, 3, 2
-		];
-
-		//The defined indices (and corresponding vertices)
-		//will be read in groups of three to draw triangles
-		this.primitiveType = this.scene.gl.TRIANGLES;
-
-		this.initGLBuffers();
+		this.scene.popMatrix();
 	}
 }
 
