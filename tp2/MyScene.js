@@ -77,7 +77,6 @@ export class MyScene extends CGFscene {
     this.popMatrix();
 
     this.setDefaultAppearance();
-
     var sca = [
       this.scaleFactor,
       0.0,

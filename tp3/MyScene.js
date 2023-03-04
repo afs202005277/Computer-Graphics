@@ -3,7 +3,7 @@ import {MyPyramid} from "./MyPyramid.js";
 import {MyCone} from "./MyCone.js";
 import {MyPlane} from "./MyPlane.js";
 import {MyUnitCube} from "./MyUnitCube.js";
-// import {MyTangram} from "./MyTangram.js";
+import {MyTangram} from "./MyTangram.js";
 
 /**
  * MyScene
@@ -34,10 +34,11 @@ export class MyScene extends CGFscene {
         this.cone = new MyCone(this, 3, 1);
         this.pyramid = new MyPyramid(this, 3, 1);
         this.unitCube = new MyUnitCube(this);
-        this.objects = [this.plane, this.pyramid, this.cone, this.unitCube];
+        this.tangram = new MyTangram(this)
+        this.objects = [this.plane, this.pyramid, this.cone, this.unitCube, this.tangram];
 
         // Labels and ID's for object selection on MyInterface
-        this.objectIDs = {'Plane': 0, 'Pyramid': 1, 'Cone': 2, 'UnitCube': 3};
+        this.objectIDs = {'Plane': 0, 'Pyramid': 1, 'Cone': 2, 'UnitCube': 3, 'Tangram':4};
 
         //Other variables connected to MyInterface
         this.selectedObject = 0;
@@ -46,6 +47,7 @@ export class MyScene extends CGFscene {
         this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 2.0;
+        this.lightFactor = 1;
 
     }
 
@@ -159,6 +161,8 @@ export class MyScene extends CGFscene {
 
         this.lights[0].update();
         this.lights[1].update();
+
+        this.setGlobalAmbientLight(this.lightFactor, this.lightFactor, this.lightFactor, 1)
 
         // Draw axis
         if (this.displayAxis)
