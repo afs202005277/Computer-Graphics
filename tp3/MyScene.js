@@ -47,12 +47,11 @@ export class MyScene extends CGFscene {
         this.displayNormals = false;
         this.objectComplexity = 0.5;
         this.scaleFactor = 2.0;
-        this.lightFactor = 1;
-
+        this.intensityAmbientLight = 1.0;
     }
 
     initLights() {
-        this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1.0);
+        this.setGlobalAmbientLight(0.3, 0.3, 0.3, this.intensityAmbientLight);
 
         this.lights[0].setPosition(2.0, 2.0, -1.0, 1.0);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -149,6 +148,7 @@ export class MyScene extends CGFscene {
     }
 
     display() {
+        this.setGlobalAmbientLight(this.intensityAmbientLight, this.intensityAmbientLight, this.intensityAmbientLight, 1.0);
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -161,8 +161,6 @@ export class MyScene extends CGFscene {
 
         this.lights[0].update();
         this.lights[1].update();
-
-        this.setGlobalAmbientLight(this.lightFactor, this.lightFactor, this.lightFactor, 1)
 
         // Draw axis
         if (this.displayAxis)
