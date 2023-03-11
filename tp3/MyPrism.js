@@ -22,13 +22,6 @@ export class MyPrism extends CGFobject {
         for (var stack_idx = 0; stack_idx < this.stacks; stack_idx++) {
             var ang = 0;
 
-            /*for (var i = stack_idx*this.slices; i < this.slices+stack_idx*this.slices; i++) {
-                this.vertices.push(Math.sin(ang), -Math.cos(ang), stack_idx);
-
-                // this.indices.push(i, (i + 1 < this.slices + stack_idx * this.slices ? i + 1 : stack_idx * this.slices), (i - 1 >= stack_idx * this.slices ? i - 1 : stack_idx * this.slices));
-                this.normals.push(Math.cos(ang), Math.cos(Math.PI / 4.0), -Math.sin(ang));
-                ang += alphaAng;
-            }*/
 
             for (var i = 0; i < this.slices; i++) {
                 this.vertices.push(Math.sin(ang), -Math.cos(ang), stack_idx / this.stacks);
@@ -38,8 +31,8 @@ export class MyPrism extends CGFobject {
                 this.vertices.push(Math.sin(ang), -Math.cos(ang), (stack_idx + 1) / this.stacks);
 
 
-                this.indices.push(i * 4 + 2, i * 4 + 1, i * 4);
-                this.indices.push(i * 4 + 1, i * 4 + 2, i * 4 + 3);
+                this.indices.push(i * 4 + 2 + stack_idx*this.slices*4, i * 4 + 1 + stack_idx*this.slices*4, i * 4 + stack_idx*this.slices*4);
+                this.indices.push(i * 4 + 1 + stack_idx*this.slices*4, i * 4 + 2 + stack_idx*this.slices*4, i * 4 + 3 + stack_idx*this.slices*4);
 
                 for (var _ = 0; _ < 4; _++) {
                     this.normals.push(Math.sin(ang - alphaAng / 2), -Math.cos(ang - alphaAng / 2), 0);
