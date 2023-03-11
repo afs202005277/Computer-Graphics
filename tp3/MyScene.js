@@ -22,6 +22,7 @@ export class MyScene extends CGFscene {
         this.initLights();
         this.initMaterials();
 
+        this.visibleLights = false;
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -61,14 +62,14 @@ export class MyScene extends CGFscene {
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
         this.lights[0].disable();
-        this.lights[0].setVisible(true);
+        this.lights[0].setVisible(this.visibleLights);
         this.lights[0].update();
 
         this.lights[1].setPosition(0.0, -1.0, 2.0, 1.0);
         this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[1].setSpecular(1.0, 1.0, 0.0, 1.0);
         this.lights[1].disable();
-        this.lights[1].setVisible(true);
+        this.lights[1].setVisible(this.visibleLights);
         this.lights[1].update();
     }
 
@@ -179,9 +180,7 @@ export class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         this.materials[this.selectedMaterial].apply();
-
-        this.scale(1, 1, 20);
-
+        this.rotate(-Math.PI/2, 1, 0, 0);
         this.pushMatrix();
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
