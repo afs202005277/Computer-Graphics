@@ -5,6 +5,7 @@ import {MyPlane} from "./MyPlane.js";
 import {MyUnitCube} from "./MyUnitCube.js";
 import {MyTangram} from "./MyTangram.js";
 import {MyPrism} from "./MyPrism.js";
+import { MyCylinder } from "./MyCylinder.js";
 
 /**
  * MyScene
@@ -37,10 +38,11 @@ export class MyScene extends CGFscene {
         this.unitCube = new MyUnitCube(this);
         this.tangram = new MyTangram(this)
         this.prism = new MyPrism(this, 6, 4);
-        this.objects = [this.prism, this.plane, this.pyramid, this.cone, this.unitCube, this.tangram];
+        this.cylinder = new MyCylinder(this, 8, 20);
+        this.objects = [this.cylinder, this.prism, this.plane, this.pyramid, this.cone, this.unitCube, this.tangram];
 
         // Labels and ID's for object selection on MyInterface
-        this.objectIDs = {'Prism': 0, 'Plane': 1, 'Pyramid': 2, 'Cone': 3, 'UnitCube': 4, 'Tangram': 5};
+        this.objectIDs = {'Cylinder': 0, 'Prism': 1, 'Plane': 2, 'Pyramid': 3, 'Cone': 4, 'UnitCube': 5, 'Tangram': 6};
 
         //Other variables connected to MyInterface
         this.selectedObject = 0;
@@ -177,6 +179,8 @@ export class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         this.materials[this.selectedMaterial].apply();
+
+        this.scale(1, 1, 20);
 
         this.pushMatrix();
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
