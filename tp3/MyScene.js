@@ -180,7 +180,7 @@ export class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         this.materials[this.selectedMaterial].apply();
-        this.rotate(-Math.PI/2, 1, 0, 0);
+        // this.rotate(-Math.PI/2, 1, 0, 0);
         this.pushMatrix();
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
