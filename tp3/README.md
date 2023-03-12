@@ -6,6 +6,7 @@
 
 
 - Exercise 7: Since we are defining the normals in each vertex of the lateral face and the 4 normals are parallel, it is the same as using constant shading in that face.
+- While building the prism we had several difficulties in filling the indices array.
 
 
 
