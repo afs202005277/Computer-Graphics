@@ -38,19 +38,16 @@ export class MySphere extends CGFobject {
 
                 else
                     this.normals.push(x, y, z);
-                this.texCoords.push(u, 1-v);
-            }
-        }
-        for (let i = 0; i < this.stacks; i++) {
-            for (let j = 0; j < this.slices; j++) {
+                this.texCoords.push(u, 1 - v);
+
                 const k1 = i * (this.slices + 1) + j;
                 const k2 = k1 + 1;
                 const k3 = (i + 1) * (this.slices + 1) + j;
                 const k4 = k3 + 1;
 
-                if (this.drawInside){
+                if (this.drawInside) {
                     this.indices.push(k1, k3, k2, k2, k3, k4);
-                } else{
+                } else {
                     this.indices.push(k2, k3, k1, k4, k3, k2);
                 }
             }
