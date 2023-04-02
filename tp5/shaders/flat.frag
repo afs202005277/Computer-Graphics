@@ -20,6 +20,14 @@ struct lightProperties {
 #define NUMBER_OF_LIGHTS 8
 uniform lightProperties uLight[NUMBER_OF_LIGHTS];
 
+varying vec4 newVertexPosition;
+
 void main() {
-		gl_FragColor =  vec4(0.6,0.6,0.9, 1.0) * uLight[0].diffuse;
+    vec4 color = vec4(0.6,0.6,0.9, 1.0);
+
+    if (newVertexPosition.y >= 0.5) {
+		color = vec4(0.8, 0.8, 0.0, 1.0);
+    }
+
+    gl_FragColor = color;
 }
