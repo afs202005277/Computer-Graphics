@@ -83,7 +83,6 @@ export class ShaderScene extends CGFscene {
 		// shaders initialization
 
 		this.testShaders = [
-			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag"),
 			new CGFshader(this.gl, "shaders/flat.vert", "shaders/flat.frag"),
 			new CGFshader(this.gl, "shaders/uScale.vert", "shaders/uScale.frag"),
 			new CGFshader(this.gl, "shaders/varying.vert", "shaders/varying.frag"),
@@ -92,32 +91,34 @@ export class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
 			new CGFshader(this.gl, "shaders/texture3anim.vert", "shaders/texture3anim.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/ex3.frag"),
-			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag")
+			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag"),
 		];
 
 		// additional texture will have to be bound to texture unit 1 later, when using the shader, with "this.texture2.bind(1);"
+		this.testShaders[4].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[5].setUniformsValues({ uSampler2: 1 });
 		this.testShaders[6].setUniformsValues({ uSampler2: 1 });
-		this.testShaders[7].setUniformsValues({ uSampler2: 1 });
-		this.testShaders[7].setUniformsValues({ timeFactor: 0 });
-		this.testShaders[0].setUniformsValues({ timeFactor: 0, waterTex: 2, waterMap: 3 });
+		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
+		this.testShaders[10].setUniformsValues({ timeFactor: 0, waterTex: 2, waterMap: 3 });
 
 		// Shaders interface variables
 
 		this.shadersList = {
-			'Water': 0,
-			'Flat Shading': 1,
-			'Passing a scale as uniform': 2,
-			'Passing a varying parameter from VS -> FS': 3,
-			'Simple texturing': 4,
-			'Multiple textures in the FS': 5,
-			'Multiple textures in VS and FS': 6,
-			'Animation example': 7,
-			'Sepia': 8,
+			'Flat Shading': 0,
+			'Passing a scale as uniform': 1,
+			'Passing a varying parameter from VS -> FS': 2,
+			'Simple texturing': 3,
+			'Multiple textures in the FS': 4,
+			'Multiple textures in VS and FS': 5,
+			'Animation example': 6,
+			'Sepia': 7,
+			'Convolution': 8,
 			'Grayscale': 9,
-			'Convolution': 10
+			'Water': 10
 		};
+
 
 		// shader code panels references
 		this.shadersDiv = document.getElementById("shaders");
@@ -202,7 +203,7 @@ export class ShaderScene extends CGFscene {
 			// Doing the modulus (%) by 100 makes the timeFactor loop between 0 and 99
 			// ( so the loop period of timeFactor is 100 times 100 ms = 10s ; the actual animation loop depends on how timeFactor is used in the shader )
 			this.testShaders[6].setUniformsValues({ timeFactor: t / 100 % 100 });
-			this.testShaders[0].setUniformsValues({ timeFactor: t / 10000 % 100 });
+			this.testShaders[10].setUniformsValues({ timeFactor: t / 10000 % 100 });
 	}
 
 	// main display function
