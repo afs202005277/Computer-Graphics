@@ -28,7 +28,7 @@ export class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new MyPlane(this, 30);
-        this.sphere = new MySphere(this, 20, 20);
+        this.sphere = new MySphere(this, 20, 20, false);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -36,7 +36,7 @@ export class MyScene extends CGFscene {
 
         this.enableTextures(true);
 
-        this.texture = new CGFtexture(this, "images/terrain.jpg");
+        this.texture = new CGFtexture(this, "images/terra.jpg");
         this.appearance = new CGFappearance(this);
         this.appearance.setTexture(this.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
@@ -83,7 +83,11 @@ export class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
+        this.pushMatrix();
+        this.appearance.apply();
+        this.rotate(Math.PI, 0, 1, 0);
         this.sphere.display();
+        this.popMatrix();
         /*
         this.pushMatrix();
         this.appearance.apply();
@@ -91,7 +95,9 @@ export class MyScene extends CGFscene {
         this.scale(400, 400, 400);
         this.rotate(-Math.PI / 2.0, 1, 0, 0);
         this.plane.display();
-        this.popMatrix();*/
+        this.sphere.display();
+        this.popMatrix();
+        */
 
         // ---- END Primitive drawing section
     }
