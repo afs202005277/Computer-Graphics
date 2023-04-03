@@ -35,7 +35,6 @@ export class MySphere extends CGFobject {
                 this.vertices.push(x, y, z);
                 if (this.drawInside)
                     this.normals.push(x, y, -z);
-
                 else
                     this.normals.push(x, y, z);
                 this.texCoords.push(u, 1 - v);
