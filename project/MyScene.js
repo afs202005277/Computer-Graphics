@@ -1,8 +1,8 @@
-import {CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture} from "../lib/CGF.js";
-import {MyPlane} from "./MyPlane.js";
-import {MySphere} from "./MySphere.js";
-import {MyPanorama} from "./MyPanorama.js";
-import {Bird} from "./Bird.js";
+import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
+import { MyPlane } from "./MyPlane.js";
+import { MySphere } from "./MySphere.js";
+import { MyPanorama } from "./MyPanorama.js";
+import { Bird } from "./Bird.js";
 
 /**
  * MyScene
@@ -38,6 +38,11 @@ export class MyScene extends CGFscene {
 
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
         this.appearance = new CGFappearance(this);
+        this.appearance.setAmbient(0.2, 0.4, 0.8, 1.0);
+        this.appearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.appearance.setSpecular(0.2, 0.4, 0.8, 1.0);
+
+        console.log(this.texture);
         this.appearance.setTexture(this.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
@@ -106,5 +111,21 @@ export class MyScene extends CGFscene {
         */
 
         // ---- END Primitive drawing section
+    }
+
+    checkKeys() {
+        var text = "Keys pressed: ";
+        var keysPressed = false;
+        // Check for key codes e.g. in https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+            text += " W ";
+            keysPressed = true;
+        }
+        if (this.gui.isKeyPressed("KeyS")) {
+            text += " S ";
+            keysPressed = true;
+        }
+        if (keysPressed)
+            console.log(text);
     }
 }
