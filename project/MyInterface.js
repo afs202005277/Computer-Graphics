@@ -1,4 +1,4 @@
-import { CGFinterface, dat } from '../lib/CGF.js';
+import {CGFinterface, dat} from '../lib/CGF.js';
 
 /**
 * MyInterface
@@ -12,7 +12,7 @@ export class MyInterface extends CGFinterface {
     init(application) {
         // call CGFinterface init
         super.init(application);
-
+        
         // init GUI. For more information on the methods, check:
         // https://github.com/dataarts/dat.gui/blob/master/API.md
         this.gui = new dat.GUI();

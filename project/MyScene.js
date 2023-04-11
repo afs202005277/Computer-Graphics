@@ -34,6 +34,7 @@ export class MyScene extends CGFscene {
         this.displayAxis = true;
         this.scaleFactor = 1;
         this.bird = new Bird(this);
+        this.upMovement = 1;
         this.enableTextures(true);
 
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
@@ -48,6 +49,7 @@ export class MyScene extends CGFscene {
 
         this.panorama = new MyPanorama(this, this.texture)
 
+        this.setUpdatePeriod(50); // 50 ms
     }
 
     initLights() {
@@ -74,6 +76,10 @@ export class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
 
+    update(t) {
+        this.bird.update(t);
+    }
+
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -97,6 +103,8 @@ export class MyScene extends CGFscene {
         this.popMatrix();
         this.pushMatrix();
         this.scale(10, 10, 10);
+        this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
+        console.log(this.bird.coordinates);
         this.bird.display();
         this.popMatrix();
         /*
