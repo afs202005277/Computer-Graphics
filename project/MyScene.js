@@ -2,6 +2,7 @@ import {CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture} from
 import {MyPlane} from "./MyPlane.js";
 import {MySphere} from "./MySphere.js";
 import {MyPanorama} from "./MyPanorama.js";
+import {Bird} from "./Bird.js";
 
 /**
  * MyScene
@@ -32,7 +33,7 @@ export class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 1;
-
+        this.bird = new Bird(this);
         this.enableTextures(true);
 
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
@@ -88,6 +89,10 @@ export class MyScene extends CGFscene {
         this.appearance.apply();
         this.rotate(Math.PI, 0, 1, 0);
         this.panorama.display();
+        this.popMatrix();
+        this.pushMatrix();
+        this.scale(10, 10, 10);
+        this.bird.display();
         this.popMatrix();
         /*
         this.pushMatrix();
