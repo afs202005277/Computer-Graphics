@@ -109,10 +109,17 @@ export class Bird extends CGFobject {
         this.scene.scale(1.0, -1.0, -1.0);
         firstVertex = this.birdwingright.wing4.vertices.slice(0, 3);
         secondVertex = this.birdwingright.wing4.vertices.slice(3, 6);
-         matrix = this.scene.getMatrix();
+        matrix = this.scene.getMatrix();
         firstVertex = this.transformVertex(matrix, firstVertex);
         secondVertex = this.transformVertex(matrix, secondVertex);
 
+        const print = [];
+        for (let i=0;i<this.birdwingright.wing4.vertices.length;i+=3){
+            const tmp = this.transformVertex(matrix, this.birdwingright.wing4.vertices.slice(i, i+3));
+            print.push(tmp[0], tmp[1], tmp[2]);
+        }
+        console.log(this.birdwingright.wing4.vertices);
+        console.log(print);
         this.scene.rotate(-this.angleWings, 0, firstVertex[1] - secondVertex[1], 0);
         this.birdwingright.display();
 
