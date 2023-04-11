@@ -45,7 +45,6 @@ export class MyUnitCubeQuad extends CGFobject {
         this.quad1.updateTexCoordsGLBuffers();
         this.material.setTexture(this.front);
         this.material.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad1.display();
         this.scene.popMatrix();
 
@@ -61,7 +60,6 @@ export class MyUnitCubeQuad extends CGFobject {
         this.quad2.updateTexCoordsGLBuffers();
         this.material.setTexture(this.back);
         this.material.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad2.display();
         this.scene.popMatrix();
         this.scene.pushMatrix();
@@ -76,7 +74,6 @@ export class MyUnitCubeQuad extends CGFobject {
         this.quad1.updateTexCoordsGLBuffers();
         this.material.setTexture(this.bottom);
         this.material.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad3.display();
         this.scene.popMatrix();
 
@@ -92,7 +89,6 @@ export class MyUnitCubeQuad extends CGFobject {
         this.quad4.updateTexCoordsGLBuffers();
         this.material.setTexture(this.top);
         this.material.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad4.display();
         this.scene.popMatrix();
 
@@ -108,7 +104,6 @@ export class MyUnitCubeQuad extends CGFobject {
         this.quad5.updateTexCoordsGLBuffers();
         this.material.setTexture(this.left);
         this.material.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad5.display();
         this.scene.popMatrix();
 
@@ -124,7 +119,6 @@ export class MyUnitCubeQuad extends CGFobject {
         this.quad6.updateTexCoordsGLBuffers();
         this.material.setTexture(this.right);
         this.material.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad6.display();
         this.scene.popMatrix();
 
