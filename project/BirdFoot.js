@@ -11,9 +11,6 @@ export class BirdFoot extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.texture = new CGFtexture(scene, 'images/tangram.png');
-
-
         this.leg = new MyCylinder(scene, 8, 1);
         this.backtoe = new MyUnitCubeQuad(scene);
         this.toe1 = new MyCylinder(scene, 5, 1);

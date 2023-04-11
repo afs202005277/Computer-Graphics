@@ -10,9 +10,6 @@ export class BirdWing extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.texture = new CGFtexture(scene, 'images/tangram.png');
-
-
         this.wing1 = new MyCylinder(scene, 3, 1);
         this.wing2 = new MyCylinder(scene, 3, 1);
         this.wing3 = new MyCylinder(scene, 3, 1);

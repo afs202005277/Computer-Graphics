@@ -11,9 +11,6 @@ export class BirdHead extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.texture = new CGFtexture(scene, 'images/tangram.png');
-
-
         this.pyramid = new Pyramid(scene, 4, 1);
         this.cube = new MyUnitCubeQuad(scene);
         this.beak = new Pyramid(scene, 4, 1);

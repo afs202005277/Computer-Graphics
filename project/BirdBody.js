@@ -11,9 +11,6 @@ export class BirdBody extends CGFobject {
     constructor(scene) {
         super(scene);
 
-        this.texture = new CGFtexture(scene, 'images/tangram.png');
-
-
         this.birdbodyfront = new MyCylinder(scene, 5, 1);
         this.tail = new Pyramid(scene, 4, 1);
 
