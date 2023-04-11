@@ -33,8 +33,8 @@ export class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 1;
-        this.bird = new Bird(this);
-        this.upMovement = 1;
+        this.speedFactor = 0.1;
+        this.bird = new Bird(this, this.speedFactor);
         this.enableTextures(true);
 
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
@@ -43,7 +43,6 @@ export class MyScene extends CGFscene {
         this.appearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.appearance.setSpecular(0.2, 0.4, 0.8, 1.0);
 
-        console.log(this.texture);
         this.appearance.setTexture(this.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
@@ -77,7 +76,18 @@ export class MyScene extends CGFscene {
     }
 
     update(t) {
-        this.bird.update(t);
+        let key = this.checkKeys();
+        for (const letter in key){
+            if (key === "W")
+                this.bird.increaseSpeed();
+            else if (key === "S")
+                this.bird.decreaseSpeed();
+            else if (key === "A")
+                this.bird.rotateLeft();
+            else if (key === "D")
+                this.bird.rotateRight();
+        }
+        this.bird.update(t, this.speedFactor);
     }
 
     display() {
@@ -103,8 +113,8 @@ export class MyScene extends CGFscene {
         this.popMatrix();
         this.pushMatrix();
         this.scale(10, 10, 10);
+        this.rotate(this.bird.orientation, 0, 1, 0);
         this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
-        console.log(this.bird.coordinates);
         this.bird.display();
         this.popMatrix();
         /*
@@ -122,18 +132,26 @@ export class MyScene extends CGFscene {
     }
 
     checkKeys() {
-        var text = "Keys pressed: ";
+        var text = "";
         var keysPressed = false;
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
-            text += " W ";
+            text += "W";
             keysPressed = true;
         }
         if (this.gui.isKeyPressed("KeyS")) {
-            text += " S ";
+            text += "S";
+            keysPressed = true;
+        }
+        if (this.gui.isKeyPressed("KeyA")) {
+            text += "A";
+            keysPressed = true;
+        }
+        if (this.gui.isKeyPressed("KeyD")) {
+            text += "D";
             keysPressed = true;
         }
         if (keysPressed)
-            console.log(text);
+            return text;
     }
 }
