@@ -1,8 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
-import { MyPlane } from "./MyPlane.js";
-import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { Bird } from "./Bird.js";
+import {MyTerrain} from "./MyTerrain.js";
 
 /**
  * MyScene
@@ -29,7 +28,7 @@ export class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.plane = new MyPlane(this, 30);
+        this.terrain = new MyTerrain(this);
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 1;
@@ -39,12 +38,12 @@ export class MyScene extends CGFscene {
 
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
         this.appearance = new CGFappearance(this);
-        this.appearance.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.appearance.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.appearance.setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.appearance.setAmbient(1, 1, 1, 1.0);
+        this.appearance.setDiffuse(1, 1, 1, 1.0);
+        this.appearance.setSpecular(1, 1, 1, 1.0);
 
-        this.appearance.setTexture(this.texture);
-        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        // this.appearance.setTexture(this.texture);
+        // this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.panorama = new MyPanorama(this, this.texture)
 
@@ -105,7 +104,7 @@ export class MyScene extends CGFscene {
         if (this.displayAxis) this.axis.display();
 
         // ---- BEGIN Primitive drawing section
-
+        /*
         this.pushMatrix();
         this.appearance.apply();
         this.rotate(Math.PI, 0, 1, 0);
@@ -117,16 +116,15 @@ export class MyScene extends CGFscene {
         this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
         this.bird.display();
         this.popMatrix();
-        /*
+        */
+
         this.pushMatrix();
-        this.appearance.apply();
         this.translate(0, -100, 0);
         this.scale(400, 400, 400);
         this.rotate(-Math.PI / 2.0, 1, 0, 0);
-        this.plane.display();
-        this.sphere.display();
+        this.terrain.display();
         this.popMatrix();
-        */
+
 
         // ---- END Primitive drawing section
     }
