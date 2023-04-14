@@ -5,6 +5,8 @@ attribute vec2 aTextureCoord;
 uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
+uniform float weightOriginal;
+uniform float weightAlt;
 uniform sampler2D terrainMap;
 
 varying vec2 vTextureCoord;
@@ -14,7 +16,7 @@ void main() {
 
 	vTextureCoord = aTextureCoord;
 
-	offset=aVertexNormal*0.3 * texture2D(terrainMap, aTextureCoord).r;
+	offset.z=0.2 * texture2D(terrainMap, aTextureCoord).r;
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
 }

@@ -6,11 +6,13 @@ varying vec2 vTextureCoord;
 
 uniform sampler2D terrainTex;
 uniform sampler2D terrainMap;
-uniform float timeFactor;
+uniform sampler2D altimetry;
+uniform float weightOriginal;
+uniform float weightAlt;
 
 void main() {
-	vec4 color = texture2D(terrainTex, vTextureCoord);
-	vec4 tex_color = vec4(texture2D(terrainMap, vTextureCoord).r, texture2D(terrainMap, vTextureCoord).g, texture2D(terrainMap, vTextureCoord).b, 1.0);
-
-	gl_FragColor = tex_color;
+	vec4 tex_color = texture2D(terrainTex, vTextureCoord);
+	vec4 alt_color = texture2D(altimetry, vTextureCoord);
+    vec4 color = weightOriginal * tex_color + weightAlt * alt_color;
+	gl_FragColor = color;
 }
