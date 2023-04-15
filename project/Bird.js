@@ -27,8 +27,9 @@ export class Bird extends CGFobject {
         
         this.birdhead = new BirdHead(scene);
         this.birdbody = new BirdBody(scene);
-        this.birdwingleft = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2);
-        this.birdwingright = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2);
+        this.birdwingleft = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2, true);
+
+        this.birdwingright = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2, false);
         this.birdfootleft = new BirdFoot(scene);
         this.birdfootright = new BirdFoot(scene);
 
