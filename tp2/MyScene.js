@@ -1,6 +1,7 @@
-import { CGFscene, CGFcamera, CGFaxis } from "../lib/CGF.js";
+import {CGFscene, CGFcamera, CGFaxis, CGFappearance} from "../lib/CGF.js";
 import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 import { MyTangram } from "./MyTangram.js";
+import {BirdWing} from "../project/BirdWing.js";
 
 /**
  * MyScene
@@ -28,6 +29,20 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.unitcubequad = new MyUnitCubeQuad(this);
     this.tangram = new MyTangram(this);
+
+    this.wingMaterial1 = new CGFappearance(this);
+    this.wingMaterial1.setAmbient(0.08,0.54, 1, 1.0);
+    this.wingMaterial1.setDiffuse(0.08,0.54, 1, 1.0);
+    this.wingMaterial1.setSpecular(0.08,0.54, 1, 1.0);
+    this.wingMaterial1.setShininess(32.0);
+
+    this.wingMaterial2 = new CGFappearance(this);
+    this.wingMaterial2.setAmbient(0.15,0.33, 0.78, 1.0);
+    this.wingMaterial2.setDiffuse(0.15,0.33, 0.78, 1.0);
+    this.wingMaterial2.setSpecular(0.15,0.33, 0.78, 1.0);
+    this.wingMaterial2.setShininess(32.0);
+
+    this.wing = new BirdWing(this, this.wingMaterial1, this.wingMaterial2);
 
     //Objects connected to MyInterface
     this.displayTriangle = true;
@@ -71,36 +86,10 @@ export class MyScene extends CGFscene {
     // Draw axis
     if (this.displayAxis) this.axis.display();
 
-    this.pushMatrix();
-    this.translate(4, -5, 0.1);
-    this.tangram.display();
-    this.popMatrix();
+    this.translate(0.5, 0, 0);
+    this.wing.display();
 
     this.setDefaultAppearance();
-    var sca = [
-      this.scaleFactor,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      this.scaleFactor,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      this.scaleFactor,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
-    ];
-
-    this.multMatrix(sca);
-    this.pushMatrix();
-    this.scale(11, 11, 11);
-    this.translate(0.5, -0.5, -0.5);
-    this.unitcubequad.display();
 
   }
 }

@@ -97,6 +97,7 @@ export class Bird extends CGFobject {
 
         this.scene.pushMatrix();
 
+        this.scene.translate(0.5, 0, 0);
         this.scene.scale(-1, 1, 1);
         this.scene.rotate(this.angleWings, 0, 0, 1);
         this.birdwingleft.display();
@@ -104,6 +105,7 @@ export class Bird extends CGFobject {
         this.scene.popMatrix();
         this.scene.pushMatrix();
 
+        this.scene.translate(-0.5, 0, 0);
         this.scene.rotate(this.angleWings, 0, 0, 1);
         this.birdwingright.display();
 
