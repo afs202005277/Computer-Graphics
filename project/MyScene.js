@@ -105,6 +105,7 @@ export class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
+
         this.pushMatrix();
         this.appearance.apply();
         this.rotate(Math.PI, 0, 1, 0);

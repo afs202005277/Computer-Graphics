@@ -13,7 +13,7 @@ export class MyTerrain extends CGFobject {
         this.shader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
         this.terrainTexture = new CGFtexture(this.scene, "images/terrain.jpg");
         this.terrainHeightMap = new CGFtexture(this.scene, "images/heightmap.jpg");
-        this.altimetry = new CGFtexture("images/altimetry.png");
+        this.altimetry = new CGFtexture(this.scene, "images/altimetry.png");
         this.shader.setUniformsValues({terrainMap: this.terrainHeightMap, terrainTex: this.terrainTexture, weightOriginal: 0.7, weightAlt: 0.3, altimetry: this.altimetry});
     }
 
