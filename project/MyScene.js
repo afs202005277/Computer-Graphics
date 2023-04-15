@@ -1,6 +1,6 @@
-import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
-import { MyPanorama } from "./MyPanorama.js";
-import { Bird } from "./Bird.js";
+import {CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture} from "../lib/CGF.js";
+import {MyPanorama} from "./MyPanorama.js";
+import {Bird} from "./Bird.js";
 import {MyTerrain} from "./MyTerrain.js";
 
 /**
@@ -32,7 +32,7 @@ export class MyScene extends CGFscene {
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 1;
-        this.speedFactor = 0.1;
+        this.speedFactor = 1.5;
         this.bird = new Bird(this, this.speedFactor);
         this.enableTextures(true);
 
@@ -76,15 +76,22 @@ export class MyScene extends CGFscene {
 
     update(t) {
         let key = this.checkKeys();
-        for (const letter in key){
-            if (key === "W")
-                this.bird.increaseSpeed();
-            else if (key === "S")
-                this.bird.decreaseSpeed();
-            else if (key === "A")
-                this.bird.rotateLeft();
-            else if (key === "D")
-                this.bird.rotateRight();
+        if (key !== undefined) {
+            console.log(key);
+            for (const letter of key) {
+                console.log(letter);
+                if (key === "W")
+                    this.bird.increaseSpeed();
+                else if (key === "S")
+                    this.bird.decreaseSpeed();
+                else if (key === "A")
+                    this.bird.rotateLeft();
+                else if (key === "D")
+                    this.bird.rotateRight();
+                else if (key === "R") {
+                    this.bird.reset();
+                }
+            }
         }
         this.bird.update(t, this.speedFactor);
     }
@@ -112,6 +119,7 @@ export class MyScene extends CGFscene {
         this.panorama.display();
         this.popMatrix();
         this.pushMatrix();
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.scale(10, 10, 10);
         this.rotate(this.bird.orientation, 0, 1, 0);
         this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
@@ -150,6 +158,10 @@ export class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyD")) {
             text += "D";
+            keysPressed = true;
+        }
+        if (this.gui.isKeyPressed("KeyR")) {
+            text += "R";
             keysPressed = true;
         }
         if (keysPressed)

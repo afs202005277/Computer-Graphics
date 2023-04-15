@@ -51,12 +51,22 @@ export class Bird extends CGFobject {
     }
 
     rotateLeft() {
-        this.orientation += this.speedFactor / 100;
+        this.orientation += this.speedFactor / 50;
     }
 
     rotateRight() {
-        this.orientation -= this.speedFactor / 100;
+        this.orientation -= this.speedFactor / 50;
     }
+
+    reset(){
+        this.angleWings = 0;
+        this.speed = 0;
+        this.incrementHeight = 0;
+        this.orientation = 0;
+        this.coordinates = [0, 1, 0]
+        this.elapsedTime = 0;
+    }
+
     update(t, speedFactor) {
         this.speedFactor = speedFactor;
         this.incrementHeight = Math.sin(t / (Math.PI * 100)) * 0.03;
