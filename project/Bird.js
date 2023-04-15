@@ -1,8 +1,8 @@
 import {CGFobject} from '../lib/CGF.js';
 import {BirdHead} from './BirdHead.js';
 import {BirdBody} from './BirdBody.js';
-import {BirdWing} from './BirdWing.js';
 import {BirdFoot} from './BirdFoot.js';
+import {BirdWing} from "./BirdWing.js";
 
 /**
  * MyDiamond
@@ -47,7 +47,7 @@ export class Bird extends CGFobject {
     update(t, speedFactor) {
         this.speedFactor = speedFactor;
         this.incrementHeight = Math.sin(t / (Math.PI * 100)) * 0.03;
-        this.coordinates = [this.coordinates[0] + (t - this.elapsedTime) / 1000 * this.speed * Math.cos(this.orientation), this.coordinates[1] + this.incrementHeight, this.coordinates[2] + (t - this.elapsedTime) / 1000 * this.speed * Math.sin(this.orientation)]
+        this.coordinates = [this.coordinates[0] + (t - this.elapsedTime) / 1000 * this.speed * Math.sin(this.orientation), this.coordinates[1] + this.incrementHeight, this.coordinates[2] + (t - this.elapsedTime) / 1000 * this.speed * Math.cos(this.orientation)]
         this.angleWings = Math.sin(t / (Math.PI * 100)) * speedFactor;
 
         this.elapsedTime = t;
@@ -70,14 +70,14 @@ export class Bird extends CGFobject {
 
         this.scene.pushMatrix();
 
+        this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.birdbody.display();
 
         this.scene.popMatrix();
         this.scene.pushMatrix();
 
-        this.scene.translate(0.35, 0.6, 0.0);
+        this.scene.translate(0, 0.6, 0.3);
         this.scene.scale(0.41, 0.41, 0.41);
-        this.scene.rotate(Math.PI / 2, 0.0, 1.0, 0.0);
 
         this.birdhead.display();
 
@@ -85,61 +85,29 @@ export class Bird extends CGFobject {
 
         this.scene.pushMatrix();
 
-        this.scene.translate(1.6, -1.3, -0.7);
-
-        this.scene.rotate(Math.PI / 6, 0.0, 1.0, 0.0);
-        this.scene.rotate(Math.PI / 2, 1.0, 0.0, 0.0);
-
-        let matrix = this.scene.getMatrix();
-        let secondVertex = this.birdwingleft.wing1.vertices.slice(0, 3);
-        let firstVertex = this.birdwingleft.wing1.vertices.slice(3, 6);
-
-        firstVertex = this.transformVertex(matrix, firstVertex);
-        secondVertex = this.transformVertex(matrix, secondVertex);
-
-        this.scene.rotate(this.angleWings, 0, firstVertex[1] - secondVertex[1], 0);
+        this.scene.scale(-1, 1, 1);
         this.birdwingleft.display();
 
         this.scene.popMatrix();
         this.scene.pushMatrix();
-        this.scene.translate(-3.8, -4, 0.0);
 
-        this.scene.rotate(Math.PI / 3, 0.0, 0.0, 1.0);
-
-        this.scene.scale(1.0, -1.0, -1.0);
-        firstVertex = this.birdwingright.wing4.vertices.slice(0, 3);
-        secondVertex = this.birdwingright.wing4.vertices.slice(3, 6);
-        matrix = this.scene.getMatrix();
-        firstVertex = this.transformVertex(matrix, firstVertex);
-        secondVertex = this.transformVertex(matrix, secondVertex);
-
-        const print = [];
-        for (let i=0;i<this.birdwingright.wing4.vertices.length;i+=3){
-            const tmp = this.transformVertex(matrix, this.birdwingright.wing4.vertices.slice(i, i+3));
-            print.push(tmp[0], tmp[1], tmp[2]);
-        }
-        console.log(this.birdwingright.wing4.vertices);
-        console.log(print);
-        this.scene.rotate(-this.angleWings, 0, firstVertex[1] - secondVertex[1], 0);
         this.birdwingright.display();
 
         this.scene.popMatrix();
-        this.scene.popMatrix();
-        this.scene.popMatrix();
+        this.scene.pushMatrix();
 
-        this.scene.translate(-0.6, -3.5, -1.0);
+        this.scene.translate(-0.4, -1.0, 0.0);
 
         this.birdfootleft.display();
 
         this.scene.popMatrix();
+        this.scene.pushMatrix();
 
-        this.scene.translate(1.2, 0.0, 0.0);
+        this.scene.translate(0.4, -1.0, 0.0);
 
         this.birdfootright.display();
+        this.scene.popMatrix();
 
-    }
-
-    updateBuffers() {
     }
 }
 

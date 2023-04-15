@@ -6,7 +6,7 @@ import { MyQuad } from "./MyQuad.js";
  * @param scene - Reference to MyScene object
  */
 export class MyUnitCubeQuad extends CGFobject {
-	constructor(scene, top=null, front=null, right=null, back=null, left=null, bottom=null) {
+	constructor(scene, top=null, front=null, right=null, back=null, left=null, bottom=null, material = null) {
 		super(scene);
 		
         this.quad1 = new MyQuad(scene);
@@ -16,11 +16,15 @@ export class MyUnitCubeQuad extends CGFobject {
         this.quad5 = new MyQuad(scene);
         this.quad6 = new MyQuad(scene);
 
-        this.material = new CGFappearance(scene);
-        this.material.setAmbient(1.0, 1.0, 1.0, 1.0);
-		this.material.setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.material.setSpecular(1.0, 1.0, 1.0, 1.0);
-		this.material.setShininess(32.0);
+        if (material !== null){
+            this.material = material;
+        } else{
+            this.material = new CGFappearance(scene);
+            this.material.setAmbient(1.0, 1.0, 1.0, 1.0);
+            this.material.setDiffuse(1.0, 1.0, 1.0, 1.0);
+            this.material.setSpecular(1.0, 1.0, 1.0, 1.0);
+            this.material.setShininess(32.0);
+        }
         
 
         this.top = top;
@@ -43,7 +47,9 @@ export class MyUnitCubeQuad extends CGFobject {
             1, 0
         ]
         this.quad1.updateTexCoordsGLBuffers();
-        this.material.setTexture(this.front);
+        if (this.top !== null){
+            this.material.setTexture(this.front);
+        }
         this.material.apply();
         this.quad1.display();
         this.scene.popMatrix();
@@ -58,7 +64,9 @@ export class MyUnitCubeQuad extends CGFobject {
             0, 1
         ]
         this.quad2.updateTexCoordsGLBuffers();
-        this.material.setTexture(this.back);
+        if (this.back !== null){
+            this.material.setTexture(this.back);
+        }
         this.material.apply();
         this.quad2.display();
         this.scene.popMatrix();
@@ -72,7 +80,9 @@ export class MyUnitCubeQuad extends CGFobject {
             1, 1
         ]
         this.quad1.updateTexCoordsGLBuffers();
-        this.material.setTexture(this.bottom);
+        if (this.bottom !== null){
+            this.material.setTexture(this.bottom);
+        }
         this.material.apply();
         this.quad3.display();
         this.scene.popMatrix();
@@ -87,7 +97,9 @@ export class MyUnitCubeQuad extends CGFobject {
             1, 1
         ]
         this.quad4.updateTexCoordsGLBuffers();
-        this.material.setTexture(this.top);
+        if (this.top !== null){
+            this.material.setTexture(this.top);
+        }
         this.material.apply();
         this.quad4.display();
         this.scene.popMatrix();
@@ -102,7 +114,9 @@ export class MyUnitCubeQuad extends CGFobject {
             1, 0
         ]
         this.quad5.updateTexCoordsGLBuffers();
-        this.material.setTexture(this.left);
+        if (this.left !== null){
+            this.material.setTexture(this.left);
+        }
         this.material.apply();
         this.quad5.display();
         this.scene.popMatrix();
@@ -117,7 +131,9 @@ export class MyUnitCubeQuad extends CGFobject {
             1, 0
         ]
         this.quad6.updateTexCoordsGLBuffers();
-        this.material.setTexture(this.right);
+        if (this.right !== null){
+            this.material.setTexture(this.right);
+        }
         this.material.apply();
         this.quad6.display();
         this.scene.popMatrix();

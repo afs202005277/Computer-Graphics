@@ -25,8 +25,6 @@ export class MyTerrain extends CGFobject {
         this.plane.display();
         // activate selected shader
         this.scene.setActiveShader(this.shader);
-
-        // restore default shader (will be needed for drawing the axis in next frame)
     }
 }
 
