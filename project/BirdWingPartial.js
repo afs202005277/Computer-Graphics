@@ -29,7 +29,7 @@ export class BirdWingPartial extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(-4.2, 0.58, -0.1);
+        this.scene.translate(-4.1, 1, 0);
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.material2.apply();
         this.wing3.display();
