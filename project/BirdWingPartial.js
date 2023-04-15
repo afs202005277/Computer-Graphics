@@ -1,5 +1,5 @@
 import {CGFobject, CGFtexture} from '../lib/CGF.js';
-import { MyCylinder } from './MyCylinder.js';
+import {MyCylinder} from './MyCylinder.js';
 
 /**
  * MyDiamond
@@ -23,14 +23,14 @@ export class BirdWingPartial extends CGFobject {
         //this.scene.rotate(-Math.PI/8, 0, 1, 0);
         this.scene.pushMatrix();
         this.scene.translate(-5, 0, -0.5);
-        this.scene.rotate(-Math.PI/2, 1, 0, 0);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.material1.apply();
         this.wing1.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(-4.1, 1, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.scene.rotate(Math.PI / 2, 1, 0, 0);
         this.material2.apply();
         this.wing3.display();
 
@@ -38,20 +38,3 @@ export class BirdWingPartial extends CGFobject {
         this.scene.popMatrix();
     }
 }
-
-/*
-this.scene.pushMatrix();
-
-        this.scene.translate(-3.0, 0, 0);
-        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.wing2.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-
-        this.scene.translate(-2.5, 0, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.wing4.display();
-
-        this.scene.popMatrix();
- */

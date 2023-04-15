@@ -28,20 +28,3 @@ export class BirdWing extends CGFobject {
         this.scene.popMatrix();
     }
 }
-
-/*
-this.scene.pushMatrix();
-
-        this.scene.translate(-3.0, 0, 0);
-        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.wing2.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-
-        this.scene.translate(-2.5, 0, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.wing4.display();
-
-        this.scene.popMatrix();
- */

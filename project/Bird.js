@@ -60,7 +60,7 @@ export class Bird extends CGFobject {
         this.speedFactor = speedFactor;
         this.incrementHeight = Math.sin(t / (Math.PI * 100)) * 0.03;
         this.coordinates = [this.coordinates[0] + (t - this.elapsedTime) / 1000 * this.speed * Math.sin(this.orientation), this.coordinates[1] + this.incrementHeight, this.coordinates[2] + (t - this.elapsedTime) / 1000 * this.speed * Math.cos(this.orientation)]
-        this.angleWings = Math.sin(t / (Math.PI * 100)) * speedFactor;
+        this.angleWings = Math.sin(t / 100 * speedFactor) * 30 * Math.PI / 180;
 
         this.elapsedTime = t;
     }
@@ -98,11 +98,13 @@ export class Bird extends CGFobject {
         this.scene.pushMatrix();
 
         this.scene.scale(-1, 1, 1);
+        this.scene.rotate(this.angleWings, 0, 0, 1);
         this.birdwingleft.display();
 
         this.scene.popMatrix();
         this.scene.pushMatrix();
 
+        this.scene.rotate(this.angleWings, 0, 0, 1);
         this.birdwingright.display();
 
         this.scene.popMatrix();
