@@ -20,9 +20,9 @@ export class Bird extends CGFobject {
         this.wingMaterial1.setShininess(32.0);
 
         this.wingMaterial2 = new CGFappearance(scene);
-        this.wingMaterial2.setAmbient(0.15,0.33, 0.78, 1.0);
-        this.wingMaterial2.setDiffuse(0.15,0.33, 0.78, 1.0);
-        this.wingMaterial2.setSpecular(0.15,0.33, 0.78, 1.0);
+        this.wingMaterial2.setAmbient(0.5,0.5, 0.5, 1.0);
+        this.wingMaterial2.setDiffuse(0.5,0.5, 0.5, 1.0);
+        this.wingMaterial2.setSpecular(0.5,0.5, 0.5, 1.0);
         this.wingMaterial2.setShininess(32.0);
         
         this.birdhead = new BirdHead(scene);
