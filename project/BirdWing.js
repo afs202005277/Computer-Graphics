@@ -8,11 +8,11 @@ import {BirdWingPartial} from "./BirdWingPartial.js";
  * @param scene - Reference to MyScene object
  */
 export class BirdWing extends CGFobject {
-    constructor(scene) {
+    constructor(scene, material1, material2) {
         super(scene);
 
-        this.partial1 = new BirdWingPartial(scene);
-        this.partial2 = new BirdWingPartial(scene);
+        this.partial1 = new BirdWingPartial(scene, material1, material2);
+        this.partial2 = new BirdWingPartial(scene, material1, material2);
     }
 
     display() {

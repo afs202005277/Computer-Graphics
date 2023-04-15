@@ -1,4 +1,4 @@
-import {CGFobject} from '../lib/CGF.js';
+import {CGFappearance, CGFobject} from '../lib/CGF.js';
 import {BirdHead} from './BirdHead.js';
 import {BirdBody} from './BirdBody.js';
 import {BirdFoot} from './BirdFoot.js';
@@ -13,10 +13,22 @@ export class Bird extends CGFobject {
     constructor(scene, speedFactor) {
         super(scene);
 
+        this.wingMaterial1 = new CGFappearance(scene);
+        this.wingMaterial1.setAmbient(0.08,0.54, 1, 1.0);
+        this.wingMaterial1.setDiffuse(0.08,0.54, 1, 1.0);
+        this.wingMaterial1.setSpecular(0.08,0.54, 1, 1.0);
+        this.wingMaterial1.setShininess(32.0);
+
+        this.wingMaterial2 = new CGFappearance(scene);
+        this.wingMaterial2.setAmbient(0.15,0.33, 0.78, 1.0);
+        this.wingMaterial2.setDiffuse(0.15,0.33, 0.78, 1.0);
+        this.wingMaterial2.setSpecular(0.15,0.33, 0.78, 1.0);
+        this.wingMaterial2.setShininess(32.0);
+        
         this.birdhead = new BirdHead(scene);
         this.birdbody = new BirdBody(scene);
-        this.birdwingleft = new BirdWing(scene);
-        this.birdwingright = new BirdWing(scene);
+        this.birdwingleft = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2);
+        this.birdwingright = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2);
         this.birdfootleft = new BirdFoot(scene);
         this.birdfootright = new BirdFoot(scene);
 

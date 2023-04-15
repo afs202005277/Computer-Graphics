@@ -7,12 +7,13 @@ import { MyCylinder } from './MyCylinder.js';
  * @param scene - Reference to MyScene object
  */
 export class BirdWingPartial extends CGFobject {
-    constructor(scene) {
+    constructor(scene, material1, material2) {
         super(scene);
 
         this.wing1 = new MyCylinder(scene, 3, 1);
         this.wing3 = new MyCylinder(scene, 3, 1);
-
+        this.material1 = material1;
+        this.material2 = material2;
     }
 
     display() {
@@ -23,13 +24,14 @@ export class BirdWingPartial extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(-5, 0, -0.5);
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
-
+        this.material1.apply();
         this.wing1.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(-4.2, 0.58, -0.1);
         this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.material2.apply();
         this.wing3.display();
 
         this.scene.popMatrix();
