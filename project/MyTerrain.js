@@ -14,13 +14,16 @@ export class MyTerrain extends CGFobject {
         this.terrainTexture = new CGFtexture(this.scene, "images/terrain.jpg");
         this.terrainHeightMap = new CGFtexture(this.scene, "images/heightmap.jpg");
         this.altimetry = new CGFtexture(this.scene, "images/altimetry.png");
-        this.shader.setUniformsValues({terrainMap: this.terrainHeightMap, terrainTex: this.terrainTexture, weightOriginal: 0.7, weightAlt: 0.3, altimetry: this.altimetry});
+        this.shader.setUniformsValues({terrainMap: 1, weightOriginal: 0.7, weightAlt: 0.3, altimetry: 2});
     }
 
     display() {
         // aplly main appearance (including texture in default texture unit 0)
         this.scene.appearance.setTexture(this.terrainTexture);
         this.scene.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.terrainHeightMap.bind(1)
+        this.altimetry.bind(2);
+
         this.scene.appearance.apply();
         this.plane.display();
         // activate selected shader

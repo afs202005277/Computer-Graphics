@@ -9,6 +9,7 @@ uniform float weightOriginal;
 uniform float weightAlt;
 uniform sampler2D terrainMap;
 
+varying vec3 vertexPos;
 varying vec2 vTextureCoord;
 
 void main() {
@@ -18,6 +19,7 @@ void main() {
 
 	offset.z=0.2 * texture2D(terrainMap, aTextureCoord).r;
 
+	vertexPos = aVertexPosition + offset;
+
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
 }
-
