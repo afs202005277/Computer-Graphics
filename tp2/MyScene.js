@@ -2,6 +2,7 @@ import {CGFscene, CGFcamera, CGFaxis, CGFappearance} from "../lib/CGF.js";
 import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 import { MyTangram } from "./MyTangram.js";
 import {BirdWing} from "../project/BirdWing.js";
+import {MyBirdEgg} from "../project/MyBirdEgg.js";
 
 /**
  * MyScene
@@ -43,7 +44,7 @@ export class MyScene extends CGFscene {
     this.wingMaterial2.setShininess(32.0);
 
     this.wing = new BirdWing(this, this.wingMaterial1, this.wingMaterial2);
-
+    this.egg = new MyBirdEgg(this);
     //Objects connected to MyInterface
     this.displayTriangle = true;
     this.displayDiamond = true;
@@ -86,8 +87,7 @@ export class MyScene extends CGFscene {
     // Draw axis
     if (this.displayAxis) this.axis.display();
 
-    this.translate(0.5, 0, 0);
-    this.wing.display();
+    this.egg.display();
 
     this.setDefaultAppearance();
 
