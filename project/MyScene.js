@@ -116,7 +116,7 @@ export class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
 
-        /*
+        
         this.pushMatrix();
         this.appearance.apply();
         this.rotate(Math.PI, 0, 1, 0);
@@ -124,12 +124,11 @@ export class MyScene extends CGFscene {
         this.popMatrix();
         this.pushMatrix();
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-        this.scale(10, 10, 10);
+        this.scale(2.5, 2.5, 2.5);
         this.rotate(this.bird.orientation, 0, 1, 0);
         this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
         this.bird.display();
         this.popMatrix();
-        */
 
 
         this.pushMatrix();
@@ -141,7 +140,7 @@ export class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.translate(-160, -23, -41);
-        this.scale(2.5, 2.5, 2.5);
+        this.scale(6, 6, 6);
         this.nest.display();
         this.popMatrix();
 
