@@ -64,7 +64,7 @@ export class MyScene extends CGFscene {
             1.0,
             0.1,
             1000,
-            vec3.fromValues(50, 10, 15),
+            vec3.fromValues(-220, 9, -55),
             vec3.fromValues(0, 0, 0)
         );
     }
@@ -139,7 +139,11 @@ export class MyScene extends CGFscene {
         this.terrain.display();
         this.popMatrix();
 
+        this.pushMatrix();
+        this.translate(-160, -23, -41);
+        this.scale(2.5, 2.5, 2.5);
         this.nest.display();
+        this.popMatrix();
 
 
 
