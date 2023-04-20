@@ -53,6 +53,7 @@ export class MyTerrain extends CGFobject {
         this.scene.pushMatrix();
     
         this.scene.translate(0, 0, 0.05);
+        this.scene.rotate(Math.PI/2, 0, 0, 1);
 
         this.plane_water.display();
 
