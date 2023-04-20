@@ -2,6 +2,7 @@ import {CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture} from
 import {MyPanorama} from "./MyPanorama.js";
 import {Bird} from "./Bird.js";
 import {MyTerrain} from "./MyTerrain.js";
+import { Nest } from "./Nest.js";
 
 /**
  * MyScene
@@ -34,6 +35,7 @@ export class MyScene extends CGFscene {
         this.scaleFactor = 1;
         this.speedFactor = 1.5;
         this.bird = new Bird(this, this.speedFactor);
+        this.nest = new Nest(this);
         this.enableTextures(true);
 
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
@@ -94,6 +96,7 @@ export class MyScene extends CGFscene {
             }
         }
         this.bird.update(t, this.speedFactor);
+        this.terrain.update(t);
     }
 
     display() {
@@ -135,6 +138,8 @@ export class MyScene extends CGFscene {
         this.rotate(-Math.PI / 2.0, 1, 0, 0);
         this.terrain.display();
         this.popMatrix();
+
+        this.nest.display();
 
 
 
