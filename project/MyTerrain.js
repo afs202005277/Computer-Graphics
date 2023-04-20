@@ -39,8 +39,6 @@ export class MyTerrain extends CGFobject {
 
         this.plane_terrain.display();
 
-        this.scene.setActiveShader(this.scene.defaultShader);
-
         this.scene.appearance.setTexture(this.waterTex);
 		this.scene.appearance.setTextureWrap('REPEAT', 'REPEAT');
         this.waterTex.bind(3)

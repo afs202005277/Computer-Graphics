@@ -3,6 +3,7 @@ import {MyPanorama} from "./MyPanorama.js";
 import {Bird} from "./Bird.js";
 import {MyTerrain} from "./MyTerrain.js";
 import { Nest } from "./Nest.js";
+import { MyBirdEgg } from "./MyBirdEgg.js";
 
 /**
  * MyScene
@@ -37,6 +38,19 @@ export class MyScene extends CGFscene {
         this.bird = new Bird(this, this.speedFactor);
         this.nest = new Nest(this);
         this.enableTextures(true);
+
+        this.eggs = [
+            new MyBirdEgg(this),
+            new MyBirdEgg(this),
+            new MyBirdEgg(this),
+            new MyBirdEgg(this),
+        ]
+        this.eggLocations = this.eggs.map((egg) => {
+            return [-45*Math.random(), 0, 45*Math.random()]
+        })
+        this.eggRotations = this.eggs.map((egg) => {
+            return [Math.PI, Math.random(), Math.random(), Math.random()];
+        })
 
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
         this.appearance = new CGFappearance(this);
@@ -144,7 +158,15 @@ export class MyScene extends CGFscene {
         this.nest.display();
         this.popMatrix();
 
-
+        for (let i = 0; i < this.eggs.length; i++) {
+            this.pushMatrix();
+            this.translate(-150, -21, -71);
+            this.translate(this.eggLocations[i][0], this.eggLocations[i][1], this.eggLocations[i][2]);
+            this.rotate(this.eggRotations[i][0], this.eggRotations[i][1], this.eggRotations[i][2], this.eggRotations[i][3]);
+            this.scale(2.2, 2.2, 2.2);
+            this.eggs[i].display();
+            this.popMatrix();
+        }
 
         // ---- END Primitive drawing section
     }
