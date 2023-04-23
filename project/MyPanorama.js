@@ -19,7 +19,8 @@ export class MyPanorama extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
-        this.scene.scale(200, 200, 200);
+        let distance = Math.sqrt(this.scene.camera.position[0]**2 + this.scene.camera.position[1]**2 + this.scene.camera.position[2]**2);
+        this.scene.scale(Math.max(200, distance), Math.max(200, distance), Math.max(200, distance));
         this.material.apply();
         this.sphere.display();
         this.scene.popMatrix();
