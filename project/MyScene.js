@@ -147,7 +147,6 @@ export class MyScene extends CGFscene {
         this.pushMatrix();
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.scale(2.5, 2.5, 2.5);
-        this.rotate(this.bird.orientation, 0, 1, 0);
         this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
         this.bird.display();
         this.popMatrix();

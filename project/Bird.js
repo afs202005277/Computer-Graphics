@@ -93,6 +93,7 @@ export class Bird extends CGFobject {
 
         this.scene.pushMatrix();
 
+        this.scene.rotate(this.orientation, 0, 1, 0);
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.birdbody.display();
