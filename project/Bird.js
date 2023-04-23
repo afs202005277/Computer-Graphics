@@ -63,7 +63,7 @@ export class Bird extends CGFobject {
         this.speed = 0;
         this.incrementHeight = 0;
         this.orientation = 0;
-        this.coordinates = [0, 1, 0]
+        this.coordinates = [-63, -8, -16]
         this.elapsedTime = 0;
     }
 
@@ -93,46 +93,40 @@ export class Bird extends CGFobject {
 
         this.scene.pushMatrix();
 
+        this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.birdbody.display();
-
         this.scene.popMatrix();
-        this.scene.pushMatrix();
 
+        this.scene.pushMatrix();
         this.scene.translate(0, 0.6, 0.3);
         this.scene.scale(0.41, 0.41, 0.41);
-
         this.birdhead.display();
-
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-
         this.scene.translate(0.5, 0, 0);
         this.scene.scale(-1, 1, 1);
         this.scene.rotate(this.angleWings, 0, 0, 1);
         this.birdwingleft.display();
-
         this.scene.popMatrix();
-        this.scene.pushMatrix();
 
+        this.scene.pushMatrix();
         this.scene.translate(-0.5, 0, 0);
         this.scene.rotate(this.angleWings, 0, 0, 1);
         this.birdwingright.display();
-
         this.scene.popMatrix();
-        this.scene.pushMatrix();
 
+        this.scene.pushMatrix();
         this.scene.translate(-0.4, -1.0, 0.0);
-
         this.birdfootleft.display();
-
         this.scene.popMatrix();
+
         this.scene.pushMatrix();
-
         this.scene.translate(0.4, -1.0, 0.0);
-
         this.birdfootright.display();
+        this.scene.popMatrix();
+
         this.scene.popMatrix();
 
     }

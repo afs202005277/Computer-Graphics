@@ -1,8 +1,9 @@
-import {CGFscene, CGFcamera, CGFaxis, CGFappearance} from "../lib/CGF.js";
+import {CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture} from "../lib/CGF.js";
 import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 import { MyTangram } from "./MyTangram.js";
 import {BirdWing} from "../project/BirdWing.js";
 import {MyBirdEgg} from "../project/MyBirdEgg.js";
+import {MyBillboard} from "../project/MyBillboard.js";
 
 /**
  * MyScene
@@ -31,26 +32,21 @@ export class MyScene extends CGFscene {
     this.unitcubequad = new MyUnitCubeQuad(this);
     this.tangram = new MyTangram(this);
 
-    this.wingMaterial1 = new CGFappearance(this);
-    this.wingMaterial1.setAmbient(0.08,0.54, 1, 1.0);
-    this.wingMaterial1.setDiffuse(0.08,0.54, 1, 1.0);
-    this.wingMaterial1.setSpecular(0.08,0.54, 1, 1.0);
-    this.wingMaterial1.setShininess(32.0);
-
-    this.wingMaterial2 = new CGFappearance(this);
-    this.wingMaterial2.setAmbient(0.15,0.33, 0.78, 1.0);
-    this.wingMaterial2.setDiffuse(0.15,0.33, 0.78, 1.0);
-    this.wingMaterial2.setSpecular(0.15,0.33, 0.78, 1.0);
-    this.wingMaterial2.setShininess(32.0);
-
-    this.wing = new BirdWing(this, this.wingMaterial1, this.wingMaterial2);
-    this.egg = new MyBirdEgg(this);
     //Objects connected to MyInterface
     this.displayTriangle = true;
     this.displayDiamond = true;
     this.displayParallelogram = true;
     this.displayAxis = true;
     this.scaleFactor = 1;
+
+    this.appearance = new CGFappearance(this);
+    this.appearance.setAmbient(1.0, 1, 1, 1);
+    this.appearance.setDiffuse(1.0, 1, 1, 1);
+    this.appearance.setSpecular(1.0, 1, 1, 1);
+    this.appearance.setShininess(100);
+    this.appearance.setTexture(new CGFtexture(this, "images/billboardtree.jpg"));
+    this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+    this.billboard = new MyBillboard(this, this.appearance);
   }
   initLights() {
     this.lights[0].setPosition(15, 2, 5, 1);
@@ -87,9 +83,8 @@ export class MyScene extends CGFscene {
     // Draw axis
     if (this.displayAxis) this.axis.display();
 
-    this.egg.display();
-
     this.setDefaultAppearance();
 
+    this.billboard.display(3, 2, 1);
   }
 }
