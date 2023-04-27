@@ -5,7 +5,7 @@ import {MyTerrain} from "./MyTerrain.js";
 import { Nest } from "./Nest.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import {MyBillboard} from "./MyBillboard.js";
-import {MyTreeGroupPatch} from "./MyTreeGroupPatch.js";
+import {MyTreeRowPatch} from "./MyTreeRowPatch.js";
 
 /**
  * MyScene
@@ -37,9 +37,9 @@ export class MyScene extends CGFscene {
         this.displayAxis = true;
         this.scaleFactor = 1;
         this.speedFactor = 1.5;
-        this.bird = new Bird(this, this.speedFactor);
+        this.bird = new Bird(this);
         this.nest = new Nest(this);
-        this.patch = new MyTreeGroupPatch(this);
+        this.patch = new MyTreeRowPatch(this);
         this.treeMaterial = new CGFappearance(this);
         this.treeMaterial.setAmbient(1.0, 1, 1, 1);
         this.treeMaterial.setDiffuse(1.0, 1, 1, 1);
@@ -109,25 +109,23 @@ export class MyScene extends CGFscene {
         let key = this.checkKeys();
         let pressingp = false;
         if (key !== undefined) {
-            console.log(key);
             for (const letter of key) {
-                console.log(letter);
-                if (key === "W")
-                    this.bird.increaseSpeed();
-                else if (key === "S")
-                    this.bird.decreaseSpeed();
-                else if (key === "A")
-                    this.bird.rotateLeft();
-                else if (key === "D")
-                    this.bird.rotateRight();
-                else if (key === "R")
+                if (letter === "W")
+                    this.bird.accelerate(this.speedFactor);
+                else if (letter === "S")
+                    this.bird.accelerate(-this.speedFactor);
+                else if (letter === "A")
+                    this.bird.turn(this.speedFactor);
+                else if (letter === "D")
+                    this.bird.turn(-this.speedFactor);
+                else if (letter === "R")
                     this.bird.reset();
                 else if (key === "P") {
-                    pressingp = true;
+                    this.bird.go_down();
                 }
             }
         }
-        this.bird.update(t, this.speedFactor, pressingp);
+        this.bird.update(t, this.speedFactor);
         this.check_distances_to_eggs();
         this.terrain.update(t);
     }
@@ -155,9 +153,9 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
+        this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.scale(2.5, 2.5, 2.5);
-        this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
         this.bird.display();
         this.popMatrix();
 
@@ -207,7 +205,7 @@ export class MyScene extends CGFscene {
                 console.log(egg_coord);
                 let distance_to_bird = Math.sqrt((this.bird.coordinates[0] - egg_coord[0])**2 + (this.bird.coordinates[1] - egg_coord[1])**2 + (this.bird.coordinates[2] - egg_coord[2])**2);
                 distances.push(distance_to_bird);
-                if (distance_to_bird < 2) {
+                if (distance_to_bird < 4) {
                     let egg_removed = this.eggs.splice(i, 1);
                     this.eggLocations.splice(i, 1);
                     this.eggRotations.splice(i, 1);

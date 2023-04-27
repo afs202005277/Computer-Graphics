@@ -11,7 +11,7 @@ import { MyTerrain } from './MyTerrain.js';
  * @param scene - Reference to MyScene object
  */
 export class Bird extends CGFobject {
-    constructor(scene, speedFactor) {
+    constructor(scene) {
         super(scene);
 
         this.wingMaterial1 = new CGFappearance(scene);
@@ -36,29 +36,22 @@ export class Bird extends CGFobject {
 
         this.angleWings = 0;
         this.speed = 0;
-        this.speedFactor = speedFactor;
         this.incrementHeight = 0;
         this.orientation = 0;
-        this.coordinates = [-63, -8, -16]
+        this.coordinates = [-160, -18, -41]
         this.elapsedTime = 0;
 
         this.egg = null;
     }
 
-    increaseSpeed() {
-        this.speed += this.speedFactor;
+    accelerate(speedFactor){
+        this.speed += speedFactor;
+        if (this.speed < 0)
+            this.speed = 0;
     }
 
-    decreaseSpeed() {
-        this.speed = this.speed - this.speedFactor < 0 ? 0 : this.speed - this.speedFactor;
-    }
-
-    rotateLeft() {
-        this.orientation += this.speedFactor / 50;
-    }
-
-    rotateRight() {
-        this.orientation -= this.speedFactor / 50;
+    turn(speedFactor){
+        this.orientation += speedFactor / 50;
     }
 
     reset(){
@@ -66,7 +59,7 @@ export class Bird extends CGFobject {
         this.speed = 0;
         this.incrementHeight = 0;
         this.orientation = 0;
-        this.coordinates = [-63, -8, -16]
+        this.coordinates = [-160, -18, -41]
         this.elapsedTime = 0;
     }
 
@@ -91,18 +84,13 @@ export class Bird extends CGFobject {
         this.coordinates[1] = Math.min(-8, this.coordinates[1]);
     }
 
-    update(t, speedFactor, pressingp) {
-        this.speedFactor = speedFactor;
-        if (pressingp) {
-            console.log("ola");
-            this.go_down();
-        } else if (this.coordinates[1] < -8.03) {
-            this.go_up();
-        }
-        this.incrementHeight = Math.sin(t / (Math.PI * 100)) * 0.03;
-        this.coordinates = [this.coordinates[0] + (t - this.elapsedTime) / 1000 * this.speed * Math.sin(this.orientation/4), this.coordinates[1] + this.incrementHeight, this.coordinates[2] + (t - this.elapsedTime) / 1000 * this.speed * Math.cos(this.orientation/4)]
-        this.angleWings = Math.sin(t / 100 * speedFactor) * 30 * Math.PI / 180;
+    update(t, speedFactor) {
+        /*if (this.coordinates[1] < -18.03)
+            this.go_up();*/
 
+        this.incrementHeight = Math.sin(t / (Math.PI * 100)) * 0.03;
+        this.coordinates = [this.coordinates[0] + (t - this.elapsedTime) / 1000 * this.speed * Math.sin(this.orientation), this.coordinates[1] + this.incrementHeight, this.coordinates[2] + (t - this.elapsedTime) / 1000 * this.speed * Math.cos(this.orientation)]
+        this.angleWings = Math.sin(t / 100 * speedFactor) * 30 * Math.PI / 180;
         this.elapsedTime = t;
     }
 
@@ -159,8 +147,8 @@ export class Bird extends CGFobject {
         this.scene.popMatrix();
 
         if (this.egg != null) {
-            this.pushMatrix();
-            this.scene.translate(0.0, -1.5, 0.0);
+            this.scene.pushMatrix();
+            this.scene.translate(0.0, -2, 0.0);
             this.egg.display();
             this.scene.popMatrix();
         }
