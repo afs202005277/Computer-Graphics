@@ -29,7 +29,6 @@ export class MyTreeRowPatch extends CGFobject {
     display() {
         for (let i = 0; i < this.trees.length; i++) {
             this.scene.pushMatrix();
-            let s = 0.8;
             this.trees[i].display(...this.treesPositions[i], this.treesSizes[i]);
             this.scene.popMatrix();
         }

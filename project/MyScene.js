@@ -107,15 +107,15 @@ export class MyScene extends CGFscene {
             console.log(key);
             for (const letter of key) {
                 console.log(letter);
-                if (key === "W")
+                if (letter === "W")
                     this.bird.increaseSpeed();
-                else if (key === "S")
+                else if (letter === "S")
                     this.bird.decreaseSpeed();
-                else if (key === "A")
+                else if (letter === "A")
                     this.bird.rotateLeft();
-                else if (key === "D")
+                else if (letter === "D")
                     this.bird.rotateRight();
-                else if (key === "R") {
+                else if (letter === "R") {
                     this.bird.reset();
                 }
             }
