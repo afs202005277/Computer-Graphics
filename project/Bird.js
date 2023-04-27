@@ -37,7 +37,7 @@ export class Bird extends CGFobject {
         this.speed = 0;
         this.incrementHeight = 0;
         this.orientation = 0;
-        this.coordinates = [-63, -8, -16]
+        this.coordinates = [-160, -18, -41]
         this.elapsedTime = 0;
     }
 
