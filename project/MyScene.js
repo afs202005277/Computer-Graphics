@@ -37,7 +37,7 @@ export class MyScene extends CGFscene {
         this.displayAxis = true;
         this.scaleFactor = 1;
         this.speedFactor = 1.5;
-        this.bird = new Bird(this, this.speedFactor);
+        this.bird = new Bird(this);
         this.nest = new Nest(this);
         this.patch = new MyTreeRowPatch(this);
         this.treeMaterial = new CGFappearance(this);
@@ -104,17 +104,15 @@ export class MyScene extends CGFscene {
     update(t) {
         let key = this.checkKeys();
         if (key !== undefined) {
-            console.log(key);
             for (const letter of key) {
-                console.log(letter);
                 if (letter === "W")
-                    this.bird.increaseSpeed();
+                    this.bird.accelerate(this.speedFactor);
                 else if (letter === "S")
-                    this.bird.decreaseSpeed();
+                    this.bird.accelerate(-this.speedFactor);
                 else if (letter === "A")
-                    this.bird.rotateLeft();
+                    this.bird.turn(this.speedFactor);
                 else if (letter === "D")
-                    this.bird.rotateRight();
+                    this.bird.turn(-this.speedFactor);
                 else if (letter === "R") {
                     this.bird.reset();
                 }

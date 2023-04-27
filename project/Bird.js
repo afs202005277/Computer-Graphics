@@ -10,7 +10,7 @@ import {BirdWing} from "./BirdWing.js";
  * @param scene - Reference to MyScene object
  */
 export class Bird extends CGFobject {
-    constructor(scene, speedFactor) {
+    constructor(scene) {
         super(scene);
 
         this.wingMaterial1 = new CGFappearance(scene);
@@ -35,27 +35,20 @@ export class Bird extends CGFobject {
 
         this.angleWings = 0;
         this.speed = 0;
-        this.speedFactor = speedFactor;
         this.incrementHeight = 0;
         this.orientation = 0;
         this.coordinates = [-63, -8, -16]
         this.elapsedTime = 0;
     }
 
-    increaseSpeed() {
-        this.speed += this.speedFactor;
+    accelerate(speedFactor){
+        this.speed += speedFactor;
+        if (this.speed < 0)
+            this.speed = 0;
     }
 
-    decreaseSpeed() {
-        this.speed = this.speed - this.speedFactor < 0 ? 0 : this.speed - this.speedFactor;
-    }
-
-    rotateLeft() {
-        this.orientation += this.speedFactor / 50;
-    }
-
-    rotateRight() {
-        this.orientation -= this.speedFactor / 50;
+    turn(speedFactor){
+        this.orientation += speedFactor / 50;
     }
 
     reset(){
@@ -68,7 +61,6 @@ export class Bird extends CGFobject {
     }
 
     update(t, speedFactor) {
-        this.speedFactor = speedFactor;
         this.incrementHeight = Math.sin(t / (Math.PI * 100)) * 0.03;
         this.coordinates = [this.coordinates[0] + (t - this.elapsedTime) / 1000 * this.speed * Math.sin(this.orientation), this.coordinates[1] + this.incrementHeight, this.coordinates[2] + (t - this.elapsedTime) / 1000 * this.speed * Math.cos(this.orientation)]
         this.angleWings = Math.sin(t / 100 * speedFactor) * 30 * Math.PI / 180;
