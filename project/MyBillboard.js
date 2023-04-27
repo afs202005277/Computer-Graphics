@@ -14,7 +14,7 @@ export class MyBillboard extends CGFobject {
         this.initBuffers();
     }
 
-    display(x, y, z) {
+    display(x, y, z, s) {
         this.scene.pushMatrix();
         var cameraPos = this.scene.camera.position;
         var dirVec = vec3.fromValues(cameraPos[0] - x, cameraPos[1] - y, cameraPos[2] - z);
@@ -23,6 +23,8 @@ export class MyBillboard extends CGFobject {
         var angle = Math.atan2(dirVec[0], dirVec[2]) - Math.atan2(initVec[0], initVec[2]);
 
         this.scene.translate(x, y, z);
+
+        this.scene.scale(s, s, s);
 
         this.scene.rotate(angle, 0, 1, 0);
 
