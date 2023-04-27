@@ -26,6 +26,45 @@ export class MyTerrain extends CGFobject {
         this.shader_water.setUniformsValues({ timeFactor: t / 100000 % 100 });
 	}
 
+    static ground_level(x, y) {
+        // create an Image object
+        const img = new Image();
+      
+        // set the source of the image
+        img.src = 'images/heightmap_edited_2.jpeg';
+      
+        // wait for the image to load
+        return new Promise(resolve => {
+          img.onload = function() {
+            // create a canvas element in memory
+            const canvas = document.createElement('canvas');
+      
+            // set the width and height of the canvas to the size of the image
+            canvas.width = img.width;
+            canvas.height = img.height;
+      
+            // get the context of the canvas
+            const ctx = canvas.getContext('2d');
+      
+            // draw the image onto the canvas
+            ctx.drawImage(img, 0, 0);
+      
+            // get the pixel data of the canvas
+            const pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      
+            // calculate the index of the pixel at the specified coordinates
+            const i = (y * canvas.width + x) * 4;
+
+            // calculate the grayscale value of the pixel
+            const r = pixelData[i];
+      
+            // resolve the promise with the pixel value
+            resolve(r);
+          };
+        });
+    }
+      
+
 
     display() {
         this.scene.appearance.setTexture(this.terrainTexture);

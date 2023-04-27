@@ -63,6 +63,10 @@ export class MyScene extends CGFscene {
             return [Math.PI, Math.random(), Math.random(), Math.random()];
         })
 
+        for (let i = 0; i < this.eggs.length; i++) {
+            this.eggs[i].coordinates = [-150 + this.eggLocations[i][0], -21+this.eggLocations[i][1], -71+this.eggLocations[i][2]];
+        }
+
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
         this.appearance = new CGFappearance(this);
         this.appearance.setAmbient(1, 1, 1, 1.0);
@@ -103,6 +107,7 @@ export class MyScene extends CGFscene {
 
     update(t) {
         let key = this.checkKeys();
+        let pressingp = false;
         if (key !== undefined) {
             console.log(key);
             for (const letter of key) {
@@ -115,12 +120,15 @@ export class MyScene extends CGFscene {
                     this.bird.rotateLeft();
                 else if (key === "D")
                     this.bird.rotateRight();
-                else if (key === "R") {
+                else if (key === "R")
                     this.bird.reset();
+                else if (key === "P") {
+                    pressingp = true;
                 }
             }
         }
-        this.bird.update(t, this.speedFactor);
+        this.bird.update(t, this.speedFactor, pressingp);
+        this.check_distances_to_eggs();
         this.terrain.update(t);
     }
 
@@ -190,6 +198,28 @@ export class MyScene extends CGFscene {
         // ---- END Primitive drawing section
     }
 
+    check_distances_to_eggs() {
+
+        if (this.bird.egg == null) {
+            let distances = [];
+            for (let i = 0; i < this.eggs.length; i++) {
+                let egg_coord = this.eggs[i].coordinates;
+                console.log(egg_coord);
+                let distance_to_bird = Math.sqrt((this.bird.coordinates[0] - egg_coord[0])**2 + (this.bird.coordinates[1] - egg_coord[1])**2 + (this.bird.coordinates[2] - egg_coord[2])**2);
+                distances.push(distance_to_bird);
+                if (distance_to_bird < 2) {
+                    let egg_removed = this.eggs.splice(i, 1);
+                    this.eggLocations.splice(i, 1);
+                    this.eggRotations.splice(i, 1);
+                    this.bird.egg = egg_removed[0];
+                    break;
+                }
+            }
+            console.log(this.bird.coordinates);
+            console.log(distances);
+        }
+    }
+
     checkKeys() {
         var text = "";
         var keysPressed = false;
@@ -212,6 +242,10 @@ export class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyR")) {
             text += "R";
+            keysPressed = true;
+        }
+        if (this.gui.isKeyPressed("KeyP")) {
+            text += "P";
             keysPressed = true;
         }
         if (keysPressed)

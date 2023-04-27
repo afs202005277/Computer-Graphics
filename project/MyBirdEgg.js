@@ -18,6 +18,8 @@ export class MyBirdEgg extends CGFobject {
         this.appearance.setShininess(100);
         this.appearance.setTexture(new CGFtexture(scene, "images/egg.png"));
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.coordinates = [0, 0, 0];
     }
 
     display() {
