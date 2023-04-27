@@ -6,7 +6,7 @@ import {MyBillboard} from "./MyBillboard.js";
  * @constructor
  * @param scene - Reference to MyScene object
  */
-export class MyTreeGroupPatch extends CGFobject {
+export class MyTreeRowPatch extends CGFobject {
     constructor(scene) {
         super(scene);
         this.scene = scene;
@@ -16,22 +16,20 @@ export class MyTreeGroupPatch extends CGFobject {
 
         let textures = this.getTextures(["billboardtree.png", "tree2.png"]);
 
-        for (let x = 0; x < 3; x++) {
-            for (let z = 0; z < 3; z++) {
-                let size = Math.random() * (1 - 0.5) + 0.5; // random size between 0.5 and 1
-                let texture = textures[Math.floor(Math.random() * textures.length)];
-                let tree = new MyBillboard(scene, texture);
-                this.treesPositions.push([x, 0, z]);
-                this.treesSizes.push(size);
-                this.trees.push(tree);
-            }
+        for (let x = 0; x < 6; x++) {
+            let size = Math.random() * (1 - 0.5) + 0.5; // random size between 0.5 and 1
+            let texture = textures[Math.floor(Math.random() * textures.length)];
+            let tree = new MyBillboard(scene, texture);
+            this.treesPositions.push([0, 0, x]);
+            this.treesSizes.push(size);
+            this.trees.push(tree);
         }
     }
 
     display() {
-        for (let i=0;i<this.trees.length;i++){
+        for (let i = 0; i < this.trees.length; i++) {
             this.scene.pushMatrix();
-            this.scene.translate(0, -(this.treesSizes[i]/2), 0);
+            let s = 0.8;
             this.trees[i].display(...this.treesPositions[i], this.treesSizes[i]);
             this.scene.popMatrix();
         }

@@ -5,7 +5,7 @@ import {MyTerrain} from "./MyTerrain.js";
 import { Nest } from "./Nest.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import {MyBillboard} from "./MyBillboard.js";
-import {MyTreeGroupPatch} from "./MyTreeGroupPatch.js";
+import {MyTreeRowPatch} from "./MyTreeRowPatch.js";
 
 /**
  * MyScene
@@ -39,7 +39,7 @@ export class MyScene extends CGFscene {
         this.speedFactor = 1.5;
         this.bird = new Bird(this, this.speedFactor);
         this.nest = new Nest(this);
-        this.patch = new MyTreeGroupPatch(this);
+        this.patch = new MyTreeRowPatch(this);
         this.treeMaterial = new CGFappearance(this);
         this.treeMaterial.setAmbient(1.0, 1, 1, 1);
         this.treeMaterial.setDiffuse(1.0, 1, 1, 1);

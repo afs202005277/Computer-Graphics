@@ -26,6 +26,7 @@ export class MyScene extends CGFscene {
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
+    this.enableTextures(true);
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
@@ -44,7 +45,7 @@ export class MyScene extends CGFscene {
     this.appearance.setDiffuse(1.0, 1, 1, 1);
     this.appearance.setSpecular(1.0, 1, 1, 1);
     this.appearance.setShininess(100);
-    this.appearance.setTexture(new CGFtexture(this, "images/billboardtree.jpg"));
+    this.appearance.setTexture(new CGFtexture(this, "images/billboardtree.png"));
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
     this.billboard = new MyBillboard(this, this.appearance);
   }
@@ -85,6 +86,10 @@ export class MyScene extends CGFscene {
 
     this.setDefaultAppearance();
 
-    this.billboard.display(3, 2, 1);
+    this.pushMatrix();
+    let s = 0.8;
+    this.translate(0, -(1-s), 0);
+    this.billboard.display(0, 0, 0, s);
+    this.popMatrix();
   }
 }

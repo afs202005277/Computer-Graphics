@@ -16,6 +16,8 @@ export class MyBillboard extends CGFobject {
 
     display(x, y, z, s) {
         this.scene.pushMatrix();
+        this.scene.translate(0, 0.5, 0);
+        this.scene.pushMatrix();
         var cameraPos = this.scene.camera.position;
         var dirVec = vec3.fromValues(cameraPos[0] - x, cameraPos[1] - y, cameraPos[2] - z);
 
@@ -30,6 +32,7 @@ export class MyBillboard extends CGFobject {
 
         this.material.apply();
         this.quad.display();
+        this.scene.popMatrix();
         this.scene.popMatrix();
     }
 
