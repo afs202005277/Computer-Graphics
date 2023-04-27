@@ -1,5 +1,6 @@
 import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
 import {MyBillboard} from "./MyBillboard.js";
+import {MyTerrain} from "./MyTerrain.js";
 
 /**
  * MyDiamond
@@ -7,7 +8,7 @@ import {MyBillboard} from "./MyBillboard.js";
  * @param scene - Reference to MyScene object
  */
 export class MyTreeGroupPatch extends CGFobject {
-    constructor(scene) {
+    constructor(scene, startX, startZ) {
         super(scene);
         this.scene = scene;
         this.trees = [];
@@ -16,24 +17,29 @@ export class MyTreeGroupPatch extends CGFobject {
 
         let textures = this.getTextures(["billboardtree.png", "tree2.png"]);
 
-        for (let x = 0; x < 3; x++) {
-            for (let z = 0; z < 3; z++) {
+        for (let x = 0; x < 66; x += 22) {
+            for (let z = 0; z < 66; z += 22) {
+                let y = 0;
                 let size = Math.random() * (1 - 0.5) + 0.5; // random size between 0.5 and 1
                 let texture = textures[Math.floor(Math.random() * textures.length)];
                 let tree = new MyBillboard(scene, texture);
-                this.treesPositions.push([x, 0, z]);
+                y = this.getHeight(startX + x, startZ + z);
+                this.treesPositions.push([startX + x, y, startZ + z]);
                 this.treesSizes.push(size);
                 this.trees.push(tree);
             }
         }
     }
 
+    async getHeight(x, z) {
+        return await MyTerrain.ground_level(Math.floor((x + 200) / 400 * 128), 128 + Math.floor((z - 200) / 400 * 128)).then(value => {
+            return value;
+        })
+    }
+
     display() {
-        for (let i=0;i<this.trees.length;i++){
-            this.scene.pushMatrix();
-            this.scene.translate(0, -(this.treesSizes[i]/2), 0);
+        for (let i = 0; i < this.trees.length; i++) {
             this.trees[i].display(...this.treesPositions[i], this.treesSizes[i]);
-            this.scene.popMatrix();
         }
     }
 

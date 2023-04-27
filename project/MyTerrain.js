@@ -59,7 +59,7 @@ export class MyTerrain extends CGFobject {
             const r = pixelData[i];
       
             // resolve the promise with the pixel value
-            resolve(r);
+            resolve(0.3038*r - 94.313);
           };
         });
     }

@@ -6,6 +6,7 @@ import { Nest } from "./Nest.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import {MyBillboard} from "./MyBillboard.js";
 import {MyTreeRowPatch} from "./MyTreeRowPatch.js";
+import {MyTreeGroupPatch} from "./MyTreeGroupPatch.js";
 
 /**
  * MyScene
@@ -39,7 +40,7 @@ export class MyScene extends CGFscene {
         this.speedFactor = 1.5;
         this.bird = new Bird(this);
         this.nest = new Nest(this);
-        this.patch = new MyTreeRowPatch(this);
+        this.patch = new MyTreeGroupPatch(this, -100, 0);
         this.treeMaterial = new CGFappearance(this);
         this.treeMaterial.setAmbient(1.0, 1, 1, 1);
         this.treeMaterial.setDiffuse(1.0, 1, 1, 1);
@@ -167,8 +168,7 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.scale(7, 10, 7);
-        this.translate(this.bird.coordinates[0]+40, this.bird.coordinates[1]+10, this.bird.coordinates[2]+10);
+
         this.patch.display();
         this.popMatrix();
 
@@ -211,8 +211,6 @@ export class MyScene extends CGFscene {
                 }
             }
         }
-
-        console.log(this.bird.coordinates);
     }
 
     checkKeys() {

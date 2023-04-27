@@ -16,6 +16,7 @@ export class MyBillboard extends CGFobject {
     }
 
     display(x, y, z, s) {
+        console.log(x, y, z, s);
         if (x === undefined) {
             x = 0;
             y = 0;
@@ -35,12 +36,14 @@ export class MyBillboard extends CGFobject {
 
         this.scene.scale(s, s, s);
 
+        this.scene.scale(20, 20, 20);
+
         this.scene.translate(0, 0.5, 0);
 
         this.material.apply();
         this.quad.display();
         this.scene.popMatrix();
-
+/*
         let newNormal = [];
         for (let coord = 0; coord < this.quad.vertices.length; coord += 3) {
             let normal = vec3.fromValues(0, 0, 0);
@@ -48,7 +51,7 @@ export class MyBillboard extends CGFobject {
             newNormal.push(normal[0], normal[1], normal[2]);
         }
         this.quad.normals = newNormal;
-        this.initBuffers();
+        this.initBuffers();*/
     }
 
 }
