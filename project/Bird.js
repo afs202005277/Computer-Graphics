@@ -63,30 +63,31 @@ export class Bird extends CGFobject {
         this.elapsedTime = 0;
     }
 
-    go_down() {
-        console.log(Math.floor((this.coordinates[0]+200)/400*128), -Math.floor((this.coordinates[0]-200)/400*128));
-        MyTerrain.ground_level(Math.floor((this.coordinates[0]+200)/400*128), -Math.floor((this.coordinates[0]-200)/400*128)).then(value => {
+    go_down(speedFactor) {
+        MyTerrain.ground_level(Math.floor((this.coordinates[0]+200)/400*128), 128+Math.floor((this.coordinates[2]-200)/400*128)).then(value => {
             let gs_val = value;
-            let height_terrain = gs_val*0.2 - 100;
-
-            console.log(height_terrain);
+            let height_terrain = 0.3038*gs_val - 94.313;
 
         if (this.coordinates[1] > height_terrain) {
-            this.coordinates[1] -= this.speedFactor*0.2;
+            this.coordinates[1] -= speedFactor*0.2;
             this.coordinates[1] = Math.max(height_terrain, this.coordinates[1]);
         }
           });
 
     }
 
-    go_up() {
-        this.coordinates[1] += this.speedFactor*0.2;
-        this.coordinates[1] = Math.min(-8, this.coordinates[1]);
+    go_up(speedFactor) {
+        this.coordinates[1] += speedFactor*0.2;
+        this.coordinates[1] = Math.min(-18, this.coordinates[1]);
     }
 
-    update(t, speedFactor) {
-        /*if (this.coordinates[1] < -18.03)
-            this.go_up();*/
+    update(t, speedFactor, pressingp) {
+
+        if (pressingp) {
+            this.go_down(speedFactor);
+        } else if (this.coordinates[1] < -18.5) {
+            this.go_up(speedFactor);
+        }
 
         this.incrementHeight = Math.sin(t / (Math.PI * 100)) * 0.03;
         this.coordinates = [this.coordinates[0] + (t - this.elapsedTime) / 1000 * this.speed * Math.sin(this.orientation), this.coordinates[1] + this.incrementHeight, this.coordinates[2] + (t - this.elapsedTime) / 1000 * this.speed * Math.cos(this.orientation)]

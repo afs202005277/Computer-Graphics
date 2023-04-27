@@ -121,11 +121,11 @@ export class MyScene extends CGFscene {
                 else if (letter === "R")
                     this.bird.reset();
                 else if (key === "P") {
-                    this.bird.go_down();
+                    pressingp = true;
                 }
             }
         }
-        this.bird.update(t, this.speedFactor);
+        this.bird.update(t, this.speedFactor, pressingp);
         this.check_distances_to_eggs();
         this.terrain.update(t);
     }
@@ -199,12 +199,9 @@ export class MyScene extends CGFscene {
     check_distances_to_eggs() {
 
         if (this.bird.egg == null) {
-            let distances = [];
             for (let i = 0; i < this.eggs.length; i++) {
                 let egg_coord = this.eggs[i].coordinates;
-                console.log(egg_coord);
                 let distance_to_bird = Math.sqrt((this.bird.coordinates[0] - egg_coord[0])**2 + (this.bird.coordinates[1] - egg_coord[1])**2 + (this.bird.coordinates[2] - egg_coord[2])**2);
-                distances.push(distance_to_bird);
                 if (distance_to_bird < 4) {
                     let egg_removed = this.eggs.splice(i, 1);
                     this.eggLocations.splice(i, 1);
@@ -213,9 +210,9 @@ export class MyScene extends CGFscene {
                     break;
                 }
             }
-            console.log(this.bird.coordinates);
-            console.log(distances);
         }
+
+        console.log(this.bird.coordinates);
     }
 
     checkKeys() {
