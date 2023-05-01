@@ -24,11 +24,10 @@ export class BirdBody extends CGFobject {
     display() {
 
         this.scene.pushMatrix();
-
+        this.material.apply();
         this.scene.scale(1.2, 0.4, 1.0);
 
         this.scene.translate(0.0, 0.0, -0.5);
-        this.material.apply();
         this.birdbodyfront.display();
 
         this.scene.popMatrix();
@@ -42,7 +41,6 @@ export class BirdBody extends CGFobject {
         this.scene.rotate(Math.PI/2, 0.0, 0.0, 1.0);
 
         this.scene.rotate(Math.PI/4, 0.0, 1.0, 0.0);
-        this.material.apply();
         this.tail.display();
 
         this.scene.popMatrix();

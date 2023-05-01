@@ -1,4 +1,4 @@
-import {CGFobject, CGFshader, CGFtexture} from '../lib/CGF.js';
+import {CGFappearance, CGFobject, CGFshader, CGFtexture} from '../lib/CGF.js';
 import {MyPlane} from "./MyPlane.js";
 
 /**
@@ -20,6 +20,20 @@ export class MyTerrain extends CGFobject {
         this.waterTex = new CGFtexture(this.scene, "images/waterTex.jpg");
 		this.waterMap = new CGFtexture(this.scene, "images/waterMap.jpg");
         this.shader_water.setUniformsValues({ timeFactor: 0, waterTex: 3, waterMap: 4 });
+
+        this.terrainTextureMaterial = new CGFappearance(this.scene);
+        this.terrainTextureMaterial.setAmbient(1, 1, 1, 1.0);
+        this.terrainTextureMaterial.setDiffuse(1, 1, 1, 1.0);
+        this.terrainTextureMaterial.setSpecular(1, 1, 1, 1.0);
+        this.terrainTextureMaterial.setTexture(this.terrainTexture);
+        this.terrainTextureMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.waterTextureMaterial = new CGFappearance(this.scene);
+        this.waterTextureMaterial.setAmbient(1, 1, 1, 1.0);
+        this.waterTextureMaterial.setDiffuse(1, 1, 1, 1.0);
+        this.waterTextureMaterial.setSpecular(1, 1, 1, 1.0);
+        this.waterTextureMaterial.setTexture(this.waterTex);
+        this.waterTextureMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     update(t) {
@@ -67,33 +81,26 @@ export class MyTerrain extends CGFobject {
 
 
     display() {
-        this.scene.appearance.setTexture(this.terrainTexture);
-        this.scene.appearance.setTextureWrap('REPEAT', 'REPEAT');
         this.terrainHeightMap.bind(1)
         this.altimetry.bind(2);
 
-        this.scene.appearance.apply();
+        this.terrainTextureMaterial.apply();
 
         this.scene.setActiveShader(this.shader_terrain);
 
         this.plane_terrain.display();
 
-        this.scene.appearance.setTexture(this.waterTex);
-		this.scene.appearance.setTextureWrap('REPEAT', 'REPEAT');
         this.waterTex.bind(3)
         this.waterMap.bind(4)
 
-        this.scene.appearance.apply();
+        this.waterTextureMaterial.apply();
 
         this.scene.setActiveShader(this.shader_water);
 
         this.scene.pushMatrix();
-    
         this.scene.translate(0, 0, 0.05);
         this.scene.rotate(Math.PI/2, 0, 0, 1);
-
         this.plane_water.display();
-
         this.scene.popMatrix();
 
         this.scene.setActiveShader(this.scene.defaultShader);

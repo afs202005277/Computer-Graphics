@@ -2,8 +2,8 @@ import {CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture} from
 import {MyPanorama} from "./MyPanorama.js";
 import {Bird} from "./Bird.js";
 import {MyTerrain} from "./MyTerrain.js";
-import { Nest } from "./Nest.js";
-import { MyBirdEgg } from "./MyBirdEgg.js";
+import {Nest} from "./Nest.js";
+import {MyBirdEgg} from "./MyBirdEgg.js";
 import {MyBillboard} from "./MyBillboard.js";
 import {MyTreeRowPatch} from "./MyTreeRowPatch.js";
 import {MyTreeGroupPatch} from "./MyTreeGroupPatch.js";
@@ -55,17 +55,17 @@ export class MyScene extends CGFscene {
             new MyBirdEgg(this),
             new MyBirdEgg(this),
             new MyBirdEgg(this),
-            new MyBirdEgg(this),
+            new MyBirdEgg(this)
         ]
         this.eggLocations = this.eggs.map((egg) => {
-            return [-45*Math.random(), 0, 45*Math.random()]
+            return [-45 * Math.random(), 0, 45 * Math.random()]
         })
         this.eggRotations = this.eggs.map((egg) => {
             return [Math.PI, Math.random(), Math.random(), Math.random()];
         })
 
         for (let i = 0; i < this.eggs.length; i++) {
-            this.eggs[i].coordinates = [-150 + this.eggLocations[i][0], -21+this.eggLocations[i][1], -71+this.eggLocations[i][2]];
+            this.eggs[i].coordinates = [-150 + this.eggLocations[i][0], -21 + this.eggLocations[i][1], -71 + this.eggLocations[i][2]];
         }
 
         this.texture = new CGFtexture(this, "images/panorama4.jpg");
@@ -74,8 +74,8 @@ export class MyScene extends CGFscene {
         this.appearance.setDiffuse(1, 1, 1, 1.0);
         this.appearance.setSpecular(1, 1, 1, 1.0);
 
-        // this.appearance.setTexture(this.texture);
-        // this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.appearance.setTexture(this.texture);
+        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.panorama = new MyPanorama(this, this.texture)
 
@@ -147,18 +147,24 @@ export class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
+        let start = performance.now();
         this.pushMatrix();
         this.appearance.apply();
         this.rotate(Math.PI, 0, 1, 0);
         this.panorama.display();
         this.popMatrix();
 
+        console.log("Panorama: " + (performance.now()-start))
+        start = performance.now();
         this.pushMatrix();
         this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.scale(2.5, 2.5, 2.5);
         this.bird.display();
         this.popMatrix();
+
+        console.log("Bird: " + (performance.now()-start))
+        start = performance.now();
 
         this.pushMatrix();
         this.translate(0, -100, 0);
@@ -167,10 +173,15 @@ export class MyScene extends CGFscene {
         this.terrain.display();
         this.popMatrix();
 
-        this.pushMatrix();
+        console.log("Terrain: " + (performance.now()-start))
+        start = performance.now();
 
+        this.pushMatrix();
         this.patch.display();
         this.popMatrix();
+
+        console.log("TreePatch: " + (performance.now()-start))
+        start = performance.now();
 
         this.pushMatrix();
         this.translate(-160, -23, -41);
@@ -178,10 +189,8 @@ export class MyScene extends CGFscene {
         this.nest.display();
         this.popMatrix();
 
-        this.pushMatrix();
-        this.scale(5, 10, 5);
-        this.billboard.display(this.bird.coordinates[0], this.bird.coordinates[1]+10, this.bird.coordinates[2]);
-        this.popMatrix();
+        console.log("Nest: " + (performance.now()-start))
+        start = performance.now();
 
         for (let i = 0; i < this.eggs.length; i++) {
             this.pushMatrix();
@@ -193,15 +202,17 @@ export class MyScene extends CGFscene {
             this.popMatrix();
         }
 
+        console.log("Eggs: " + (performance.now()-start))
+        console.log("END")
+
         // ---- END Primitive drawing section
     }
 
     check_distances_to_eggs() {
-
         if (this.bird.egg == null) {
             for (let i = 0; i < this.eggs.length; i++) {
                 let egg_coord = this.eggs[i].coordinates;
-                let distance_to_bird = Math.sqrt((this.bird.coordinates[0] - egg_coord[0])**2 + (this.bird.coordinates[1] - egg_coord[1])**2 + (this.bird.coordinates[2] - egg_coord[2])**2);
+                let distance_to_bird = Math.sqrt((this.bird.coordinates[0] - egg_coord[0]) ** 2 + (this.bird.coordinates[1] - egg_coord[1]) ** 2 + (this.bird.coordinates[2] - egg_coord[2]) ** 2);
                 if (distance_to_bird < 4) {
                     let egg_removed = this.eggs.splice(i, 1);
                     this.eggLocations.splice(i, 1);

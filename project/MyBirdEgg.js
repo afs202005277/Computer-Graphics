@@ -23,7 +23,6 @@ export class MyBirdEgg extends CGFobject {
     }
 
     display() {
-
         this.scene.pushMatrix();
         this.appearance.apply();
         this.scene.pushMatrix();

@@ -26,14 +26,13 @@ export class BirdFoot extends CGFobject {
     }
 
     display() {
-
+        this.material.apply();
         this.scene.pushMatrix();
 
         this.scene.rotate(-Math.PI/2, 1.0, 0.0, 0.0);
 
         this.scene.scale(0.08, 0.08, 0.7);
         this.scene.translate(0, 0, 0.1);
-        this.material.apply();
         this.leg.display();
 
         this.scene.popMatrix();
@@ -43,7 +42,6 @@ export class BirdFoot extends CGFobject {
 
         this.scene.scale(0.18, 0.1, 0.25);
 
-        this.material.apply();
         this.backtoe.display();
 
         this.scene.popMatrix();
@@ -53,7 +51,6 @@ export class BirdFoot extends CGFobject {
 
         this.scene.scale(0.08, 0.08, 0.5);
 
-        this.material.apply();
         this.toe2.display();
 
         this.scene.popMatrix();
@@ -65,7 +62,6 @@ export class BirdFoot extends CGFobject {
 
         this.scene.scale(0.08, 0.08, 0.5);
 
-        this.material.apply();
         this.toe3.display();
 
         this.scene.popMatrix();
@@ -77,7 +73,6 @@ export class BirdFoot extends CGFobject {
 
         this.scene.scale(0.08, 0.08, 0.5);
 
-        this.material.apply();
         this.toe1.display();
         this.scene.popMatrix();
     }

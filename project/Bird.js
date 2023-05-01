@@ -92,19 +92,6 @@ export class Bird extends CGFobject {
         this.elapsedTime = t;
     }
 
-    transformVertex(matrix, vertex) {
-        // Create a 4-element vector for the vertex
-        var vec4Vertex = vec4.fromValues(vertex[0], vertex[1], vertex[2], 1.0);
-
-        // Multiply the vertex by the transformation matrix
-        vec4.transformMat4(vec4Vertex, vec4Vertex, matrix);
-
-        // Extract the transformed vertex coordinates from the resulting vector
-        // Return the transformed vertex
-        return [vec4Vertex[0], vec4Vertex[1], vec4Vertex[2]];
-    }
-
-
     display() {
 
         this.scene.pushMatrix();

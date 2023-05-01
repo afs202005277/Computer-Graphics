@@ -24,11 +24,11 @@ export class MyBillboard extends CGFobject {
             s = 1;
         }
         this.scene.pushMatrix();
-        var cameraPos = this.scene.camera.position;
-        var dirVec = vec3.fromValues(cameraPos[0] - x, cameraPos[1] - y, cameraPos[2] - z);
+        let cameraPos = this.scene.camera.position;
+        let dirVec = vec3.fromValues(cameraPos[0] - x, cameraPos[1] - y, cameraPos[2] - z);
 
-        var initVec = vec3.fromValues(0, 0, 1);
-        var angle = Math.atan2(dirVec[0], dirVec[2]) - Math.atan2(initVec[0], initVec[2]);
+        let initVec = vec3.fromValues(0, 0, 1);
+        let angle = Math.atan2(dirVec[0], dirVec[2]) - Math.atan2(initVec[0], initVec[2]);
 
         this.scene.translate(x, y, z);
 
