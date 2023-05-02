@@ -1,5 +1,6 @@
 import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
 import {MyOval} from "./MyOval.js";
+import {MyTerrain} from "./MyTerrain.js";
 /**
  * MyQuad
  * @constructor
@@ -22,6 +23,16 @@ export class MyBirdEgg extends CGFobject {
         this.coordinates = [0, 0, 0];
     }
 
+    checkBoundaries(value, speedFactor){
+        if (this.coordinates[1] > value) {
+            this.coordinates[1] -= speedFactor*0.50;
+            this.coordinates[1] = Math.max(this.coordinates[1], value);
+        }
+    }
+
+    falling(speedFactor){
+        MyTerrain.ground_level(Math.floor((this.coordinates[0]+200)/400*128), 128+Math.floor((this.coordinates[2]-200)/400*128), this, true, speedFactor);
+    }
     display() {
         this.scene.pushMatrix();
         this.appearance.apply();

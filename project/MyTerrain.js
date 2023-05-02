@@ -18,8 +18,8 @@ export class MyTerrain extends CGFobject {
         this.altimetry = new CGFtexture(this.scene, "images/altimetry.png");
         this.shader_terrain.setUniformsValues({terrainMap: 1, weightOriginal: 0.7, weightAlt: 0.3, altimetry: 2});
         this.waterTex = new CGFtexture(this.scene, "images/waterTex.jpg");
-        this.waterMap = new CGFtexture(this.scene, "images/waterMap.jpg");
-        this.shader_water.setUniformsValues({timeFactor: 0, waterTex: 3, waterMap: 4});
+		this.waterMap = new CGFtexture(this.scene, "images/waterMap.jpg");
+        this.shader_water.setUniformsValues({ timeFactor: 0, waterTex: 3, waterMap: 4 });
 
         this.terrainTextureMaterial = new CGFappearance(this.scene);
         this.terrainTextureMaterial.setAmbient(1, 1, 1, 1.0);
@@ -73,7 +73,7 @@ export class MyTerrain extends CGFobject {
             if (!isBird) {
                 object.y = 0.3038 * r - 94.313;
             } else {
-                object.updateHeightShader(0.3038 * r - 94.313, speedFactor);
+                object.checkBoundaries(0.3038 * r - 94.313, speedFactor);
             }
             // resolve the promise with the pixel value
             return 0.3038 * r - 94.313;

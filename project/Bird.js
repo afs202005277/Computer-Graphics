@@ -63,7 +63,7 @@ export class Bird extends CGFobject {
         this.elapsedTime = 0;
     }
 
-    updateHeightShader(height_terrain, speedFactor){
+    checkBoundaries(height_terrain, speedFactor){
         if (this.coordinates[1] > height_terrain) {
             this.coordinates[1] -= speedFactor * 0.2;
             this.coordinates[1] = Math.max(height_terrain, this.coordinates[1]);
@@ -94,6 +94,10 @@ export class Bird extends CGFobject {
     }
 
     display() {
+
+        this.scene.pushMatrix();
+
+        this.scene.scale(0.8, 0.8, 0.8);
 
         this.scene.pushMatrix();
 
@@ -138,8 +142,7 @@ export class Bird extends CGFobject {
             this.egg.display();
             this.scene.popMatrix();
         }
-
-
+        
         this.scene.popMatrix();
 
     }
