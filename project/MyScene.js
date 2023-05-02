@@ -36,6 +36,7 @@ export class MyScene extends CGFscene {
         this.terrain = new MyTerrain(this);
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.displayTerrain = true;
         this.scaleFactor = 3.0;
         this.speedFactor = 1.5;
         this.bird = new Bird(this);
@@ -84,7 +85,6 @@ export class MyScene extends CGFscene {
         this.appearance.setAmbient(1, 1, 1, 1.0);
         this.appearance.setDiffuse(1, 1, 1, 1.0);
         this.appearance.setSpecular(1, 1, 1, 1.0);
-
         this.appearance.setTexture(this.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
@@ -187,12 +187,7 @@ export class MyScene extends CGFscene {
         console.log("Bird: " + (performance.now()-start))
         start = performance.now();
 
-        this.pushMatrix();
-        this.translate(0, -100, 0);
-        this.scale(400, 400, 400);
-        this.rotate(-Math.PI / 2.0, 1, 0, 0);
         this.terrain.display();
-        this.popMatrix();
 
         console.log("Terrain: " + (performance.now()-start))
         start = performance.now();

@@ -82,6 +82,12 @@ export class MyTerrain extends CGFobject {
 
 
     display() {
+        this.scene.pushMatrix();
+        this.scene.translate(0, -100, 0);
+        this.scene.rotate(-Math.PI / 2.0, 1, 0, 0);
+        this.scene.pushMatrix();
+        this.scene.scale(400, 400, 400);
+
         this.terrainHeightMap.bind(1)
         this.altimetry.bind(2);
 
@@ -89,7 +95,9 @@ export class MyTerrain extends CGFobject {
 
         this.scene.setActiveShader(this.shader_terrain);
 
-        this.plane_terrain.display();
+        if (this.scene.displayTerrain)
+            this.plane_terrain.display();
+        this.scene.popMatrix();
 
         this.waterTex.bind(3)
         this.waterMap.bind(4)
@@ -99,12 +107,14 @@ export class MyTerrain extends CGFobject {
         this.scene.setActiveShader(this.shader_water);
 
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0.05);
+        this.scene.translate(-80, -40, 20);
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.scene.scale(256, 256, 256);
         this.plane_water.display();
         this.scene.popMatrix();
 
         this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.popMatrix();
     }
 }
 
