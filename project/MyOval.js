@@ -44,22 +44,20 @@ export class MyOval extends CGFobject {
                 this.normals.push(normal[0], normal[1], normal[2]);
 
                 this.texCoords.push(u, -v);
-            }
-        }
 
-        for (let i = 0; i < this.stacks; i++) {
-            for (let j = 0; j < this.slices; j++) {
-                const k1 = i * (this.slices + 1) + j;
-                const k2 = k1 + 1;
-                const k3 = (i + 1) * (this.slices + 1) + j;
-                const k4 = k3 + 1;
+                if (i < this.stacks && j < this.slices) {
+                    const k1 = i * (this.slices + 1) + j;
+                    const k2 = k1 + 1;
+                    const k3 = (i + 1) * (this.slices + 1) + j;
+                    const k4 = k3 + 1;
 
-                if (this.drawInside) {
-                    this.indices.push(k1, k3, k2);
-                    this.indices.push(k2, k3, k4);
-                } else {
-                    this.indices.push(k2, k3, k1);
-                    this.indices.push(k4, k3, k2);
+                    if (this.drawInside) {
+                        this.indices.push(k1, k3, k2);
+                        this.indices.push(k2, k3, k4);
+                    } else {
+                        this.indices.push(k2, k3, k1);
+                        this.indices.push(k4, k3, k2);
+                    }
                 }
             }
         }
