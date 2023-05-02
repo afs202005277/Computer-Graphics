@@ -12,11 +12,37 @@ export class MyBillboard extends CGFobject {
         super(scene);
         this.quad = new MyQuad(scene);
         this.material = material;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.s = 1;
         this.initBuffers();
     }
 
+    display_tmp(){
+        this.scene.pushMatrix();
+        let cameraPos = this.scene.camera.position;
+        let dirVec = vec3.fromValues(cameraPos[0] - this.x, cameraPos[1] - this.y, cameraPos[2] - this.z);
+
+        let initVec = vec3.fromValues(0, 0, 1);
+        let angle = Math.atan2(dirVec[0], dirVec[2]) - Math.atan2(initVec[0], initVec[2]);
+
+        this.scene.translate(this.x, this.y, this.z);
+
+        this.scene.rotate(angle, 0, 1, 0);
+
+        this.scene.scale(this.s, this.s, this.s);
+
+        this.scene.scale(20, 20, 20);
+
+        this.scene.translate(0, 0.5, 0);
+
+        this.material.apply();
+        this.quad.display();
+        this.scene.popMatrix();
+    }
+
     display(x, y, z, s) {
-        console.log(x, y, z, s);
         if (x === undefined) {
             x = 0;
             y = 0;
@@ -24,11 +50,11 @@ export class MyBillboard extends CGFobject {
             s = 1;
         }
         this.scene.pushMatrix();
-        var cameraPos = this.scene.camera.position;
-        var dirVec = vec3.fromValues(cameraPos[0] - x, cameraPos[1] - y, cameraPos[2] - z);
+        let cameraPos = this.scene.camera.position;
+        let dirVec = vec3.fromValues(cameraPos[0] - x, cameraPos[1] - y, cameraPos[2] - z);
 
-        var initVec = vec3.fromValues(0, 0, 1);
-        var angle = Math.atan2(dirVec[0], dirVec[2]) - Math.atan2(initVec[0], initVec[2]);
+        let initVec = vec3.fromValues(0, 0, 1);
+        let angle = Math.atan2(dirVec[0], dirVec[2]) - Math.atan2(initVec[0], initVec[2]);
 
         this.scene.translate(x, y, z);
 

@@ -58,9 +58,6 @@ export class MySphere extends CGFobject {
                 }
             }
         }
-    
-        console.log(this.indices.length);
-        console.log(this.vertices.length);
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }

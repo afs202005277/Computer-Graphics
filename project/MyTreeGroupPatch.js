@@ -23,7 +23,9 @@ export class MyTreeGroupPatch extends CGFobject {
                 let size = Math.random() * (1 - 0.5) + 0.5; // random size between 0.5 and 1
                 let texture = textures[Math.floor(Math.random() * textures.length)];
                 let tree = new MyBillboard(scene, texture);
-                y = this.getHeight(startX + x, startZ + z);
+                tree.x = startX + x;
+                tree.z = startZ + z;
+                MyTerrain.ground_level(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128), tree, false, null);
                 this.treesPositions.push([startX + x, y, startZ + z]);
                 this.treesSizes.push(size);
                 this.trees.push(tree);
@@ -31,15 +33,9 @@ export class MyTreeGroupPatch extends CGFobject {
         }
     }
 
-    async getHeight(x, z) {
-        return await MyTerrain.ground_level(Math.floor((x + 200) / 400 * 128), 128 + Math.floor((z - 200) / 400 * 128)).then(value => {
-            return value;
-        })
-    }
-
     display() {
         for (let i = 0; i < this.trees.length; i++) {
-            this.trees[i].display(...this.treesPositions[i], this.treesSizes[i]);
+            this.trees[i].display_tmp(...this.treesPositions[i], this.treesSizes[i]);
         }
     }
 
