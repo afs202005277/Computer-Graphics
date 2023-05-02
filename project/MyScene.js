@@ -134,16 +134,15 @@ export class MyScene extends CGFscene {
             }
         }
         this.bird.update(t, this.speedFactor, pressingp);
+        this.check_distance_from_eggs_to_nest();
         if (check_distance)
             this.check_distances_to_eggs();
         this.terrain.update(t);
 
         this.eggs.forEach(egg => {
             MyTerrain.ground_level(Math.floor((egg.coordinates[0]+200)/400*128), 128+Math.floor((egg.coordinates[2]-200)/400*128)).then(value => {
-                console.log(egg.coordinates);
                 if (egg.coordinates[1] > value) {
-                    console.log(egg.coordinates);
-                    egg.coordinates[1] -= this.speedFactor*0.20;
+                    egg.coordinates[1] -= this.speedFactor*0.50;
                     egg.coordinates[1] = Math.max(egg.coordinates[1], value);
                 }
             })
@@ -192,7 +191,7 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-160, -23, -41);
+        this.translate(...this.nest.coordinates);
         this.scale(6, 6, 6);
         this.nest.display();
         this.popMatrix();
@@ -237,6 +236,25 @@ export class MyScene extends CGFscene {
                 }
             }
         }
+
+    }
+
+    check_distance_from_eggs_to_nest() {
+
+        let distances = [];
+        for (let i = 0; i < this.eggs.length; i++) {
+            let egg_coord = this.eggs[i].coordinates;
+            let distance_to_nest = Math.sqrt((this.nest.coordinates[0] - egg_coord[0])**2 + (this.nest.coordinates[1] - egg_coord[1])**2 + (this.nest.coordinates[2] - egg_coord[2])**2);
+            distances.push(distance_to_nest);
+            if (distance_to_nest < 4) {
+                this.eggs.splice(i, 1);
+                this.eggRotations.splice(i, 1);
+                this.nest.counter++;
+                break;
+            }
+        }
+
+        console.log(distances)
 
     }
 

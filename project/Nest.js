@@ -26,6 +26,8 @@ export class Nest extends CGFobject {
 
         this.eggs = [];
 
+        this.coordinates = [-160, -23, -41];
+
         for (let i = 0; i < amount_eggs; i++) {
             this.eggs.push(new MyBirdEgg(scene));
         }
