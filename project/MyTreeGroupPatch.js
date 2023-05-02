@@ -12,8 +12,6 @@ export class MyTreeGroupPatch extends CGFobject {
         super(scene);
         this.scene = scene;
         this.trees = [];
-        this.treesPositions = [];
-        this.treesSizes = [];
 
         let textures = this.getTextures(["billboardtree.png", "tree2.png"]);
 
@@ -25,9 +23,10 @@ export class MyTreeGroupPatch extends CGFobject {
                 let tree = new MyBillboard(scene, texture);
                 tree.x = startX + x;
                 tree.z = startZ + z;
-                MyTerrain.ground_level(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128), tree, false, null);
-                this.treesPositions.push([startX + x, y, startZ + z]);
-                this.treesSizes.push(size);
+                tree.s = size;
+                if (0 === MyTerrain.ground_level(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128), tree, false, null)){
+                    tree.needsUpdate = true;
+                }
                 this.trees.push(tree);
             }
         }
@@ -35,7 +34,7 @@ export class MyTreeGroupPatch extends CGFobject {
 
     display() {
         for (let i = 0; i < this.trees.length; i++) {
-            this.trees[i].display_tmp(...this.treesPositions[i], this.treesSizes[i]);
+            this.trees[i].display_tmp();
         }
     }
 

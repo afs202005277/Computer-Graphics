@@ -7,8 +7,29 @@ import {MyPlane} from "./MyPlane.js";
  * @param scene - Reference to MyScene object
  */
 export class MyTerrain extends CGFobject {
+
+    static canvas = document.createElement('canvas');
+
+    static ctx;
+
+    static pixelData;
+
+    static loaded=false;
+
+    static img = new Image();
     constructor(scene) {
         super(scene);
+
+        MyTerrain.img.src = 'images/heightmap_edited_2.jpeg';
+        MyTerrain.img.onload = function (){
+            MyTerrain.canvas.width = MyTerrain.img.width;
+            MyTerrain.canvas.height = MyTerrain.img.height;
+            MyTerrain.ctx = MyTerrain.canvas.getContext('2d');
+            MyTerrain.loaded = true;
+            MyTerrain.ctx.drawImage(MyTerrain.img, 0, 0);
+            MyTerrain.pixelData = MyTerrain.ctx.getImageData(0, 0, MyTerrain.canvas.width, MyTerrain.canvas.height).data;
+        }
+
         this.plane_terrain = new MyPlane(this.scene, 50)
         this.plane_water = new MyPlane(this.scene, 50)
         this.shader_terrain = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag")
@@ -40,50 +61,35 @@ export class MyTerrain extends CGFobject {
         this.shader_water.setUniformsValues({timeFactor: t / 100000 % 100});
     }
 
-    static ground_level(x, y, object, isBird, speedFactor) {
-        // create an Image object
-        const img = new Image();
-
-        // set the source of the image
-        img.src = 'images/heightmap_edited_2.jpeg';
-
-        // wait for the image to load
-        let res = img.onload = function () {
-            // create a canvas element in memory
-            const canvas = document.createElement('canvas');
-
-            // set the width and height of the canvas to the size of the image
-            canvas.width = img.width;
-            canvas.height = img.height;
-
-            // get the context of the canvas
-            const ctx = canvas.getContext('2d');
-
-            // draw the image onto the canvas
-            ctx.drawImage(img, 0, 0);
-
-            // get the pixel data of the canvas
-            const pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-
-            // calculate the index of the pixel at the specified coordinates
-            const i = (y * canvas.width + x) * 4;
-
-            // calculate the grayscale value of the pixel
-            const r = pixelData[i];
-            if (!isBird) {
-                object.y = 0.3038 * r - 94.313;
-            } else {
-                object.checkBoundaries(0.3038 * r - 94.313, speedFactor);
-            }
-            // resolve the promise with the pixel value
+    static get_height_from_heightmap(x, y){
+        if (MyTerrain.loaded){
+            const i = (y * MyTerrain.canvas.width + x) * 4;
+            const r = MyTerrain.pixelData[i];
             return 0.3038 * r - 94.313;
-        };
+        } else{
+            return 0;
+        }
+    }
 
-        return res;
+    static ground_level(x, y, object, isBird, speedFactor) {
+        let value = this.get_height_from_heightmap(x, y);
+        if (!isBird) {
+            object.y = value;
+        } else {
+            object.checkBoundaries(value, speedFactor);
+        }
+        console.log("Value: " + value);
+        return value;
     }
 
 
     display() {
+        this.scene.pushMatrix();
+        this.scene.translate(0, -100, 0);
+        this.scene.rotate(-Math.PI / 2.0, 1, 0, 0);
+        this.scene.pushMatrix();
+        this.scene.scale(400, 400, 400);
+
         this.terrainHeightMap.bind(1)
         this.altimetry.bind(2);
 
@@ -91,7 +97,9 @@ export class MyTerrain extends CGFobject {
 
         this.scene.setActiveShader(this.shader_terrain);
 
-        this.plane_terrain.display();
+        if (this.scene.displayTerrain)
+            this.plane_terrain.display();
+        this.scene.popMatrix();
 
         this.waterTex.bind(3)
         this.waterMap.bind(4)
@@ -101,12 +109,14 @@ export class MyTerrain extends CGFobject {
         this.scene.setActiveShader(this.shader_water);
 
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 0.05);
+        this.scene.translate(-80, -40, 20);
         this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.scene.scale(256, 256, 256);
         this.plane_water.display();
         this.scene.popMatrix();
 
         this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.popMatrix();
     }
 }
 
