@@ -48,7 +48,7 @@ export class MyTerrain extends CGFobject {
         img.src = 'images/heightmap_edited_2.jpeg';
 
         // wait for the image to load
-        img.onload = function () {
+        let res = img.onload = function () {
             // create a canvas element in memory
             const canvas = document.createElement('canvas');
 
@@ -78,6 +78,8 @@ export class MyTerrain extends CGFobject {
             // resolve the promise with the pixel value
             return 0.3038 * r - 94.313;
         };
+
+        return res;
     }
 
 

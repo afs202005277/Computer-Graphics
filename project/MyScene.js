@@ -69,6 +69,8 @@ export class MyScene extends CGFscene {
             this.eggs[i].coordinates = [-150 + this.eggLocations[i][0], -21 + this.eggLocations[i][1], -71 + this.eggLocations[i][2]];
         }
 
+        this.eggs_nest = [];
+
         this.nest = new Nest(this, this.eggs.length);
         this.patch = new MyTreeRowPatch(this);
 
@@ -122,7 +124,6 @@ export class MyScene extends CGFscene {
 
     update(t) {
         let key = this.checkKeys();
-        let pressingp = false;
         let check_distance = true;
         if (key !== undefined) {
             for (const letter of key) {
@@ -137,15 +138,19 @@ export class MyScene extends CGFscene {
                 else if (letter === "R")
                     this.bird.reset();
                 else if (key === "P") {
-                    pressingp = true;
+                    this.bird.goingDown = true;
+                }
+                else if (key === "L") {
+                    this.bird_drop_egg();
+                    check_distance = false;
                 }
                 else if (key === "O") {
-                    this.bird_drop_egg();
+                    this.bird_drop_egg_in_nest();
                     check_distance = false;
                 }
             }
         }
-        this.bird.update(t, this.speedFactor, pressingp);
+        this.bird.update(t, this.speedFactor);
         this.check_distance_from_eggs_to_nest();
         if (check_distance)
             this.check_distances_to_eggs();
@@ -153,6 +158,10 @@ export class MyScene extends CGFscene {
 
         this.eggs.forEach(egg => {
             egg.falling(this.speedFactor);
+        });
+
+        this.eggs_nest.forEach(egg => {
+            egg.nest_falling(this.speedFactor, this.nest.coordinates);
         });
     }
 
@@ -179,7 +188,7 @@ export class MyScene extends CGFscene {
         this.panorama.display();
         this.popMatrix();
 
-        console.log("Panorama: " + (performance.now()-start))
+        //console.log("Panorama: " + (performance.now()-start))
         start = performance.now();
         this.pushMatrix();
         this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
@@ -187,7 +196,7 @@ export class MyScene extends CGFscene {
         this.bird.display();
         this.popMatrix();
 
-        console.log("Bird: " + (performance.now()-start))
+        //console.log("Bird: " + (performance.now()-start))
         start = performance.now();
 
         this.pushMatrix();
@@ -197,23 +206,23 @@ export class MyScene extends CGFscene {
         this.terrain.display();
         this.popMatrix();
 
-        console.log("Terrain: " + (performance.now()-start))
+        //console.log("Terrain: " + (performance.now()-start))
         start = performance.now();
 
         this.pushMatrix();
         this.patch.display();
         this.popMatrix();
 
-        console.log("TreePatch: " + (performance.now()-start))
+        //console.log("TreePatch: " + (performance.now()-start))
         start = performance.now();
 
         this.pushMatrix();
         this.translate(...this.nest.coordinates);
-        this.scale(6, 6, 6);
+        this.scale(16, 16, 16);
         this.nest.display();
         this.popMatrix();
 
-        console.log("Nest: " + (performance.now()-start))
+        //console.log("Nest: " + (performance.now()-start))
         start = performance.now();
 
         for (let i = 0; i < this.eggs.length; i++) {
@@ -225,8 +234,16 @@ export class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        console.log("Eggs: " + (performance.now()-start))
-        console.log("END")
+        for (let i = 0; i < this.eggs_nest.length; i++) {
+            this.pushMatrix();
+            this.translate(this.eggs_nest[i].coordinates[0], this.eggs_nest[i].coordinates[1], this.eggs_nest[i].coordinates[2]);
+            this.scale(2.2, 2.2, 2.2);
+            this.eggs_nest[i].display();
+            this.popMatrix();
+        }
+
+        //console.log("Eggs: " + (performance.now()-start))
+        //console.log("END")
 
         // ---- END Primitive drawing section
     }
@@ -239,12 +256,24 @@ export class MyScene extends CGFscene {
             this.bird.egg = null;
         }
     }
+
+    bird_drop_egg_in_nest() {
+        console.log("Hello?");
+        let distance_to_nest_horizontal = Math.sqrt((this.nest.coordinates[0] - this.bird.coordinates[0]) ** 2 + (this.nest.coordinates[2] - this.bird.coordinates[2]) ** 2);
+        console.log(distance_to_nest_horizontal);
+        if (this.bird.egg != null && distance_to_nest_horizontal < 11) {
+            this.bird.egg.coordinates = [this.bird.coordinates[0], this.bird.coordinates[1]-4.5, this.bird.coordinates[2]];
+            this.eggs_nest.push(this.bird.egg);
+            this.bird.egg = null;
+        }
+    }
+
     check_distances_to_eggs() {
         if (this.bird.egg == null) {
             for (let i = 0; i < this.eggs.length; i++) {
                 let egg_coord = this.eggs[i].coordinates;
                 let distance_to_bird = Math.sqrt((this.bird.coordinates[0] - egg_coord[0]) ** 2 + (this.bird.coordinates[1] - egg_coord[1]) ** 2 + (this.bird.coordinates[2] - egg_coord[2]) ** 2);
-                if (distance_to_bird < 4) {
+                if (distance_to_bird < 11) {
                     let egg_removed = this.eggs.splice(i, 1);
                     this.eggRotations.splice(i, 1);
                     this.bird.egg = egg_removed[0];
@@ -257,12 +286,10 @@ export class MyScene extends CGFscene {
 
     check_distance_from_eggs_to_nest() {
 
-        let distances = [];
         for (let i = 0; i < this.eggs.length; i++) {
             let egg_coord = this.eggs[i].coordinates;
             let distance_to_nest = Math.sqrt((this.nest.coordinates[0] - egg_coord[0])**2 + (this.nest.coordinates[1] - egg_coord[1])**2 + (this.nest.coordinates[2] - egg_coord[2])**2);
-            distances.push(distance_to_nest);
-            if (distance_to_nest < 4) {
+            if (distance_to_nest < 11) {
                 this.eggs.splice(i, 1);
                 this.eggRotations.splice(i, 1);
                 this.nest.counter++;
@@ -270,7 +297,15 @@ export class MyScene extends CGFscene {
             }
         }
 
-        console.log(distances)
+        for (let i = 0; i < this.eggs_nest.length; i++) {
+            let egg_coord = this.eggs_nest[i].coordinates;
+            let distance_to_nest = Math.sqrt((this.nest.coordinates[0] - egg_coord[0])**2 + (this.nest.coordinates[1] - egg_coord[1])**2 + (this.nest.coordinates[2] - egg_coord[2])**2);
+            if (distance_to_nest < 4) {
+                this.eggs_nest.splice(i, 1);
+                this.nest.counter++;
+                break;
+            }
+        }
 
     }
 
@@ -304,6 +339,10 @@ export class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyO")) {
             text += "O";
+            keysPressed = true;
+        }
+        if (this.gui.isKeyPressed("KeyL")) {
+            text += "L";
             keysPressed = true;
         }
         if (keysPressed)

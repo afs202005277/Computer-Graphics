@@ -33,6 +33,38 @@ export class MyBirdEgg extends CGFobject {
     falling(speedFactor){
         MyTerrain.ground_level(Math.floor((this.coordinates[0]+200)/400*128), 128+Math.floor((this.coordinates[2]-200)/400*128), this, true, speedFactor);
     }
+
+    nest_falling(speedFactor, nest_coordinates) {
+        // Assuming "object" is the object falling and "nest" is the destination object containing x, y, and z coordinates
+        const targetPosition = [nest_coordinates[0], nest_coordinates[1], nest_coordinates[2]]; // Extract the target position into an array
+
+        const displacementVector = [ // Calculate the displacement vector from the object's current position to the target position
+        targetPosition[0] - this.coordinates[0],
+        targetPosition[1] - this.coordinates[1],
+        targetPosition[2] - this.coordinates[2]
+        ];
+
+        const displacementLength = Math.sqrt( // Calculate the length of the displacement vector
+        displacementVector[0] * displacementVector[0] +
+        displacementVector[1] * displacementVector[1] +
+        displacementVector[2] * displacementVector[2]
+        );
+
+        const stepSize = speedFactor * 0.5; // Calculate the distance the object moves each frame
+
+        if (displacementLength <= stepSize) { // If the object is already close enough to the target, move it directly to the target position
+        this.coordinates[0] = targetPosition[0];
+        this.coordinates[1] = targetPosition[1];
+        this.coordinates[2] = targetPosition[2];
+        } else { // Otherwise, move the object a fraction of the displacement vector towards the target
+        const displacementUnitVector = displacementVector.map(component => component / displacementLength); // Calculate the unit vector in the direction of the displacement vector
+        const displacementStepVector = displacementUnitVector.map(component => component * stepSize); // Calculate the displacement vector for this frame
+        this.coordinates[0] += displacementStepVector[0];
+        this.coordinates[1] += displacementStepVector[1];
+        this.coordinates[2] += displacementStepVector[2];
+        }
+    }
+
     display() {
         this.scene.pushMatrix();
         this.appearance.apply();
