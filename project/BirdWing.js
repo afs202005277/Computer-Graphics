@@ -30,9 +30,4 @@ export class BirdWing extends CGFobject {
         this.scene.popMatrix();
         this.scene.popMatrix();
     }
-
-    changeOrder(){
-        this.partial1.changeOrder();
-        this.partial2.changeOrder();
-    }
 }

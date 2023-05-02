@@ -3,7 +3,7 @@ import {BirdHead} from './BirdHead.js';
 import {BirdBody} from './BirdBody.js';
 import {BirdFoot} from './BirdFoot.js';
 import {BirdWing} from "./BirdWing.js";
-import { MyTerrain } from './MyTerrain.js';
+import {MyTerrain} from './MyTerrain.js';
 
 /**
  * MyDiamond
@@ -15,17 +15,17 @@ export class Bird extends CGFobject {
         super(scene);
 
         this.wingMaterial1 = new CGFappearance(scene);
-        this.wingMaterial1.setAmbient(0.08,0.54, 1, 1.0);
-        this.wingMaterial1.setDiffuse(0.08,0.54, 1, 1.0);
-        this.wingMaterial1.setSpecular(0.08,0.54, 1, 1.0);
+        this.wingMaterial1.setAmbient(0.08, 0.54, 1, 1.0);
+        this.wingMaterial1.setDiffuse(0.08, 0.54, 1, 1.0);
+        this.wingMaterial1.setSpecular(0.08, 0.54, 1, 1.0);
         this.wingMaterial1.setShininess(32.0);
 
         this.wingMaterial2 = new CGFappearance(scene);
-        this.wingMaterial2.setAmbient(0.5,0.5, 0.5, 1.0);
-        this.wingMaterial2.setDiffuse(0.5,0.5, 0.5, 1.0);
-        this.wingMaterial2.setSpecular(0.5,0.5, 0.5, 1.0);
+        this.wingMaterial2.setAmbient(0.5, 0.5, 0.5, 1.0);
+        this.wingMaterial2.setDiffuse(0.5, 0.5, 0.5, 1.0);
+        this.wingMaterial2.setSpecular(0.5, 0.5, 0.5, 1.0);
         this.wingMaterial2.setShininess(32.0);
-        
+
         this.birdhead = new BirdHead(scene);
         this.birdbody = new BirdBody(scene);
         this.birdwingleft = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2, true);
@@ -44,17 +44,17 @@ export class Bird extends CGFobject {
         this.egg = null;
     }
 
-    accelerate(speedFactor){
+    accelerate(speedFactor) {
         this.speed += speedFactor;
         if (this.speed < 0)
             this.speed = 0;
     }
 
-    turn(speedFactor){
+    turn(speedFactor) {
         this.orientation += speedFactor / 50;
     }
 
-    reset(){
+    reset() {
         this.angleWings = 0;
         this.speed = 0;
         this.incrementHeight = 0;
@@ -64,20 +64,17 @@ export class Bird extends CGFobject {
     }
 
     go_down(speedFactor) {
-        MyTerrain.ground_level(Math.floor((this.coordinates[0]+200)/400*128), 128+Math.floor((this.coordinates[2]-200)/400*128)).then(value => {
-            let gs_val = value;
-            let height_terrain = 0.3038*gs_val - 94.313;
+        MyTerrain.ground_level(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128)).then(height_terrain => {
 
-        if (this.coordinates[1] > height_terrain) {
-            this.coordinates[1] -= speedFactor*0.2;
-            this.coordinates[1] = Math.max(height_terrain, this.coordinates[1]);
-        }
-          });
-
+            if (this.coordinates[1] > height_terrain) {
+                this.coordinates[1] -= speedFactor * 0.2;
+                this.coordinates[1] = Math.max(height_terrain, this.coordinates[1]);
+            }
+        });
     }
 
     go_up(speedFactor) {
-        this.coordinates[1] += speedFactor*0.2;
+        this.coordinates[1] += speedFactor * 0.2;
         this.coordinates[1] = Math.min(-18, this.coordinates[1]);
     }
 
@@ -95,19 +92,6 @@ export class Bird extends CGFobject {
         this.elapsedTime = t;
     }
 
-    transformVertex(matrix, vertex) {
-        // Create a 4-element vector for the vertex
-        var vec4Vertex = vec4.fromValues(vertex[0], vertex[1], vertex[2], 1.0);
-
-        // Multiply the vertex by the transformation matrix
-        vec4.transformMat4(vec4Vertex, vec4Vertex, matrix);
-
-        // Extract the transformed vertex coordinates from the resulting vector
-        // Return the transformed vertex
-        return [vec4Vertex[0], vec4Vertex[1], vec4Vertex[2]];
-    }
-
-
     display() {
 
         this.scene.pushMatrix();
@@ -118,7 +102,7 @@ export class Bird extends CGFobject {
 
         this.scene.rotate(this.orientation, 0, 1, 0);
         this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 0, 1, 0);
+        this.scene.rotate(-Math.PI / 2, 0, 1, 0);
         this.birdbody.display();
         this.scene.popMatrix();
 
@@ -158,8 +142,6 @@ export class Bird extends CGFobject {
             this.scene.popMatrix();
         }
         
-        this.scene.popMatrix();
-
         this.scene.popMatrix();
 
     }
