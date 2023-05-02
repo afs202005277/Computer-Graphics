@@ -24,7 +24,9 @@ export class MyTreeRowPatch extends CGFobject {
             this.treesPositions.push([0, 0, x]);
             tree.x = startX + 0;
             tree.z = startZ + x;
-            MyTerrain.ground_level(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128), tree, false, null);
+            if (0 === MyTerrain.ground_level(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128), tree, false, null)){
+                tree.needsUpdate = true;
+            }
             this.treesSizes.push(size);
             this.trees.push(tree);
         }

@@ -1,5 +1,6 @@
 import {CGFobject} from '../lib/CGF.js';
 import {MyQuad} from "./MyQuad.js";
+import {MyTerrain} from "./MyTerrain.js";
 
 /**
  * MyQuad
@@ -10,6 +11,7 @@ import {MyQuad} from "./MyQuad.js";
 export class MyBillboard extends CGFobject {
     constructor(scene, material) {
         super(scene);
+        this.needsUpdate = false;
         this.quad = new MyQuad(scene);
         this.material = material;
         this.x = 0;
@@ -20,6 +22,15 @@ export class MyBillboard extends CGFobject {
     }
 
     display_tmp(){
+        if (this.needsUpdate){
+            const res = MyTerrain.ground_level(Math.floor((this.x + 200) / 400 * 128), 128 + Math.floor((this.z - 200) / 400 * 128), this, false, null);
+            if (res === 0){
+                this.needsUpdate = true;
+            } else{
+                this.needsUpdate = false;
+                this.y = res;
+            }
+        }
         this.scene.pushMatrix();
         let cameraPos = this.scene.camera.position;
         let dirVec = vec3.fromValues(cameraPos[0] - this.x, cameraPos[1] - this.y, cameraPos[2] - this.z);

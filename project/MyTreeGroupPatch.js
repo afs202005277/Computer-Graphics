@@ -25,7 +25,9 @@ export class MyTreeGroupPatch extends CGFobject {
                 let tree = new MyBillboard(scene, texture);
                 tree.x = startX + x;
                 tree.z = startZ + z;
-                MyTerrain.ground_level(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128), tree, false, null);
+                if (0 === MyTerrain.ground_level(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128), tree, false, null)){
+                    tree.needsUpdate = true;
+                }
                 this.treesPositions.push([startX + x, y, startZ + z]);
                 this.treesSizes.push(size);
                 this.trees.push(tree);
