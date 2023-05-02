@@ -185,7 +185,6 @@ export class MyScene extends CGFscene {
         this.panorama.display();
         this.popMatrix();
 
-        //console.log("Panorama: " + (performance.now()-start))
         start = performance.now();
         this.pushMatrix();
         this.translate(this.bird.coordinates[0], this.bird.coordinates[1], this.bird.coordinates[2]);
@@ -193,19 +192,16 @@ export class MyScene extends CGFscene {
         this.bird.display();
         this.popMatrix();
 
-        //console.log("Bird: " + (performance.now()-start))
         start = performance.now();
 
         this.terrain.display();
 
-        //console.log("Terrain: " + (performance.now()-start))
         start = performance.now();
 
         this.pushMatrix();
         this.patch.display();
         this.popMatrix();
 
-        //console.log("TreePatch: " + (performance.now()-start))
         start = performance.now();
 
         this.pushMatrix();
@@ -214,7 +210,6 @@ export class MyScene extends CGFscene {
         this.nest.display();
         this.popMatrix();
 
-        //console.log("Nest: " + (performance.now()-start))
         start = performance.now();
 
 
@@ -235,9 +230,6 @@ export class MyScene extends CGFscene {
             this.popMatrix();
         }
 
-        //console.log("Eggs: " + (performance.now()-start))
-        //console.log("END")
-
         // ---- END Primitive drawing section
     }
 
@@ -251,9 +243,7 @@ export class MyScene extends CGFscene {
     }
 
     bird_drop_egg_in_nest() {
-        console.log("Hello?");
         let distance_to_nest_horizontal = Math.sqrt((this.nest.coordinates[0] - this.bird.coordinates[0]) ** 2 + (this.nest.coordinates[2] - this.bird.coordinates[2]) ** 2);
-        console.log(distance_to_nest_horizontal);
         if (this.bird.egg != null && distance_to_nest_horizontal < 11) {
             this.bird.egg.coordinates = [this.bird.coordinates[0], this.bird.coordinates[1]-4.5, this.bird.coordinates[2]];
             this.eggs_nest.push(this.bird.egg);

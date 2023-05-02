@@ -31,7 +31,6 @@ export class MyBillboard extends CGFobject {
                 this.y = res;
             }
         }
-        console.log(this.s);
         this.scene.pushMatrix();
         let cameraPos = this.scene.camera.position;
         let dirVec = vec3.fromValues(cameraPos[0] - this.x, cameraPos[1] - this.y, cameraPos[2] - this.z);

@@ -75,17 +75,16 @@ export class Bird extends CGFobject {
     }
 
     go_down() {
-        let bottom = MyTerrain.ground_level(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128), this, true, null);
-        if (bottom()+1 >= this.coordinates[1]) {
-            console.log(bottom(), this.coordinates[1])
+        let value = MyTerrain.ground_level(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128), this, true, null);
+        if (value+1 >= this.coordinates[1]) {
             this.goingDown = false;
         }
-        this.checkBoundaries(bottom(), (this.bird_default_height - bottom())*0.4);
+        this.checkBoundaries(value, (this.bird_default_height - value)*0.4);
     }
 
     go_up(speedFactor) {
-        let bottom = MyTerrain.ground_level(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128), this, true, null);
-        this.coordinates[1] += (this.bird_default_height - bottom())*0.4*0.2;
+        let value = MyTerrain.ground_level(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128), this, true, null);
+        this.coordinates[1] += (this.bird_default_height - value)*0.4*0.2;
         this.coordinates[1] = Math.min(this.bird_default_height, this.coordinates[1]);
     }
 

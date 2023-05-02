@@ -78,7 +78,6 @@ export class MyTerrain extends CGFobject {
         } else {
             object.checkBoundaries(value, speedFactor);
         }
-        console.log("Value: " + value);
         return value;
     }
 
