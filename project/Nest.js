@@ -9,8 +9,13 @@ import {MyBirdEgg} from './MyBirdEgg.js';
  * @param {Array} coords - Array of texture coordinates (optional)
  */
 export class Nest extends CGFobject {
+
+    static texture = null;
+
     constructor(scene, amount_eggs) {
         super(scene);
+        if (Nest.texture === null)
+            Nest.texture = new CGFtexture(scene, "images/nest.jpg");
         this.insideSphere = new MyHalfSphere(scene, 30, 30, false);
         this.outerSphere = new MyHalfSphere(scene, 30, 30, true);
         this.appearance = new CGFappearance(scene);
@@ -18,7 +23,7 @@ export class Nest extends CGFobject {
         this.appearance.setDiffuse(1.0, 1, 1, 1);
         this.appearance.setSpecular(1.0, 1, 1, 1);
         this.appearance.setShininess(2);
-        this.appearance.setTexture(new CGFtexture(scene, "images/nest.jpg"));
+        this.appearance.setTexture(Nest.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.counter = 0;

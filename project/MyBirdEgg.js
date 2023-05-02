@@ -9,19 +9,24 @@ import {MyTerrain} from "./MyTerrain.js";
  * @param {Array} coords - Array of texture coordinates (optional)
  */
 export class MyBirdEgg extends CGFobject {
+
+    static texture = null;
     constructor(scene) {
         super(scene);
-        this.initBuffers();
+
+        if (MyBirdEgg.texture === null)
+            MyBirdEgg.texture = new CGFtexture(scene, 'images/egg.png');
         this.bottom = new MyOval(scene, 30, 30, false);
         this.appearance = new CGFappearance(scene);
         this.appearance.setAmbient(1.0, 1, 1, 1);
         this.appearance.setDiffuse(1.0, 1, 1, 1);
         this.appearance.setSpecular(1.0, 1, 1, 1);
         this.appearance.setShininess(100);
-        this.appearance.setTexture(new CGFtexture(scene, "images/egg.png"));
+        this.appearance.setTexture(MyBirdEgg.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.coordinates = [0, 0, 0];
+        this.initBuffers();
     }
 
     checkBoundaries(value, speedFactor) {
