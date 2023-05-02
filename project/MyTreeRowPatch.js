@@ -12,8 +12,6 @@ export class MyTreeRowPatch extends CGFobject {
         super(scene);
         this.scene = scene;
         this.trees = [];
-        this.treesPositions = [];
-        this.treesSizes = [];
 
         let textures = this.getTextures(["billboardtree.png", "tree2.png"]);
 
@@ -21,13 +19,12 @@ export class MyTreeRowPatch extends CGFobject {
             let size = Math.random() * (1 - 0.5) + 0.5; // random size between 0.5 and 1
             let texture = textures[Math.floor(Math.random() * textures.length)];
             let tree = new MyBillboard(scene, texture);
-            this.treesPositions.push([0, 0, x]);
             tree.x = startX + 0;
             tree.z = startZ + x;
+            tree.s = size;
             if (0 === MyTerrain.ground_level(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128), tree, false, null)){
                 tree.needsUpdate = true;
             }
-            this.treesSizes.push(size);
             this.trees.push(tree);
         }
     }
