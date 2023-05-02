@@ -24,10 +24,15 @@ export class BirdWing extends CGFobject {
         this.partial1.display();
         this.scene.pushMatrix();
         this.scene.scale(-1, 1, -1);
-        this.scene.translate(2.95, 0, 0.25);
+        this.scene.translate(3.0, 0, 0.25);
         this.partial2.display();
         this.scene.popMatrix();
         this.scene.popMatrix();
         this.scene.popMatrix();
+    }
+
+    enableNormalViz() {
+        this.partial2.enableNormalViz();
+        this.partial1.enableNormalViz();
     }
 }

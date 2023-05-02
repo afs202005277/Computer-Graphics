@@ -4,6 +4,7 @@ import { MyTangram } from "./MyTangram.js";
 import {BirdWing} from "../project/BirdWing.js";
 import {MyBirdEgg} from "../project/MyBirdEgg.js";
 import {MyBillboard} from "../project/MyBillboard.js";
+import {Bird} from "../project/Bird.js";
 
 /**
  * MyScene
@@ -48,6 +49,8 @@ export class MyScene extends CGFscene {
     this.appearance.setTexture(new CGFtexture(this, "images/billboardtree.png"));
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
     this.billboard = new MyBillboard(this, this.appearance);
+
+    this.bird = new Bird(this);
   }
   initLights() {
     this.lights[0].setPosition(15, 2, 5, 1);
@@ -87,9 +90,8 @@ export class MyScene extends CGFscene {
     this.setDefaultAppearance();
 
     this.pushMatrix();
-    let s = 0.8;
-    this.translate(0, -(1-s), 0);
-    this.billboard.display(0, 0, 0, s);
+    this.bird.display();
+    this.bird.enableNormalViz();
     this.popMatrix();
   }
 }
