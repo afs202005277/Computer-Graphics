@@ -35,7 +35,7 @@ export class MyTreeGroupPatch extends CGFobject {
 
     display() {
         for (let i = 0; i < this.trees.length; i++) {
-            this.trees[i].display_tmp(...this.treesPositions[i], this.treesSizes[i]);
+            this.trees[i].display_tmp();
         }
     }
 

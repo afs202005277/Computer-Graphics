@@ -144,6 +144,7 @@ export class Bird extends CGFobject {
         }
         
         this.scene.popMatrix();
+        this.scene.popMatrix();
 
     }
 }

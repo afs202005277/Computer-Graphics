@@ -69,15 +69,15 @@ export class MyBillboard extends CGFobject {
         this.material.apply();
         this.quad.display();
         this.scene.popMatrix();
-/*
-        let newNormal = [];
-        for (let coord = 0; coord < this.quad.vertices.length; coord += 3) {
-            let normal = vec3.fromValues(0, 0, 0);
-            vec3.normalize(normal, dirVec);
-            newNormal.push(normal[0], normal[1], normal[2]);
-        }
-        this.quad.normals = newNormal;
-        this.initBuffers();*/
+        /*
+                let newNormal = [];
+                for (let coord = 0; coord < this.quad.vertices.length; coord += 3) {
+                    let normal = vec3.fromValues(0, 0, 0);
+                    vec3.normalize(normal, dirVec);
+                    newNormal.push(normal[0], normal[1], normal[2]);
+                }
+                this.quad.normals = newNormal;
+                this.initBuffers();*/
     }
 
 }

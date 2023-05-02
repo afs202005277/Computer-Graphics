@@ -7,7 +7,6 @@ import {MyBirdEgg} from "./MyBirdEgg.js";
 import {MyBillboard} from "./MyBillboard.js";
 import {MyTreeRowPatch} from "./MyTreeRowPatch.js";
 import {MyTreeGroupPatch} from "./MyTreeGroupPatch.js";
-import { MyUnitCubeQuad } from "./MyUnitCubeQuad.js";
 
 /**
  * MyScene
@@ -41,7 +40,7 @@ export class MyScene extends CGFscene {
         this.speedFactor = 1.5;
         this.bird = new Bird(this);
         this.nest = new Nest(this);
-        this.patch = new MyTreeGroupPatch(this, -100, 0);
+        this.patch = new MyTreeRowPatch(this, -100, 0);
         this.treeMaterial = new CGFappearance(this);
         this.treeMaterial.setAmbient(1.0, 1, 1, 1);
         this.treeMaterial.setDiffuse(1.0, 1, 1, 1);
@@ -70,8 +69,6 @@ export class MyScene extends CGFscene {
         }
 
         this.nest = new Nest(this, this.eggs.length);
-        this.patch = new MyTreeRowPatch(this);
-
         this.treeMaterial = new CGFappearance(this);
         this.treeMaterial.setAmbient(1.0, 1, 1, 1);
         this.treeMaterial.setDiffuse(1.0, 1, 1, 1);
@@ -216,6 +213,7 @@ export class MyScene extends CGFscene {
         console.log("Nest: " + (performance.now()-start))
         start = performance.now();
 
+
         for (let i = 0; i < this.eggs.length; i++) {
             this.pushMatrix();
             this.translate(this.eggs[i].coordinates[0], this.eggs[i].coordinates[1], this.eggs[i].coordinates[2]);
@@ -224,6 +222,7 @@ export class MyScene extends CGFscene {
             this.eggs[i].display();
             this.popMatrix();
         }
+
 
         console.log("Eggs: " + (performance.now()-start))
         console.log("END")
