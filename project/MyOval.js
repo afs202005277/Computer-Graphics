@@ -67,6 +67,5 @@ export class MyOval extends CGFobject {
         this.initGLBuffers();
     }
 
-
 }
 

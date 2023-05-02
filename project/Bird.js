@@ -11,11 +11,31 @@ import {MyTerrain} from './MyTerrain.js';
  * @param scene - Reference to MyScene object
  */
 export class Bird extends CGFobject {
+
+    static default_values = {
+        'angle': 0,
+        'speed': 0,
+        'incrementHeight': 0,
+        'orientation': 0,
+        'coordinates': [-160, -2, -41],
+        'elapsedTime': 0,
+        'goingDown': false
+    };
+
+    setDefaults() {
+        this.angleWings = Bird.default_values['angle'];
+        this.speed = Bird.default_values['speed'];
+        this.incrementHeight = Bird.default_values['incrementHeight'];
+        this.orientation = Bird.default_values['orientation'];
+        this.coordinates = Bird.default_values['coordinates']
+        this.elapsedTime = Bird.default_values['elapsedTime'];
+        this.goingDown = Bird.default_values['goingDown'];
+    }
+
     constructor(scene) {
         super(scene);
 
-        this.bird_default_height = -2;
-
+        this.bird_default_height = Bird.default_values['coordinates'][1];
         this.wingMaterial1 = new CGFappearance(scene);
         this.wingMaterial1.setAmbient(0.08, 0.54, 1, 1.0);
         this.wingMaterial1.setDiffuse(0.08, 0.54, 1, 1.0);
@@ -31,21 +51,13 @@ export class Bird extends CGFobject {
         this.birdhead = new BirdHead(scene);
         this.birdbody = new BirdBody(scene);
         this.birdwingleft = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2, true);
-
         this.birdwingright = new BirdWing(scene, this.wingMaterial1, this.wingMaterial2, false);
         this.birdfootleft = new BirdFoot(scene);
         this.birdfootright = new BirdFoot(scene);
 
-        this.angleWings = 0;
-        this.speed = 0;
-        this.incrementHeight = 0;
-        this.orientation = 0;
-        this.coordinates = [-160, this.bird_default_height, -41]
-        this.elapsedTime = 0;
+        this.setDefaults();
 
         this.egg = null;
-
-        this.goingDown = false;
     }
 
     accelerate(speedFactor) {
@@ -59,15 +71,10 @@ export class Bird extends CGFobject {
     }
 
     reset() {
-        this.angleWings = 0;
-        this.speed = 0;
-        this.incrementHeight = 0;
-        this.orientation = 0;
-        this.coordinates = [-160, this.bird_default_height, -41]
-        this.elapsedTime = 0;
+        this.setDefaults();
     }
 
-    checkBoundaries(height_terrain, speedFactor){
+    checkBoundaries(height_terrain, speedFactor) {
         if (this.coordinates[1] > height_terrain) {
             this.coordinates[1] -= speedFactor * 0.2;
             this.coordinates[1] = Math.max(height_terrain, this.coordinates[1]);
@@ -75,24 +82,25 @@ export class Bird extends CGFobject {
     }
 
     go_down() {
-        let value = MyTerrain.ground_level(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128), this, true, null);
-        if (value+1 >= this.coordinates[1]) {
+        let value = MyTerrain.get_height_from_heightmap(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128));
+        this.checkBoundaries(value, null);
+        if (value + 1 >= this.coordinates[1]) {
             this.goingDown = false;
         }
-        this.checkBoundaries(value, (this.bird_default_height - value)*0.4);
+        this.checkBoundaries(value, (this.bird_default_height - value) * 0.4);
     }
 
     go_up(speedFactor) {
-        let value = MyTerrain.ground_level(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128), this, true, null);
-        this.coordinates[1] += (this.bird_default_height - value)*0.4*0.2;
+        let value = MyTerrain.get_height_from_heightmap(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128));
+        this.checkBoundaries(value, null);
+        this.coordinates[1] += (this.bird_default_height - value) * 0.4 * 0.2;
         this.coordinates[1] = Math.min(this.bird_default_height, this.coordinates[1]);
     }
 
     update(t, speedFactor) {
-
         if (this.goingDown) {
             this.go_down();
-        } else if (this.coordinates[1] < this.bird_default_height - 0.5 && this.goingDown == false) {
+        } else if (this.coordinates[1] < this.bird_default_height - 0.5 && this.goingDown === false) {
             this.go_up(speedFactor);
         }
 
@@ -151,7 +159,7 @@ export class Bird extends CGFobject {
             this.egg.display();
             this.scene.popMatrix();
         }
-        
+
         this.scene.popMatrix();
         this.scene.popMatrix();
 

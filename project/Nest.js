@@ -1,6 +1,6 @@
 import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
-import { MyHalfSphere } from './MyHalfSphere.js';
-import { MyBirdEgg } from './MyBirdEgg.js';
+import {MyHalfSphere} from './MyHalfSphere.js';
+import {MyBirdEgg} from './MyBirdEgg.js';
 
 /**
  * MyQuad
@@ -11,7 +11,6 @@ import { MyBirdEgg } from './MyBirdEgg.js';
 export class Nest extends CGFobject {
     constructor(scene, amount_eggs) {
         super(scene);
-        this.initBuffers();
         this.insideSphere = new MyHalfSphere(scene, 30, 30, false);
         this.outerSphere = new MyHalfSphere(scene, 30, 30, true);
         this.appearance = new CGFappearance(scene);
@@ -31,16 +30,15 @@ export class Nest extends CGFobject {
         for (let i = 0; i < amount_eggs; i++) {
             this.eggs.push(new MyBirdEgg(scene));
         }
-
+        this.initBuffers();
     }
 
     display() {
-
         this.appearance.apply();
 
         this.scene.pushMatrix();
         this.scene.translate(0.0, 0.4, 0.0);
-        this.scene.scale(Math.max(0.05*this.eggs.length, 0.9), -0.4, Math.max(0.05*this.eggs.length, 0.9));
+        this.scene.scale(Math.max(0.05 * this.eggs.length, 0.9), -0.4, Math.max(0.05 * this.eggs.length, 0.9));
         this.insideSphere.display();
         this.outerSphere.display();
         this.scene.popMatrix();
@@ -49,7 +47,7 @@ export class Nest extends CGFobject {
         for (let i = 0; i < this.counter; i++) {
             let multiplier = 0.001;
             let angle = i * 0.5;
-            let radius = distance * (i*i*multiplier + 1);
+            let radius = distance * (i * i * multiplier + 1);
             let x = Math.cos(angle) * radius;
             let y = Math.sin(angle) * radius;
             this.scene.pushMatrix();

@@ -10,7 +10,6 @@ import {MyPrism} from './MyPrism.js';
 export class BirdWingPartial extends CGFobject {
     constructor(scene, material1, material2, reverse) {
         super(scene);
-
         this.wing1 = new MyPrism(scene, 3, 1, reverse);
         this.wing3 = new MyPrism(scene, 3, 1, reverse);
         this.material1 = material1;
@@ -18,7 +17,6 @@ export class BirdWingPartial extends CGFobject {
     }
 
     display() {
-        // angulos negativos estao virados para o bico
         this.scene.pushMatrix();
         this.scene.scale(0.4, 0.1, 0.5);
         this.scene.pushMatrix();
@@ -36,10 +34,5 @@ export class BirdWingPartial extends CGFobject {
 
         this.scene.popMatrix();
         this.scene.popMatrix();
-    }
-
-    enableNormalViz() {
-        this.wing1.enableNormalViz();
-        this.wing3.enableNormalViz();
     }
 }

@@ -23,7 +23,7 @@ export class MyBillboard extends CGFobject {
 
     display_tmp(){
         if (this.needsUpdate){
-            const res = MyTerrain.ground_level(Math.floor((this.x + 200) / 400 * 128), 128 + Math.floor((this.z - 200) / 400 * 128), this, false, null);
+            const res = MyTerrain.get_height_from_heightmap(Math.floor((this.x + 200) / 400 * 128), 128 + Math.floor((this.z - 200) / 400 * 128));
             if (res === 0){
                 this.needsUpdate = true;
             } else{

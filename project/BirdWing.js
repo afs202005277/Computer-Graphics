@@ -1,5 +1,4 @@
-import {CGFobject, CGFtexture} from '../lib/CGF.js';
-import { MyCylinder } from './MyCylinder.js';
+import {CGFobject} from '../lib/CGF.js';
 import {BirdWingPartial} from "./BirdWingPartial.js";
 
 /**
@@ -10,7 +9,6 @@ import {BirdWingPartial} from "./BirdWingPartial.js";
 export class BirdWing extends CGFobject {
     constructor(scene, material1, material2, reverse) {
         super(scene);
-
         this.partial1 = new BirdWingPartial(scene, material1, material2, reverse);
         this.partial2 = new BirdWingPartial(scene, material1, material2, reverse);
     }
@@ -29,10 +27,5 @@ export class BirdWing extends CGFobject {
         this.scene.popMatrix();
         this.scene.popMatrix();
         this.scene.popMatrix();
-    }
-
-    enableNormalViz() {
-        this.partial2.enableNormalViz();
-        this.partial1.enableNormalViz();
     }
 }
