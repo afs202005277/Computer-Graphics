@@ -8,7 +8,7 @@ import {MyTerrain} from "./MyTerrain.js";
  * @param scene - Reference to MyScene object
  */
 export class TreePatch extends CGFobject {
-    static texturesPaths = ["billboardtree.png", "tree2.png"];
+    static texturesPaths = ["billboardtree.png", "tree2.png", "tree3.png"];
 
     constructor(scene) {
         super(scene);
