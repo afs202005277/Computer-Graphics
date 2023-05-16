@@ -67,7 +67,7 @@ export class Bird extends CGFobject {
     }
 
     turn(speedFactor) {
-        this.orientation += speedFactor / 50;
+        this.orientation += speedFactor / 25;
     }
 
     reset() {
