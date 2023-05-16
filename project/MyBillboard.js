@@ -2,12 +2,7 @@ import {CGFobject} from '../lib/CGF.js';
 import {MyQuad} from "./MyQuad.js";
 import {MyTerrain} from "./MyTerrain.js";
 
-/**
- * MyQuad
- * @constructor
- * @param {MyScene} scene - Reference to MyScene object
- * @param {Array} coords - Array of texture coordinates (optional)
- */
+
 export class MyBillboard extends CGFobject {
     constructor(scene, material) {
         super(scene);

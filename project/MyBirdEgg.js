@@ -2,12 +2,7 @@ import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
 import {MyOval} from "./MyOval.js";
 import {MyTerrain} from "./MyTerrain.js";
 
-/**
- * MyQuad
- * @constructor
- * @param {MyScene} scene - Reference to MyScene object
- * @param {Array} coords - Array of texture coordinates (optional)
- */
+
 export class MyBirdEgg extends CGFobject {
 
     static texture = null;

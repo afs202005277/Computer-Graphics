@@ -2,11 +2,7 @@ import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
 import {Pyramid} from "./Pyramid.js";
 import {MyUnitCubeQuad} from './MyUnitCubeQuad.js';
 
-/**
- * MyDiamond
- * @constructor
- * @param scene - Reference to MyScene object
- */
+
 export class BirdHead extends CGFobject {
     constructor(scene) {
         super(scene);

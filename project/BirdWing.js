@@ -1,11 +1,7 @@
 import {CGFobject} from '../lib/CGF.js';
 import {BirdWingPartial} from "./BirdWingPartial.js";
 
-/**
- * MyDiamond
- * @constructor
- * @param scene - Reference to MyScene object
- */
+
 export class BirdWing extends CGFobject {
     constructor(scene, material1, material2, reverse) {
         super(scene);

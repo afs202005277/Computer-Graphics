@@ -5,11 +5,6 @@ import {BirdFoot} from './BirdFoot.js';
 import {BirdWing} from "./BirdWing.js";
 import {MyTerrain} from './MyTerrain.js';
 
-/**
- * MyDiamond
- * @constructor
- * @param scene - Reference to MyScene object
- */
 export class Bird extends CGFobject {
 
     static default_values = {

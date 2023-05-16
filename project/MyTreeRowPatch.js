@@ -3,11 +3,7 @@ import {MyBillboard} from "./MyBillboard.js";
 import {MyTerrain} from "./MyTerrain.js";
 import {TreePatch} from "./TreePatch.js";
 
-/**
- * MyDiamond
- * @constructor
- * @param scene - Reference to MyScene object
- */
+
 export class MyTreeRowPatch extends TreePatch {
     constructor(scene, startX, startZ) {
         super(scene);

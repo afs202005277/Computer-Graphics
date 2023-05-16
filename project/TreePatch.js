@@ -1,10 +1,6 @@
 import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
 
-/**
- * MyDiamond
- * @constructor
- * @param scene - Reference to MyScene object
- */
+
 export class TreePatch extends CGFobject {
     static texturesPaths = ["billboardtree.png", "tree2.png", "tree3.png"];
     static loadedTextures = [];

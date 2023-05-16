@@ -1,11 +1,5 @@
 import {CGFobject} from '../lib/CGF.js';
-/**
-* MyCone
-* @constructor
- * @param scene - Reference to MyScene object
- * @param slices - number of divisions around the Y axis
- * @param stacks - number of divisions along the Y axis
-*/
+
 export class Pyramid extends CGFobject {
     constructor(scene, slices, stacks) {
         super(scene);

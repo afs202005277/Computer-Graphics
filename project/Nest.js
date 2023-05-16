@@ -2,12 +2,7 @@ import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
 import {MyHalfSphere} from './MyHalfSphere.js';
 import {MyBirdEgg} from './MyBirdEgg.js';
 
-/**
- * MyQuad
- * @constructor
- * @param {MyScene} scene - Reference to MyScene object
- * @param {Array} coords - Array of texture coordinates (optional)
- */
+
 export class Nest extends CGFobject {
 
     static texture = null;

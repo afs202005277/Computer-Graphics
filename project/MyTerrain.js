@@ -1,11 +1,7 @@
 import {CGFappearance, CGFobject, CGFshader, CGFtexture} from '../lib/CGF.js';
 import {MyPlane} from "./MyPlane.js";
 
-/**
- * MyTerrain
- * @constructor
- * @param scene - Reference to MyScene object
- */
+
 export class MyTerrain extends CGFobject {
     static pixelData;
     static canvas_width;
