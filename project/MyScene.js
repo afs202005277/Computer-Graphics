@@ -151,14 +151,14 @@ export class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
-        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
+        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
         this.rotate(Math.PI, 0, 1, 0);
         this.panorama.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(...(this.bird.coordinates));
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+        this.scale(this.scaleFactor * 1.5, this.scaleFactor * 1.5, this.scaleFactor * 1.5);
         this.bird.display();
         this.popMatrix();
 
@@ -219,7 +219,7 @@ export class MyScene extends CGFscene {
             for (let i = 0; i < this.eggs.length; i++) {
                 let egg_coord = this.eggs[i].coordinates;
                 let distance_to_bird = Math.sqrt((this.bird.coordinates[0] - egg_coord[0]) ** 2 + (this.bird.coordinates[1] - egg_coord[1]) ** 2 + (this.bird.coordinates[2] - egg_coord[2]) ** 2);
-                if (distance_to_bird < 11) {
+                if (distance_to_bird < 9) {
                     let egg_removed = this.eggs.splice(i, 1);
                     this.eggRotations.splice(i, 1);
                     this.bird.egg = egg_removed[0];
