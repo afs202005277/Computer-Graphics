@@ -151,6 +151,7 @@ export class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
+        this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2])
         this.rotate(Math.PI, 0, 1, 0);
         this.panorama.display();
         this.popMatrix();

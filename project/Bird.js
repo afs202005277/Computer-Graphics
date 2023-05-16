@@ -87,7 +87,7 @@ export class Bird extends CGFobject {
         if (value + 1 >= this.coordinates[1]) {
             this.goingDown = false;
         }
-        console.log(this.coordinates[1]);
+
         this.checkBoundaries(value, (this.bird_default_height - value) * 0.4);
     }
 
