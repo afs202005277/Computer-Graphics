@@ -62,7 +62,9 @@ export class MyTerrain extends CGFobject {
         if (MyTerrain.loaded) {
             const i = (y * MyTerrain.canvas_width + x) * 4;
             const r = MyTerrain.pixelData[i];
-            return 0.3038 * r - 94.313;
+            console.log(r);
+            // The formula below comes from a careful analysis of the correlation between the heightmap and the "real life" heights. On the README we go into more detail about it.
+            return 0.0005*(r**2)+0.1126*r-77.982;
         } else {
             return 0;
         }
