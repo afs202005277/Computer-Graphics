@@ -18,8 +18,8 @@ export class MyTreeGroupPatch extends TreePatch {
                 let size = Math.random() * (1 - 0.5) + 0.5; // random size between 0.5 and 1
                 let texture = textures[Math.floor(Math.random() * textures.length)];
                 let tree = new MyBillboard(scene, texture);
-                tree.x = startX + x;
-                tree.z = startZ + z;
+                tree.x = startX + x + size;
+                tree.z = startZ + z + size;
                 tree.s = size;
                 const res = MyTerrain.get_height_from_heightmap(Math.floor((tree.x + 200) / 400 * 128), 128 + Math.floor((tree.z - 200) / 400 * 128));
                 if (res === 0){

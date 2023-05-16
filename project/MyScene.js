@@ -40,7 +40,7 @@ export class MyScene extends CGFscene {
         this.speedFactor = 1.5;
         this.bird = new Bird(this);
         this.nest = new Nest(this);
-        this.patch = new MyTreeRowPatch(this, -100, 0);
+        this.patch = new MyTreeGroupPatch(this, -100, 0);
 
         this.eggs = [
             new MyBirdEgg(this),
@@ -63,7 +63,8 @@ export class MyScene extends CGFscene {
 
         this.nest = new Nest(this, this.eggs.length);
 
-        this.panorama = new MyPanorama(this)
+
+        this.panorama = new MyPanorama(this, new CGFtexture(this, "images/panorama4.jpg"));
 
 
         this.setUpdatePeriod(50); // 50 ms
@@ -81,8 +82,8 @@ export class MyScene extends CGFscene {
             1.0,
             0.1,
             1000,
-            vec3.fromValues(-220, 9, -55),
-            vec3.fromValues(0, 0, 0)
+            vec3.fromValues(-256.7447204589844, 26.567428588867188, -60.517398834228516),
+            vec3.fromValues(-4.092823028564453, -3.761986255645752, 13.172765731811523)
         );
     }
 
@@ -108,7 +109,7 @@ export class MyScene extends CGFscene {
                     this.bird.turn(-this.speedFactor);
                 else if (letter === "R")
                     this.bird.reset();
-                else if (key === "P") {
+                else if (key === "P" && this.bird.egg == null) {
                     this.bird.goingDown = true;
                 } else if (key === "L") {
                     this.bird_drop_egg();
@@ -170,7 +171,7 @@ export class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.translate(...this.nest.coordinates);
-        this.scale(16, 16, 16);
+        this.scale(10, 10, 10);
         this.nest.display();
         this.popMatrix();
 

@@ -7,14 +7,14 @@ import {MySphere} from "./MySphere.js";
  * @param scene - Reference to MyScene object
  */
 export class MyPanorama extends CGFobject {
-    constructor(scene) {
+    constructor(scene, texture) {
         super(scene);
         this.sphere = new MySphere(scene, 40, 40, true);
         this.appearance = new CGFappearance(this.scene);
         this.appearance.emission = [1, 1, 1, 1];
         this.appearance.ambient = [0, 0, 0, 0];
         this.appearance.diffuse = [0, 0, 0, 0];
-        this.appearance.setTexture(new CGFtexture(this.scene, "images/panorama4.jpg"));
+        this.appearance.setTexture(texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
     }
 
