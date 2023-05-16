@@ -68,6 +68,8 @@ export class MyScene extends CGFscene {
 
 
         this.setUpdatePeriod(50); // 50 ms
+
+        this.check_distance = 10;
     }
 
     initLights() {
@@ -96,7 +98,6 @@ export class MyScene extends CGFscene {
 
     update(t) {
         let key = this.checkKeys();
-        let check_distance = true;
         if (key !== undefined) {
             for (const letter of key) {
                 if (letter === "W")
@@ -113,16 +114,18 @@ export class MyScene extends CGFscene {
                     this.bird.goingDown = true;
                 } else if (key === "L") {
                     this.bird_drop_egg();
-                    check_distance = false;
+                    this.check_distance = 0;
                 } else if (key === "O") {
                     this.bird_drop_egg_in_nest();
-                    check_distance = false;
+                    this.check_distance = 0;
                 }
             }
         }
         this.bird.update(t, this.speedFactor);
         this.check_distance_from_eggs_to_nest();
-        if (check_distance)
+        if (this.check_distance < 10)
+            this.check_distance++;
+        else
             this.check_distances_to_eggs();
         this.terrain.update(t);
 
