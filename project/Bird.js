@@ -126,8 +126,10 @@ export class Bird extends CGFobject {
         if (this.egg != null && distance_to_nest_horizontal < threshold) {
             this.egg.coordinates = [this.coordinates[0], this.coordinates[1] - 4.5, this.coordinates[2]];
             res.push(this.egg);
+            console.log("pushed");
             this.egg = null;
         }
+        console.log(res);
         return res;
     }
 

@@ -1,4 +1,4 @@
-import {CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture} from "../lib/CGF.js";
+import {CGFscene, CGFcamera, CGFaxis, CGFtexture} from "../lib/CGF.js";
 import {MyPanorama} from "./MyPanorama.js";
 import {Bird} from "./Bird.js";
 import {MyTerrain} from "./MyTerrain.js";
@@ -98,7 +98,10 @@ export class MyScene extends CGFscene {
                     this.bird.dropEgg();
                     this.checkDistance = 0;
                 } else if (key === "O") {
-                    this.eggsFallingToNest.concat(this.bird.dropEggInNest(this.nest.coordinates, this.thresholdNest));
+                    let possibleEgg = this.bird.dropEggInNest(this.nest.coordinates, this.thresholdNest);
+                    if (possibleEgg.length !== 0) {
+                        this.eggsFallingToNest.push(possibleEgg[0]);
+                    }
                     this.checkDistance = 0;
                 }
             }
@@ -203,8 +206,8 @@ export class MyScene extends CGFscene {
     }
 
     checkKeys() {
-        var text = "";
-        var keysPressed = false;
+        let text = "";
+        let keysPressed = false;
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
             text += "W";
