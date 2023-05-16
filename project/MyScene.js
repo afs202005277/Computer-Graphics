@@ -40,7 +40,8 @@ export class MyScene extends CGFscene {
         this.speedFactor = 1.5;
         this.bird = new Bird(this);
         this.nest = new Nest(this);
-        this.patch = new MyTreeGroupPatch(this, -100, 0);
+        this.groupPatch = new MyTreeGroupPatch(this, -60, 40);
+        this.rowPatch = new MyTreeRowPatch(this, 90, -40);
 
         this.eggs = [
             new MyBirdEgg(this),
@@ -170,7 +171,11 @@ export class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.patch.display();
+        this.groupPatch.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.rowPatch.display();
         this.popMatrix();
 
         this.pushMatrix();
