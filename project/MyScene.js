@@ -56,7 +56,9 @@ export class MyScene extends CGFscene {
 
         this.eggsFallingToNest = [];
 
-        this.check_distance = 10;
+        this.checkDistance = 10;
+        this.thresholdNest = 4;
+        this.thresholdBird = 9;
     }
 
     initLights() {
@@ -74,13 +76,6 @@ export class MyScene extends CGFscene {
             vec3.fromValues(-256.7447204589844, 26.567428588867188, -60.517398834228516),
             vec3.fromValues(-4.092823028564453, -3.761986255645752, 13.172765731811523)
         );
-    }
-
-    setDefaultAppearance() {
-        this.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.setSpecular(0.2, 0.4, 0.8, 1.0);
-        this.setShininess(10.0);
     }
 
     update(t) {
@@ -101,19 +96,19 @@ export class MyScene extends CGFscene {
                     this.bird.goingDown = true;
                 } else if (key === "L") {
                     this.bird.dropEgg();
-                    this.check_distance = 0;
+                    this.checkDistance = 0;
                 } else if (key === "O") {
-                    this.bird_drop_egg_in_nest();
-                    this.check_distance = 0;
+                    this.eggsFallingToNest.concat(this.bird.dropEggInNest(this.nest.coordinates, this.thresholdNest));
+                    this.checkDistance = 0;
                 }
             }
         }
         this.bird.update(t, this.speedFactor);
-        this.check_distance_from_eggs_to_nest();
-        if (this.check_distance < 10)
-            this.check_distance++;
+        this.checkDistanceFromAllEggsToNest();
+        if (this.checkDistance < 10)
+            this.checkDistance++;
         else
-            this.eggs = this.bird.checkDistancesToEggs(this.eggs);
+            this.eggs = this.bird.checkDistancesToEggs(this.eggs, this.thresholdBird);
         this.terrain.update(t);
 
         this.eggs.forEach(egg => {
@@ -190,30 +185,16 @@ export class MyScene extends CGFscene {
         // ---- END Primitive drawing section
     }
 
-    bird_drop_egg_in_nest() {
-        let distance_to_nest_horizontal = Math.sqrt((this.nest.coordinates[0] - this.bird.coordinates[0]) ** 2 + (this.nest.coordinates[2] - this.bird.coordinates[2]) ** 2);
-        if (this.bird.egg != null && distance_to_nest_horizontal < 11) {
-            this.bird.egg.coordinates = [this.bird.coordinates[0], this.bird.coordinates[1] - 4.5, this.bird.coordinates[2]];
-            this.eggsFallingToNest.push(this.bird.egg);
-            this.bird.egg = null;
-        }
-    }
-
-    check_distance_from_eggs_to_nest() {
+    checkDistanceFromAllEggsToNest() {
         for (let i = 0; i < this.eggs.length; i++) {
-            let egg_coord = this.eggs[i].coordinates;
-            let distance_to_nest = Math.sqrt((this.nest.coordinates[0] - egg_coord[0]) ** 2 + (this.nest.coordinates[1] - egg_coord[1]) ** 2 + (this.nest.coordinates[2] - egg_coord[2]) ** 2);
-            if (distance_to_nest < 11) {
+            if (this.eggs[i].checkDistanceToNest(this.nest.coordinates, this.thresholdNest)) {
                 this.eggs.splice(i, 1);
-                this.eggRotations.splice(i, 1);
                 this.nest.counter++;
                 break;
             }
         }
         for (let i = 0; i < this.eggsFallingToNest.length; i++) {
-            let egg_coord = this.eggsFallingToNest[i].coordinates;
-            let distance_to_nest = Math.sqrt((this.nest.coordinates[0] - egg_coord[0]) ** 2 + (this.nest.coordinates[1] - egg_coord[1]) ** 2 + (this.nest.coordinates[2] - egg_coord[2]) ** 2);
-            if (distance_to_nest < 4) {
+            if (this.eggsFallingToNest[i].checkDistanceToNest(this.nest.coordinates, this.thresholdNest)) {
                 this.eggsFallingToNest.splice(i, 1);
                 this.nest.counter++;
                 break;

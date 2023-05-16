@@ -120,12 +120,23 @@ export class Bird extends CGFobject {
         }
     }
 
-    checkDistancesToEggs(eggs) {
+    dropEggInNest(nestCoordinates, threshold) {
+        let res = [];
+        let distance_to_nest_horizontal = Math.sqrt((nestCoordinates[0] - this.coordinates[0]) ** 2 + (nestCoordinates[2] - this.coordinates[2]) ** 2);
+        if (this.egg != null && distance_to_nest_horizontal < threshold) {
+            this.egg.coordinates = [this.coordinates[0], this.coordinates[1] - 4.5, this.coordinates[2]];
+            res.push(this.egg);
+            this.egg = null;
+        }
+        return res;
+    }
+
+    checkDistancesToEggs(eggs, threshold) {
         if (this.egg == null) {
             for (let i = 0; i < eggs.length; i++) {
                 let egg_coord = eggs[i].coordinates;
                 let distance_to_bird = Math.sqrt((this.coordinates[0] - egg_coord[0]) ** 2 + (this.coordinates[1] - egg_coord[1]) ** 2 + (this.coordinates[2] - egg_coord[2]) ** 2);
-                if (distance_to_bird < 9) {
+                if (distance_to_bird < threshold) {
                     let egg_removed = eggs.splice(i, 1);
                     this.egg = egg_removed[0];
                     break;

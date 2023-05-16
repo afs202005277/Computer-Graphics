@@ -45,6 +45,15 @@ export class MyBirdEgg extends CGFobject {
         this.checkBoundaries(res, speedFactor);
     }
 
+    checkDistanceToNest(nestCoordinates, threshold) {
+        let near = false;
+        let distance_to_nest = Math.sqrt((nestCoordinates[0] - this.coordinates[0]) ** 2 + (nestCoordinates[1] - this.coordinates[1]) ** 2 + (nestCoordinates[2] - this.coordinates[2]) ** 2);
+        if (distance_to_nest < threshold) {
+            near = true;
+        }
+        return near;
+    }
+
     nest_falling(speedFactor, nest_coordinates) {
         const targetPosition = [nest_coordinates[0], nest_coordinates[1], nest_coordinates[2]];
 
