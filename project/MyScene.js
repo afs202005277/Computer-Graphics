@@ -31,44 +31,30 @@ export class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
 
-        //Initialize scene objects
-        this.axis = new CGFaxis(this);
-        this.terrain = new MyTerrain(this);
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 2.0;
         this.speedFactor = 1.5;
+
+        //Initialize scene objects
+        this.axis = new CGFaxis(this);
+        this.terrain = new MyTerrain(this);
         this.bird = new Bird(this);
         this.nest = new Nest(this);
         this.groupPatch = new MyTreeGroupPatch(this, -60, 40);
         this.rowPatch = new MyTreeRowPatch(this, 90, -40);
-
+        this.panorama = new MyPanorama(this, new CGFtexture(this, "images/panorama4.jpg"));
         this.eggs = [
             new MyBirdEgg(this),
             new MyBirdEgg(this),
             new MyBirdEgg(this),
             new MyBirdEgg(this)
-        ]
-        this.eggLocations = this.eggs.map(() => {
-            return [-45 * Math.random(), 0, 45 * Math.random()]
-        })
-        this.eggRotations = this.eggs.map((egg) => {
-            return [Math.PI, Math.random(), Math.random(), Math.random()];
-        })
-
-        for (let i = 0; i < this.eggs.length; i++) {
-            this.eggs[i].coordinates = [-150 + this.eggLocations[i][0], -21 + this.eggLocations[i][1], -71 + this.eggLocations[i][2]];
-        }
-
-        this.eggs_nest = [];
-
+        ];
         this.nest = new Nest(this, this.eggs.length);
 
-
-        this.panorama = new MyPanorama(this, new CGFtexture(this, "images/panorama4.jpg"));
-
-
         this.setUpdatePeriod(50); // 50 ms
+
+        this.eggsFallingToNest = [];
 
         this.check_distance = 10;
     }
@@ -114,7 +100,7 @@ export class MyScene extends CGFscene {
                 else if (key === "P" && this.bird.egg == null) {
                     this.bird.goingDown = true;
                 } else if (key === "L") {
-                    this.bird_drop_egg();
+                    this.bird.dropEgg();
                     this.check_distance = 0;
                 } else if (key === "O") {
                     this.bird_drop_egg_in_nest();
@@ -127,14 +113,14 @@ export class MyScene extends CGFscene {
         if (this.check_distance < 10)
             this.check_distance++;
         else
-            this.check_distances_to_eggs();
+            this.eggs = this.bird.checkDistancesToEggs(this.eggs);
         this.terrain.update(t);
 
         this.eggs.forEach(egg => {
             egg.falling(this.speedFactor);
         });
 
-        this.eggs_nest.forEach(egg => {
+        this.eggsFallingToNest.forEach(egg => {
             egg.nest_falling(this.speedFactor, this.nest.coordinates);
         });
     }
@@ -187,55 +173,30 @@ export class MyScene extends CGFscene {
         for (let i = 0; i < this.eggs.length; i++) {
             this.pushMatrix();
             this.translate(...(this.eggs[i].coordinates));
-            this.rotate(...(this.eggRotations[i]));
+            this.rotate(...(this.eggs[i].rotation));
             this.scale(2.2, 2.2, 2.2);
             this.eggs[i].display();
             this.popMatrix();
         }
 
-        for (let i = 0; i < this.eggs_nest.length; i++) {
+        for (let i = 0; i < this.eggsFallingToNest.length; i++) {
             this.pushMatrix();
-            this.translate(...(this.eggs_nest[i].coordinates));
+            this.translate(...(this.eggsFallingToNest[i].coordinates));
             this.scale(2.2, 2.2, 2.2);
-            this.eggs_nest[i].display();
+            this.eggsFallingToNest[i].display();
             this.popMatrix();
         }
 
         // ---- END Primitive drawing section
     }
 
-    bird_drop_egg() {
-        if (this.bird.egg != null) {
-            this.bird.egg.coordinates = [this.bird.coordinates[0], this.bird.coordinates[1] - 4.5, this.bird.coordinates[2]];
-            this.eggs.push(this.bird.egg);
-            this.eggRotations.push([Math.PI, 0, 0, 0]);
-            this.bird.egg = null;
-        }
-    }
-
     bird_drop_egg_in_nest() {
         let distance_to_nest_horizontal = Math.sqrt((this.nest.coordinates[0] - this.bird.coordinates[0]) ** 2 + (this.nest.coordinates[2] - this.bird.coordinates[2]) ** 2);
         if (this.bird.egg != null && distance_to_nest_horizontal < 11) {
             this.bird.egg.coordinates = [this.bird.coordinates[0], this.bird.coordinates[1] - 4.5, this.bird.coordinates[2]];
-            this.eggs_nest.push(this.bird.egg);
+            this.eggsFallingToNest.push(this.bird.egg);
             this.bird.egg = null;
         }
-    }
-
-    check_distances_to_eggs() {
-        if (this.bird.egg == null) {
-            for (let i = 0; i < this.eggs.length; i++) {
-                let egg_coord = this.eggs[i].coordinates;
-                let distance_to_bird = Math.sqrt((this.bird.coordinates[0] - egg_coord[0]) ** 2 + (this.bird.coordinates[1] - egg_coord[1]) ** 2 + (this.bird.coordinates[2] - egg_coord[2]) ** 2);
-                if (distance_to_bird < 9) {
-                    let egg_removed = this.eggs.splice(i, 1);
-                    this.eggRotations.splice(i, 1);
-                    this.bird.egg = egg_removed[0];
-                    break;
-                }
-            }
-        }
-
     }
 
     check_distance_from_eggs_to_nest() {
@@ -249,11 +210,11 @@ export class MyScene extends CGFscene {
                 break;
             }
         }
-        for (let i = 0; i < this.eggs_nest.length; i++) {
-            let egg_coord = this.eggs_nest[i].coordinates;
+        for (let i = 0; i < this.eggsFallingToNest.length; i++) {
+            let egg_coord = this.eggsFallingToNest[i].coordinates;
             let distance_to_nest = Math.sqrt((this.nest.coordinates[0] - egg_coord[0]) ** 2 + (this.nest.coordinates[1] - egg_coord[1]) ** 2 + (this.nest.coordinates[2] - egg_coord[2]) ** 2);
             if (distance_to_nest < 4) {
-                this.eggs_nest.splice(i, 1);
+                this.eggsFallingToNest.splice(i, 1);
                 this.nest.counter++;
                 break;
             }

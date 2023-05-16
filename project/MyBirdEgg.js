@@ -11,6 +11,7 @@ import {MyTerrain} from "./MyTerrain.js";
 export class MyBirdEgg extends CGFobject {
 
     static texture = null;
+
     constructor(scene) {
         super(scene);
 
@@ -25,7 +26,10 @@ export class MyBirdEgg extends CGFobject {
         this.appearance.setTexture(MyBirdEgg.texture);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.coordinates = [0, 0, 0];
+        let location = [-45 * Math.random(), 0, 45 * Math.random()];
+
+        this.coordinates = [-150 + location[0], -21 + location[1], -71 + location[2]];
+        this.rotation = [Math.PI, Math.random(), Math.random(), Math.random()];
         this.initBuffers();
     }
 
