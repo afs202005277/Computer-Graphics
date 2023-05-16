@@ -11,22 +11,24 @@ export class BirdHead extends CGFobject {
     constructor(scene) {
         super(scene);
 
+        const colors = [[1, 0.65, 0, 1.0], [0, 0, 0, 1.0], [0.5, 0.5, 0.5, 1.0]];
+
         this.beakMaterial = new CGFappearance(scene);
-        this.beakMaterial.setAmbient(1, 0.65, 0, 1.0);
-        this.beakMaterial.setDiffuse(1, 0.65, 0, 1.0);
-        this.beakMaterial.setSpecular(1, 0.65, 0, 1.0);
+        this.beakMaterial.setAmbient(...colors[0]);
+        this.beakMaterial.setDiffuse(...colors[0]);
+        this.beakMaterial.setSpecular(...colors[0]);
         this.beakMaterial.setShininess(32.0);
 
         this.pupilMaterial = new CGFappearance(scene);
-        this.pupilMaterial.setAmbient(0, 0, 0, 1.0);
-        this.pupilMaterial.setDiffuse(0, 0, 0, 1.0);
-        this.pupilMaterial.setSpecular(0, 0, 0, 1.0);
+        this.pupilMaterial.setAmbient(...colors[1]);
+        this.pupilMaterial.setDiffuse(...colors[1]);
+        this.pupilMaterial.setSpecular(...colors[1]);
         this.pupilMaterial.setShininess(32.0);
 
         this.headMaterial = new CGFappearance(scene);
-        this.headMaterial.setAmbient(0.5, 0.5, 0.5, 1.0);
-        this.headMaterial.setDiffuse(0.5, 0.5, 0.5, 1.0);
-        this.headMaterial.setSpecular(0.5, 0.5, 0.5, 1.0);
+        this.headMaterial.setAmbient(...colors[2]);
+        this.headMaterial.setDiffuse(...colors[2]);
+        this.headMaterial.setSpecular(...colors[2]);
         this.headMaterial.setShininess(32.0);
 
         this.pyramid = new Pyramid(scene, 4, 1);

@@ -58,12 +58,16 @@ export class MyTerrain extends CGFobject {
         this.shader_water.setUniformsValues({timeFactor: t / 100000 % 100});
     }
 
+    static convertToTerrainCoordinates(x, z) {
+        return [Math.floor((x + 200) / 400 * 128), 128 + Math.floor((z - 200) / 400 * 128)];
+    }
+
     static get_height_from_heightmap(x, y) {
         if (MyTerrain.loaded) {
             const i = (y * MyTerrain.canvas_width + x) * 4;
             const r = MyTerrain.pixelData[i];
             // The formula below comes from a careful analysis of the correlation between the heightmap and the "real life" heights. On the README we go into more detail about it.
-            return 0.00015*(r**2) + 0.2689*r - 95.956;
+            return 0.00015 * (r ** 2) + 0.2689 * r - 95.956;
         } else {
             return 0;
         }

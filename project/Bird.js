@@ -36,16 +36,18 @@ export class Bird extends CGFobject {
         super(scene);
 
         this.bird_default_height = Bird.default_values['coordinates'][1];
+        const wingColor1 = [0.08, 0.54, 1, 1.0];
+        const wingColor2 = [0.5, 0.5, 0.5, 1.0];
         this.wingMaterial1 = new CGFappearance(scene);
-        this.wingMaterial1.setAmbient(0.08, 0.54, 1, 1.0);
-        this.wingMaterial1.setDiffuse(0.08, 0.54, 1, 1.0);
-        this.wingMaterial1.setSpecular(0.08, 0.54, 1, 1.0);
+        this.wingMaterial1.setAmbient(...wingColor1);
+        this.wingMaterial1.setDiffuse(...wingColor1);
+        this.wingMaterial1.setSpecular(...wingColor1);
         this.wingMaterial1.setShininess(32.0);
 
         this.wingMaterial2 = new CGFappearance(scene);
-        this.wingMaterial2.setAmbient(0.5, 0.5, 0.5, 1.0);
-        this.wingMaterial2.setDiffuse(0.5, 0.5, 0.5, 1.0);
-        this.wingMaterial2.setSpecular(0.5, 0.5, 0.5, 1.0);
+        this.wingMaterial2.setAmbient(...wingColor2);
+        this.wingMaterial2.setDiffuse(...wingColor2);
+        this.wingMaterial2.setSpecular(...wingColor2);
         this.wingMaterial2.setShininess(32.0);
 
         this.birdhead = new BirdHead(scene);
@@ -82,19 +84,18 @@ export class Bird extends CGFobject {
     }
 
     go_down() {
-        let value = MyTerrain.get_height_from_heightmap(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128));
+        let value = MyTerrain.get_height_from_heightmap(...MyTerrain.convertToTerrainCoordinates(this.coordinates[0], this.coordinates[2]));
         this.checkBoundaries(value, null);
         if (value + 1 >= this.coordinates[1]) {
             this.goingDown = false;
         }
-
         this.checkBoundaries(value, (this.bird_default_height - value) * 0.4);
     }
 
-    go_up(speedFactor) {
-        let value = MyTerrain.get_height_from_heightmap(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128));
+    go_up() {
+        let value = MyTerrain.get_height_from_heightmap();
         this.checkBoundaries(value, null);
-        this.coordinates[1] += (this.bird_default_height - value) * 0.4 * 0.2;
+        this.coordinates[1] += (this.bird_default_height - value) * 0.8;
         this.coordinates[1] = Math.min(this.bird_default_height, this.coordinates[1]);
     }
 
@@ -114,8 +115,8 @@ export class Bird extends CGFobject {
     dropEgg() {
         if (this.egg != null) {
             this.egg.coordinates = [this.coordinates[0], this.coordinates[1] - 4.5, this.coordinates[2]];
+            this.egg.rotation = [Math.PI, 0, 0, 0];
             this.scene.eggs.push(this.egg);
-            this.scene.eggRotations.push([Math.PI, 0, 0, 0]);
             this.egg = null;
         }
     }
@@ -126,10 +127,8 @@ export class Bird extends CGFobject {
         if (this.egg != null && distance_to_nest_horizontal < threshold) {
             this.egg.coordinates = [this.coordinates[0], this.coordinates[1] - 4.5, this.coordinates[2]];
             res.push(this.egg);
-            console.log("pushed");
             this.egg = null;
         }
-        console.log(res);
         return res;
     }
 

@@ -11,10 +11,12 @@ export class BirdFoot extends CGFobject {
     constructor(scene) {
         super(scene);
 
+        const materialColor = [1, 0.65, 0, 1.0]
+
         this.material = new CGFappearance(scene);
-        this.material.setAmbient(1, 0.65, 0, 1.0);
-        this.material.setDiffuse(1, 0.65, 0, 1.0);
-        this.material.setSpecular(1, 0.65, 0, 1.0);
+        this.material.setAmbient(...materialColor);
+        this.material.setDiffuse(...materialColor);
+        this.material.setSpecular(...materialColor);
         this.material.setShininess(32.0);
 
         this.leg = new MyCylinder(scene, 8, 1);
