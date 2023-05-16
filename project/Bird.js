@@ -93,9 +93,9 @@ export class Bird extends CGFobject {
     }
 
     go_up() {
-        let value = MyTerrain.get_height_from_heightmap();
+        let value = MyTerrain.get_height_from_heightmap(...MyTerrain.convertToTerrainCoordinates(this.coordinates[0], this.coordinates[2]));
         this.checkBoundaries(value, null);
-        this.coordinates[1] += (this.bird_default_height - value) * 0.8;
+        this.coordinates[1] += (this.bird_default_height - value) * 0.08;
         this.coordinates[1] = Math.min(this.bird_default_height, this.coordinates[1]);
     }
 

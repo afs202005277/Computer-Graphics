@@ -41,7 +41,7 @@ export class MyBirdEgg extends CGFobject {
     }
 
     falling(speedFactor) {
-        const res = MyTerrain.get_height_from_heightmap(Math.floor((this.coordinates[0] + 200) / 400 * 128), 128 + Math.floor((this.coordinates[2] - 200) / 400 * 128));
+        const res = MyTerrain.get_height_from_heightmap(...MyTerrain.convertToTerrainCoordinates(this.coordinates[0], this.coordinates[2]));
         this.checkBoundaries(res, speedFactor);
     }
 

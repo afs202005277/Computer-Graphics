@@ -57,8 +57,8 @@ export class MyScene extends CGFscene {
         this.eggsFallingToNest = [];
 
         this.checkDistance = 10;
-        this.thresholdNest = 4;
-        this.thresholdBird = 9;
+        this.thresholdNest = 9;
+        this.thresholdBird = 4;
     }
 
     initLights() {

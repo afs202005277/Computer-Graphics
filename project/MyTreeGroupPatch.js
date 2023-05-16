@@ -21,7 +21,7 @@ export class MyTreeGroupPatch extends TreePatch {
                 tree.x = startX + x + size;
                 tree.z = startZ + z + size;
                 tree.s = size;
-                const res = MyTerrain.get_height_from_heightmap(MyTerrain.convertToTerrainCoordinates(tree.x, tree.z));
+                const res = MyTerrain.get_height_from_heightmap(...MyTerrain.convertToTerrainCoordinates(tree.x, tree.z));
                 if (res === 0){
                     tree.needsUpdate = true;
                 } else{
