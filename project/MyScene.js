@@ -36,7 +36,7 @@ export class MyScene extends CGFscene {
         this.terrain = new MyTerrain(this);
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.scaleFactor = 3.0;
+        this.scaleFactor = 2.0;
         this.speedFactor = 1.5;
         this.bird = new Bird(this);
         this.nest = new Nest(this);
