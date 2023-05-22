@@ -1,4 +1,4 @@
-import {CGFscene, CGFcamera, CGFaxis, CGFtexture} from "../lib/CGF.js";
+import {CGFscene, CGFcamera, CGFaxis, CGFtexture, CGFappearance} from "../lib/CGF.js";
 import {MyPanorama} from "./MyPanorama.js";
 import {Bird} from "./Bird.js";
 import {MyTerrain} from "./MyTerrain.js";
@@ -6,6 +6,7 @@ import {Nest} from "./Nest.js";
 import {MyBirdEgg} from "./MyBirdEgg.js";
 import {MyTreeRowPatch} from "./MyTreeRowPatch.js";
 import {MyTreeGroupPatch} from "./MyTreeGroupPatch.js";
+import {CGFOBJModel} from "./CGFOBJModel.js";
 
 /**
  * MyScene
@@ -58,6 +59,16 @@ export class MyScene extends CGFscene {
         this.eggsFallingToNest = [];
         this.eggsSize = [2.2, 2.2, 2.2];
 
+        this.rocks = new CGFOBJModel(this, './OBJ_models/ObeliskSet01_All.obj');
+        this.wooden_tex = new CGFtexture(this, './OBJ_models/wooden_texture.avif');
+        this.rocks_tex = new CGFtexture(this, './OBJ_models/rock_tex.avif');
+        this.boat = new CGFOBJModel(this, './OBJ_models/boat.obj');
+        this.appearance = new CGFappearance(this);
+        this.appearance.setAmbient(1.0, 1, 1, 1);
+        this.appearance.setDiffuse(1.0, 1, 1, 1);
+        this.appearance.setSpecular(1.0, 1, 1, 1);
+        this.appearance.setShininess(100);
+        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
         this.checkDistance = 10;
         this.thresholdNest = 9;
         this.thresholdBird = 4;
@@ -140,6 +151,24 @@ export class MyScene extends CGFscene {
         if (this.displayAxis) this.axis.display();
 
         // ---- BEGIN Primitive drawing section
+        this.pushMatrix();
+        this.translate(-85, -70, -10);
+        this.rotate(Math.PI / 4, 0, 1, 0);
+        this.scale(0.5, 0.5, 0.5);
+        this.appearance.setTexture(this.rocks_tex);
+        this.appearance.apply();
+        this.rocks.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(0, -75, -20);
+        this.scale(0.5, 0.5, 0.5);
+        this.rotate(Math.PI / 6, 0, 1, 0);
+        this.appearance.setTexture(this.wooden_tex);
+        this.appearance.apply();
+        this.boat.display();
+        this.popMatrix();
+
         this.pushMatrix();
         this.translate(this.camera.position[0], this.camera.position[1], this.camera.position[2]);
         this.rotate(Math.PI, 0, 1, 0);
