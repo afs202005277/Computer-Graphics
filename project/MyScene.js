@@ -60,15 +60,21 @@ export class MyScene extends CGFscene {
         this.eggsSize = [2.2, 2.2, 2.2];
 
         this.rocks = new CGFOBJModel(this, './OBJ_models/ObeliskSet01_All.obj');
-        this.wooden_tex = new CGFtexture(this, './OBJ_models/wooden_texture.avif');
-        this.rocks_tex = new CGFtexture(this, './OBJ_models/rock_tex.avif');
         this.boat = new CGFOBJModel(this, './OBJ_models/boat.obj');
-        this.appearance = new CGFappearance(this);
-        this.appearance.setAmbient(1.0, 1, 1, 1);
-        this.appearance.setDiffuse(1.0, 1, 1, 1);
-        this.appearance.setSpecular(1.0, 1, 1, 1);
-        this.appearance.setShininess(100);
-        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.wooden_tex = new CGFappearance(this);
+        this.wooden_tex.setAmbient(1.0, 1, 1, 1);
+        this.wooden_tex.setDiffuse(1.0, 1, 1, 1);
+        this.wooden_tex.setSpecular(1.0, 1, 1, 1);
+        this.wooden_tex.setShininess(100);
+        this.wooden_tex.setTextureWrap('REPEAT', 'REPEAT');
+        this.wooden_tex.setTexture(new CGFtexture(this, './OBJ_models/wooden_texture.avif'));
+        this.rocks_tex = new CGFappearance(this);
+        this.rocks_tex.setAmbient(1.0, 1, 1, 1);
+        this.rocks_tex.setDiffuse(1.0, 1, 1, 1);
+        this.rocks_tex.setSpecular(1.0, 1, 1, 1);
+        this.rocks_tex.setShininess(100);
+        this.rocks_tex.setTextureWrap('REPEAT', 'REPEAT');
+        this.rocks_tex.setTexture(new CGFtexture(this, './OBJ_models/rock_tex.avif'));
         this.checkDistance = 10;
         this.thresholdNest = 9;
         this.thresholdBird = 4;
@@ -155,8 +161,7 @@ export class MyScene extends CGFscene {
         this.translate(-85, -70, -10);
         this.rotate(Math.PI / 4, 0, 1, 0);
         this.scale(0.5, 0.5, 0.5);
-        this.appearance.setTexture(this.rocks_tex);
-        this.appearance.apply();
+        this.rocks_tex.apply();
         this.rocks.display();
         this.popMatrix();
 
@@ -164,8 +169,7 @@ export class MyScene extends CGFscene {
         this.translate(0, -75, -20);
         this.scale(0.5, 0.5, 0.5);
         this.rotate(Math.PI / 6, 0, 1, 0);
-        this.appearance.setTexture(this.wooden_tex);
-        this.appearance.apply();
+        this.wooden_tex.apply();
         this.boat.display();
         this.popMatrix();
 

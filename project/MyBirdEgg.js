@@ -9,7 +9,6 @@ export class MyBirdEgg extends CGFobject {
 
     constructor(scene) {
         super(scene);
-
         if (MyBirdEgg.texture === null)
             MyBirdEgg.texture = new CGFtexture(scene, 'images/egg.png');
         this.bottom = new MyOval(scene, 30, 30, false);

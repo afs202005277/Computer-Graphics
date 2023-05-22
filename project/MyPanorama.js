@@ -1,4 +1,4 @@
-import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
+import {CGFappearance, CGFobject} from '../lib/CGF.js';
 import {MySphere} from "./MySphere.js";
 
 

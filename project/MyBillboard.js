@@ -34,15 +34,10 @@ export class MyBillboard extends CGFobject {
         let angle = Math.atan2(dirVec[0], dirVec[2]) - Math.atan2(initVec[0], initVec[2]);
 
         this.scene.translate(this.x, this.y, this.z);
-
         this.scene.rotate(angle, 0, 1, 0);
-
         this.scene.scale(this.s, this.s, this.s);
-
         this.scene.scale(20, 20, 20);
-
         this.scene.translate(0, 0.5, 0);
-
         this.material.apply();
         this.quad.display();
         this.scene.popMatrix();

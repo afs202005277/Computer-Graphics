@@ -1,4 +1,3 @@
-import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
 import {MyBillboard} from "./MyBillboard.js";
 import {MyTerrain} from "./MyTerrain.js";
 import {TreePatch} from "./TreePatch.js";
