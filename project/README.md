@@ -30,6 +30,10 @@
 
 ![Screenshot 5](screenshots/project-t02g05-5.png)
 
+### Screenshot 6: Final
+
+![Screenshot 6](screenshots/project-t02g05-6.png)
+
 ### Project developed by:
 
 - André Sousa (up202005277)
