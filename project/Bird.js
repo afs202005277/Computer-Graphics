@@ -185,12 +185,6 @@ export class Bird extends CGFobject {
         this.birdfootright.display();
         this.scene.popMatrix();
 
-        if (this.egg != null) {
-            this.scene.pushMatrix();
-            this.scene.translate(0.0, -2, 0.0);
-            this.egg.display();
-            this.scene.popMatrix();
-        }
 
         this.scene.popMatrix();
         this.scene.popMatrix();

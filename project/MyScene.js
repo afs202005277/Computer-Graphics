@@ -51,10 +51,12 @@ export class MyScene extends CGFscene {
             new MyBirdEgg(this)
         ];
         this.nest = new Nest(this, this.eggs.length);
+        this.nestSize = [10, 10, 10];
 
         this.setUpdatePeriod(50); // 50 ms
 
         this.eggsFallingToNest = [];
+        this.eggsSize = [2.2, 2.2, 2.2];
 
         this.checkDistance = 10;
         this.thresholdNest = 9;
@@ -150,6 +152,14 @@ export class MyScene extends CGFscene {
         this.bird.display();
         this.popMatrix();
 
+        if (this.bird.egg != null) {
+            this.pushMatrix();
+            this.translate(this.bird.coordinates[0], this.bird.coordinates[1] - 4, this.bird.coordinates[2]);
+            this.scale(2.2, 2.2, 2.2);
+            this.bird.egg.display();
+            this.popMatrix();
+        }
+
         this.pushMatrix();
         this.terrain.display();
         this.popMatrix();
@@ -164,7 +174,7 @@ export class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.translate(...this.nest.coordinates);
-        this.scale(10, 10, 10);
+        this.scale(...this.nestSize);
         this.nest.display();
         this.popMatrix();
 
@@ -172,7 +182,7 @@ export class MyScene extends CGFscene {
             this.pushMatrix();
             this.translate(...(this.eggs[i].coordinates));
             this.rotate(...(this.eggs[i].rotation));
-            this.scale(2.2, 2.2, 2.2);
+            this.scale(...this.eggsSize);
             this.eggs[i].display();
             this.popMatrix();
         }
@@ -180,7 +190,7 @@ export class MyScene extends CGFscene {
         for (let i = 0; i < this.eggsFallingToNest.length; i++) {
             this.pushMatrix();
             this.translate(...(this.eggsFallingToNest[i].coordinates));
-            this.scale(2.2, 2.2, 2.2);
+            this.scale(...this.eggsSize);
             this.eggsFallingToNest[i].display();
             this.popMatrix();
         }
