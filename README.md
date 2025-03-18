@@ -17,22 +17,22 @@ This repository holds the source code developed as part of the Computer Graphics
 ## Screenshots
 
 ### Screenshot 1: Panorama
-![Screenshot 1](screenshots/project-t02g05-1.png)
+![Screenshot 1](project/screenshots/project-t02g05-1.png)
 
 ### Screenshot 2: Bird
-![Screenshot 2](screenshots/project-t02g05-2.png)
+![Screenshot 2](project/screenshots/project-t02g05-2.png)
 
 ### Screenshot 3: Terrain
-![Screenshot 3](screenshots/project-t02g05-3.png)
+![Screenshot 3](project/screenshots/project-t02g05-3.png)
 
 ### Screenshot 4: Nest and Eggs
-![Screenshot 4](screenshots/project-t02g05-4.png)
+![Screenshot 4](project/screenshots/project-t02g05-4.png)
 
 ### Screenshot 5: Trees
-![Screenshot 5](screenshots/project-t02g05-5.png)
+![Screenshot 5](project/screenshots/project-t02g05-5.png)
 
 ### Screenshot 6: Final
-![Screenshot 6](screenshots/project-t02g05-6.png)
+![Screenshot 6](project/screenshots/project-t02g05-6.png)
 
 ---
 
