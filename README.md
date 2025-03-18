@@ -40,7 +40,7 @@ This repository holds the source code developed as part of the Computer Graphics
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:afs202005277/Computer-Graphics.git
    ```
 
 2. **Explore the Code:**
